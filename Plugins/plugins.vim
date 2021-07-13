@@ -3,6 +3,8 @@ call plug#begin('~/.config/nvim/plugged/')
 Plug 'dracula/vim',{'as':'dracula'}
 Plug 'joshdick/onedark.vim'
 Plug 'flazz/vim-colorschemes'
+Plug 'altercation/vim-colors-solarized'
+Plug 'greduan/emacs-theme-gruvbox'
 ""airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -11,6 +13,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'christoomey/vim-tmux-navigator'
 ""icons
 Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 ""sintaxys
 Plug 'scrooloose/syntastic'
 ""indent
@@ -18,6 +21,8 @@ Plug 'yggdroot/indentline'
 "plegado
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+""Comentarios
+Plug 'tpope/vim-commentary'
 ""autocomplete
 Plug 'sirver/ultisnips'
 Plug 'neoclide/coc.nvim'
