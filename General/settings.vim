@@ -1,4 +1,3 @@
-set nocompatible
 set number
 set numberwidth=1
 set clipboard=unnamed

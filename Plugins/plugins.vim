@@ -17,7 +17,7 @@ Plug 'neoclide/coc.nvim'
 
 Plug 'honza/vim-snippets'
 ""Emmet
-Plug 'mattn/emmet-vim'
+Plug 'emmetio/emmet'
 ""html
 Plug 'othree/html5.vim'
 ""css
