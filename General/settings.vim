@@ -4,6 +4,7 @@ set clipboard=unnamed
 syntax on
 set showcmd
 set ruler
+set cursorline
 set showmatch
 set sw=2
 set relativenumber
