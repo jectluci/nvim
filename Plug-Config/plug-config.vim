@@ -21,12 +21,12 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 
-let g:syntastic_tex_checkers = ['lacheck', 'text/language_check']
+"let g:syntastic_tex_checkers = ['lacheck', 'text/language_check']
 
 "Emmet
 let g:user_emmet_mode='n'    "only enable normal mode functions.
@@ -147,7 +147,8 @@ let g:javascript_conceal_arrow_function       = "⇒"
 let g:javascript_conceal_noarg_arrow_function = "🞅"
 let g:javascript_conceal_underscore_arrow_function = "🞅"
 
-set conceallevel=1
+set conceallevel=0
+
 
 
 "Vista de erores
