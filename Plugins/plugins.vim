@@ -17,6 +17,7 @@ Plug 'vim-airline/vim-airline-themes'
 ""NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 ""icons
 Plug 'ryanoasis/vim-devicons'
@@ -37,6 +38,7 @@ Plug 'plasticboy/vim-markdown'
 
 ""Comentarios
 Plug 'tpope/vim-commentary'
+"Plug 'scrooloose/nerdcommenter'
 
 ""autocomplete
 Plug 'sirver/ultisnips'
@@ -62,9 +64,11 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'mxw/vim-jsx'
 
 ""python
+Plug 'hdima/python-syntax'
 Plug 'davidhalter/jedi-vim'
 Plug 'klen/python-mode'
 Plug 'jmcantrell/vim-virtualenv'
+Plug 'hacksoftware/vim-python-domain-knowledge'
 
 ""flutter
 

@@ -1,8 +1,14 @@
 {
+    "suggest.noselect": false,
     "prettier.eslintIntegration": false,
     "prettier.tslintIntegration": true,
     "prettier.tabWidth":4,
-    "coc.preferences.formatOnSaveFiletypes": ["html","css","javascript"]
+    "coc.preferences.formatOnSaveFiletypes": [
+        "html",
+        "css",
+        "javascript",
+        "javascript.jsx"
+    ]
 
 
 }
