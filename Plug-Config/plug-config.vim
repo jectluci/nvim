@@ -21,12 +21,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-
-"let g:syntastic_tex_checkers = ['lacheck', 'text/language_check']
+let python_highlight_all=1
 
 "Emmet
 let g:user_emmet_mode='n'    "only enable normal mode functions.
@@ -162,7 +157,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader><F2> <Plug>(coc-rename)
+nmap <silent> <C-n> <Plug>(coc-rename)
 
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
@@ -280,7 +275,7 @@ let g:javascript_conceal_arrow_function       = "⇒"
 let g:javascript_conceal_noarg_arrow_function = "🞅"
 let g:javascript_conceal_underscore_arrow_function = "🞅"
 
-set conceallevel=0
+"set conceallevel=0
 
 
 

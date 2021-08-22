@@ -69,6 +69,7 @@ Plug 'davidhalter/jedi-vim'
 Plug 'klen/python-mode'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'hacksoftware/vim-python-domain-knowledge'
+Plug 'nvie/vim-flake8'
 
 ""flutter
 
