@@ -23,6 +23,8 @@ set statusline+=%*
 
 let python_highlight_all=1
 
+
+
 "Emmet
 let g:user_emmet_mode='n'    "only enable normal mode functions.
 let g:user_emmet_mode='inv'  "enable all functions, which is equal to

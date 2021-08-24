@@ -25,6 +25,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 ""sintaxys
 Plug 'scrooloose/syntastic'
+Plug 'numirias/semshi'
 
 ""indent
 Plug 'yggdroot/indentline'
