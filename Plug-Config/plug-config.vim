@@ -17,12 +17,9 @@ let g:edge_transparent_background = 1
 
 "Syntac
 syntax enable
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let python_highlight_all=1
-
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
 
 "Emmet
@@ -62,6 +59,9 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 "let g:NERDTreeGitStatusGitBinPath = '/your/file/path' " default: git (auto find in path)
 "let g:NERDTreeGitStatusShowClean = 1 " default: 0
 "let g:NERDTreeGitStatusConcealBrackets = 1 " default: 0
+"
+" Open the existing NERDTree on each new tab.
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-pairs', 'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace', 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint-plugin', 'coc-python', 'coc-jedi', 'coc-webpack', 'coc-pydocstring', 'coc-prettier', 'coc-pyright', 'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator', 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github']
 
 
 "airline
@@ -130,6 +130,28 @@ autocmd FileType python let b:coc_suggest_disable = 0
 autocmd FileType javascript let b:coc_suggest_disable = 0
 autocmd FileType scss setl iskeyword+=@-@
 
+" Flake8
+autocmd BufWritePost *.py call Flake8()
+
+let g:PyFlakeDisabledMessages = 'E501'
+let g:PyFlakeDisabledMessages = 'E401'
+let g:PyFlakeDisabledMessages = 'E302'
+let g:PyFlakeDisabledMessages = 'E303'
+let g:PyFlakeDisabledMessages = 'E265'
+
+
+
+let g:PyFlakeCWindow = 6 
+let g:PyFlakeForcePyVersion = 3
+
+"Pylint 
+let g:PylintDisableMessages = 'E0401'
+
+"Pymode
+let g:pymode_rope = 0
+let g:pymode_lint = 0
+
+
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
@@ -159,7 +181,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <silent> <C-n> <Plug>(coc-rename)
+nmap <silent> rn <Plug>(coc-rename)
 
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
@@ -277,13 +299,22 @@ let g:javascript_conceal_arrow_function       = "⇒"
 let g:javascript_conceal_noarg_arrow_function = "🞅"
 let g:javascript_conceal_underscore_arrow_function = "🞅"
 
-"set conceallevel=0
+set conceallevel=0
 
 
-
+""ALE
 "Vista de erores
 let g:ale_sign_error = '☠' 
 let g:ale_sign_warning = '⚠'
+
+let g:ale_linters = {
+      \   'python': ['flake8', 'pylint', 'pyright'],
+      \   'ruby': ['standardrb', 'rubocop'],
+      \   'javascript': ['eslint'],
+      \}
+
+"g:ale_disable_lsp = 1
+
 
 "plegado
 let g:vim_markdown_math = 1

@@ -38,3 +38,8 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+" Python virtual environment detection in linux
+let g:loaded_python_provider = 0
+" Ruta donde se creó el ambiente de Python con pipenv.
+let g:python3_host_prog = '/home/ject/.local/share/virtualenvs/PMPipe-NOT8akxt/bin/python'
