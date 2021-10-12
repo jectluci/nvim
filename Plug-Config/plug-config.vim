@@ -1,34 +1,15 @@
-"Tecla Leader
-let mapleader=','
+""GUI
+"colorscheme dracula
 
-"THemS
-if has('termguicolors')
-          set termguicolors
-        endif
-        " The configuration options should be placed before `colorscheme edge`.
-        let g:edge_style = 'aura'
-        let g:edge_enable_italic = 1
-        let g:edge_disable_italic_comment = 0
-        colorscheme edge
-"Cursor
-let g:edge_cursor = 'red'
-"Background
-let g:edge_transparent_background = 1
-
-"Syntac
-syntax enable
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-
-"Emmet
-let g:user_emmet_mode='n'    "only enable normal mode functions.
-let g:user_emmet_mode='inv'  "enable all functions, which is equal to
-let g:user_emmet_mode='a'    "enable all function in all mode.
-
-
-
+colorscheme gruvbox
+"let g:gruvbox_italic=1
+"let g:gruvbox_termcolors = 256
+"let g:gruvbox_bold=1
+"let g:gruvbox_underline = 1
+"let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_undercurl = 1
+"let g:gruvbox_invert_indent_guides = 1
+let g:gruvbox_transparent_bg = 1
 "  nerdtree
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
@@ -61,7 +42,7 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 "let g:NERDTreeGitStatusConcealBrackets = 1 " default: 0
 "
 " Open the existing NERDTree on each new tab.
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-pairs', 'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace', 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint-plugin', 'coc-python', 'coc-jedi', 'coc-webpack', 'coc-pydocstring', 'coc-prettier', 'coc-pyright', 'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator', 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github']
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-pairs', 'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace', 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint-plugin', 'coc-python', 'coc-jedi', 'coc-webpack', 'coc-pydocstring', 'coc-prettier', 'coc-pyright', 'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator', 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github', 'coc-htmldjango']
 
 
 "airline
@@ -117,40 +98,158 @@ let g:NERDTreeLimitedSyntax = 1
 " set g:NERDTreeExtensionHighlightColor if you want a custom color instead of the default one
 let g:NERDTreeSyntaxEnabledExtensions = ['hbs', 'lhs'] " enable highlight to .hbs and .lhs files with default colors
 let g:NERDTreeSyntaxEnabledExactMatches = ['dropbox', 'node_modules', 'favicon.ico'] " enable highlight for dropbox and node_modules folders, and favicon.ico files with default colors
-
-
 "indent
 let g:indentLine_setColors = 0
 let g:indentLine_defaultGroup = 'SpecialKey'
 let g:indentLine_char_list = ['|', '¦', '┆', '┊',]
 let g:indentLine_bgcolor_gui = ''
 
-" coc
-autocmd FileType python let b:coc_suggest_disable = 0
-autocmd FileType javascript let b:coc_suggest_disable = 0
-autocmd FileType scss setl iskeyword+=@-@
-
-" Flake8
-autocmd BufWritePost *.py call Flake8()
-
-let g:PyFlakeDisabledMessages = 'E501'
-let g:PyFlakeDisabledMessages = 'E401'
-let g:PyFlakeDisabledMessages = 'E302'
-let g:PyFlakeDisabledMessages = 'E303'
-let g:PyFlakeDisabledMessages = 'E265'
+""Syntaxis new
+"let g:polyglot_disabled = ['markdown']
+"let g:polyglot_disabled = ['sensible']
+"let g:polyglot_disabled = ['autoindent']
+""Syntaxis 
+let g:syntastic_quiet_messages = { "type": "style" }
 
 
 
-let g:PyFlakeCWindow = 6 
-let g:PyFlakeForcePyVersion = 3
+""Erorres
+""ALE
+"Vista de erores
+let g:ale_sign_error = '☠' 
+let g:ale_sign_warning = '⚠'
 
-"Pylint 
-let g:PylintDisableMessages = 'E0401'
+"let g:ale_linters = {
+"      \   'python': ['flake8', 'pylint', 'pyright'],
+"      \   'ruby': ['standardrb', 'rubocop'],
+"      \   'javascript': ['eslint'],
+"      \}
 
-"Pymode
-let g:pymode_rope = 0
-let g:pymode_lint = 0
+ "" g:ale_disable_lsp = 0 
 
+
+
+"Css
+setlocal iskeyword+=-
+augroup VimCSS3Syntax
+  autocmd!
+
+  autocmd FileType css setlocal iskeyword+=-
+augroup END
+:highlight VendorPrefix guifg=#00ffff gui=bold
+:match VendorPrefix /-\(moz\|webkit\|o\|ms\)-[a-zA-Z-]\+/
+
+"javascript
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_flow = 1
+
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+
+let g:javascript_conceal_function             = "ƒ"
+let g:javascript_conceal_null                 = "ø"
+let g:javascript_conceal_this                 = "@"
+let g:javascript_conceal_return               = "⇚"
+let g:javascript_conceal_undefined            = "¿"
+let g:javascript_conceal_NaN                  = "ℕ"
+let g:javascript_conceal_prototype            = "¶"
+let g:javascript_conceal_static               = "•"
+let g:javascript_conceal_super                = "Ω"
+let g:javascript_conceal_arrow_function       = "⇒"
+let g:javascript_conceal_noarg_arrow_function = "🞅"
+let g:javascript_conceal_underscore_arrow_function = "🞅"
+
+set conceallevel=0
+
+
+"python sintaxys
+let g:python_highlight_class_vars = 1
+let g:python_highlight_operators = 1
+let g:python_highlight_all = 1
+"let g:python_highlight_func_calls = 1
+let g:python_highlight_builtins = 1
+let g:python_highlight_builtin_objs = 1 
+let g:python_highlight_builtin_types = 1
+let g:python_highlight_builtin_funcs = 1 
+let g:python_highlight_builtin_funcs_kwarg = 1 
+let g:python_slow_sync = 0
+
+
+""python jedi
+"let g:jedi#auto_initialization = 1
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#show_call_signatures = "1"
+
+
+""Rainbow levels 
+" Creating a mapping to turn it on and off:
+"map <leader>l :RainbowLevelsToggle<cr>
+
+" Or automatically turning it on for certain file types:
+"autocmd Filetype * if index(['javascript', 'python', 'php', 'xml', 'yaml'], &ft) | call rainbow_levels#on() | else | call rainbow_levels#off() | endif
+"hi! RainbowLevel0 ctermbg=240 guibg=#585858
+"hi! RainbowLevel1 ctermbg=239 guibg=#4e4e4e
+"hi! RainbowLevel2 ctermbg=238 guibg=#444444
+"hi! RainbowLevel3 ctermbg=237 guibg=#3a3a3a
+"hi! RainbowLevel4 ctermbg=236 guibg=#303030
+"hi! RainbowLevel5 ctermbg=235 guibg=#262626
+"hi! RainbowLevel6 ctermbg=234 guibg=#1c1c1c
+"hi! RainbowLevel7 ctermbg=233 guibg=#121212
+"hi! RainbowLevel8 ctermbg=232 guibg=#080808
+"
+"Rainbow pairs
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
+
+
+
+"COC
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -159,6 +258,17 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -181,8 +291,9 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <silent> rn <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
 
+" Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
@@ -194,9 +305,31 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+ nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
   inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
@@ -239,129 +372,12 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+ 
+let g:tmux_navigator_no_mappings = 1
 
-
-""nerdcommenter
-
-
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
-
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-
-
-"Css
-setlocal iskeyword+=-
-augroup VimCSS3Syntax
-  autocmd!
-
-  autocmd FileType css setlocal iskeyword+=-
-augroup END
-:highlight VendorPrefix guifg=#00ffff gui=bold
-:match VendorPrefix /-\(moz\|webkit\|o\|ms\)-[a-zA-Z-]\+/
-
-"javascript
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_ngdoc = 1
-let g:javascript_plugin_flow = 1
-
-augroup javascript_folding
-    au!
-    au FileType javascript setlocal foldmethod=syntax
-augroup END
-
-let g:javascript_conceal_function             = "ƒ"
-let g:javascript_conceal_null                 = "ø"
-let g:javascript_conceal_this                 = "@"
-let g:javascript_conceal_return               = "⇚"
-let g:javascript_conceal_undefined            = "¿"
-let g:javascript_conceal_NaN                  = "ℕ"
-let g:javascript_conceal_prototype            = "¶"
-let g:javascript_conceal_static               = "•"
-let g:javascript_conceal_super                = "Ω"
-let g:javascript_conceal_arrow_function       = "⇒"
-let g:javascript_conceal_noarg_arrow_function = "🞅"
-let g:javascript_conceal_underscore_arrow_function = "🞅"
-
-set conceallevel=0
-
-
-""ALE
-"Vista de erores
-let g:ale_sign_error = '☠' 
-let g:ale_sign_warning = '⚠'
-
-let g:ale_linters = {
-      \   'python': ['flake8', 'pylint', 'pyright'],
-      \   'ruby': ['standardrb', 'rubocop'],
-      \   'javascript': ['eslint'],
-      \}
-
-"g:ale_disable_lsp = 1
-
-
-"plegado
-let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_toml_frontmatter = 1
-let g:vim_markdown_json_frontmatter = 1
-let g:vim_markdown_strikethrough = 1
-let g:vim_markdown_edit_url_in = 'tab'
-
-"formato
-" Max line length that prettier will wrap on: a number or 'auto' (use
-" textwidth).
-" default: 'auto'
-let g:prettier#config#print_width = 'auto'
-
-" number of spaces per indentation level: a number or 'auto' (use
-" softtabstop)
-" default: 'auto'
-let g:prettier#config#tab_width = 'auto'
-
-" use tabs instead of spaces: true, false, or auto (use the expandtab setting).
-" default: 'auto'
-let g:prettier#config#use_tabs = 'auto'
-
-" flow|babylon|typescript|css|less|scss|json|graphql|markdown or empty string
-" (let prettier choose).
-" default: ''
-let g:prettier#config#parser = ''
-
-" cli-override|file-override|prefer-file
-" default: 'file-override'
-let g:prettier#config#config_precedence = 'file-override'
-
-" always|never|preserve
-" default: 'preserve'
-let g:prettier#config#prose_wrap = 'preserve'
-
-" css|strict|ignore
-" default: 'css'
-let g:prettier#config#html_whitespace_sensitivity = 'css'
-
-" false|true
-" default: 'false'
-let g:prettier#config#require_pragma = 'false'
-
-" Define the flavor of line endings
-" lf|crlf|cr|all
-" defaut: 'lf'
-let g:prettier#config#end_of_line = get(g:, 'prettier#config#end_of_line', 'lf')
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <c-6> :TmuxNavigatePrevious<cr>
 

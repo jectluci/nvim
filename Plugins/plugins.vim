@@ -1,20 +1,21 @@
 call plug#begin('~/.config/nvim/plugged/')
 "THemes
 Plug 'dracula/vim',{'as':'dracula'}
-Plug 'joshdick/onedark.vim'
-Plug 'flazz/vim-colorschemes'
-Plug 'altercation/vim-colors-solarized'
-Plug 'greduan/emacs-theme-gruvbox'
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'christianchiarulli/nvcode-color-schemes.vim'
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'sainnhe/edge'
+"Plug 'joshdick/onedark.vim'
+"Plug 'flazz/vim-colorschemes'
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'mangeshrex/uwu.vim'
+Plug 'morhetz/gruvbox'
+"Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+"Plug 'christianchiarulli/nvcode-color-schemes.vim'
+"Plug 'nvim-treesitter/nvim-treesitter'
+"Plug 'sainnhe/edge'
 
 ""airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-""NerdTree
+"NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -24,36 +25,41 @@ Plug 'jistr/vim-nerdtree-tabs'
 ""icons
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'yamatsum/nvim-nonicons'
+"Plug 'kyazdani42/nvim-web-devicons'
 
-""sintaxys
+"fzf
+Plug 'sharkdp/bat'
+Plug 'junegunn/fzf.vim'
+
+
+"""sintaxys
 Plug 'scrooloose/syntastic'
-Plug 'numirias/semshi'
-Plug 'neovim/node-host', { 'do': 'npm install' }
-Plug 'billyvg/tigris.nvim', { 'do': './install.sh' }
+"Plug 'numirias/semshi'
+"Plug 'neovim/node-host', { 'do': 'npm install' }
+"Plug 'billyvg/tigris.nvim', { 'do': './install.sh' }
+"Plug 'sheerun/vim-polyglot'
 
-
-""indent
+"""indent
 Plug 'yggdroot/indentline'
-
-""Rainbow
-Plug 'thiagoalessio/rainbow_levels.vim'
-
-"plegado
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-
-""Comentarios
+"
+"""Rainbow
+"Plug 'thiagoalessio/rainbow_levels.vim'
+Plug 'kien/rainbow_parentheses.vim'
+""plegado
+"Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
+"
+"""Comentarios
 Plug 'tpope/vim-commentary'
-"Plug 'scrooloose/nerdcommenter'
-
-""autocomplete
+Plug 'scrooloose/nerdcommenter'
+"
+"""autocomplete
 Plug 'sirver/ultisnips'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-
 Plug 'honza/vim-snippets'
 Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
-
 
 ""Emmet
 Plug 'mattn/emmet-vim'
@@ -79,14 +85,17 @@ Plug 'davidhalter/jedi-vim'
 Plug 'klen/python-mode'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'hacksoftware/vim-python-domain-knowledge'
-Plug 'google/yapf'
-"Plug 'kevinw/pyflakes-vim'
+"Plug 'google/yapf'
+""Plug 'kevinw/pyflakes-vim'
 Plug 'nvie/vim-flake8'
 Plug 'ehamberg/vim-cute-python'
-Plug 'jeetsukumaran/vim-pythonsense'
+"Plug 'jeetsukumaran/vim-pythonsense'
+Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
+Plug 'lambdalisue/vim-django-support'
 
-""Django
+"""Django
 Plug 'tweekmonster/django-plus.vim'
+"Plug 'tweekmonster/impsort.vim'
 
 ""flutter
 
@@ -101,4 +110,7 @@ Plug 'tpope/vim-fugitive'
 
 "Multi cursor
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
+
 call plug#end()
+

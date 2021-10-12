@@ -1,9 +1,11 @@
+set nocompatible
 set number
 set numberwidth=1
 set clipboard=unnamed
 syntax on
 set showcmd
 set ruler
+set cursorline
 set showmatch
 set sw=2
 set relativenumber
@@ -39,7 +41,19 @@ set incsearch
 set ignorecase
 set smartcase
 
-" Python virtual environment detection in linux
-let g:loaded_python_provider = 0
-" Ruta donde se creó el ambiente de Python con pipenv.
-let g:python3_host_prog = '/home/ject/.local/share/virtualenvs/PMPipe-NOT8akxt/bin/python'
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time

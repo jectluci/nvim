@@ -1,16 +1,36 @@
 {
-    "python.jediPath": "/usr/lib/python3.9/site-packages",
-    "tsserver.tsdk": ".yarn/sdks/typescript/lib",
-    "eslint.packageManager": "yarn",
-  "  eslint.nodePath": ".yarn/sdks",
+    "jedi.enable": true,
+    "jedi.startupMessage": false,
+    "jedi.markupKindPreferred": "plaintext",
+    "jedi.trace.server": "off",
+    "jedi.jediSettings.autoImportModules": [],
+    "jedi.executable.command": "jedi-language-server",
+    "jedi.executable.args": [],
+    "jedi.codeAction.nameExtractFunction": "jls_extract_def",
+    "jedi.codeAction.nameExtractVariable": "jls_extract_var",
+    "jedi.completion.disableSnippets": false,
+    "jedi.completion.resolveEagerly": false,
+    "jedi.diagnostics.enable": true,
+    "jedi.diagnostics.didOpen": true,
+    "jedi.diagnostics.didChange": true,
+    "jedi.diagnostics.didSave": true,
+    "jedi.hover.enable": true,
+    "jedi.hover.disable.keyword.all": false,
+    "jedi.hover.disable.keyword.names": [],
+    "jedi.hover.disable.keyword.fullNames": [],
+    "jedi.workspace.extraPaths": [],
+    "jedi.workspace.symbols.maxSymbols": 20,
+    "jedi.workspace.symbols.ignoreFolders": [
+        ".nox",
+        ".tox",
+        ".venv",
+        "__pycache__",
+        "venv"
+    ],
     "suggest.noselect": false,
-    "prettier.eslintIntegration": false,
+    "prettier.eslintIntegration": true,
     "prettier.tslintIntegration": true,
     "prettier.tabWidth":4,
-    "coc.preferences.formatOnSaveFiletypes": [
-        "html",
-        "css",
-        "javascript"
-    ]
+    "coc.preferences.formatOnSaveFiletypes": ["css", "markdown","html","django","python","htmldjango","js","jsx"]
 }
 
