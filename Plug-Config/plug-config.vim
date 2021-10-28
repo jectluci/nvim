@@ -1,25 +1,27 @@
 ""GUI
-"colorscheme dracula
-
 colorscheme gruvbox
-"let g:gruvbox_italic=1
-"let g:gruvbox_termcolors = 256
-"let g:gruvbox_bold=1
-"let g:gruvbox_underline = 1
-"let g:gruvbox_contrast_dark = 'hard'
-"let g:gruvbox_undercurl = 1
-"let g:gruvbox_invert_indent_guides = 1
+let g:gruvbox_italic=1
+let g:gruvbox_termcolors = 256
+let g:gruvbox_bold=1
+let g:gruvbox_underline = 1
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_undercurl = 1
+let g:gruvbox_invert_indent_guides = 1
 let g:gruvbox_transparent_bg = 1
 "  nerdtree
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 let NERDTreeAutoDeleteBuffer=1
 let NERDTreeMinimalUI=1
+let g:NERDTreeWinPos = "right"
 let NERDTreeDirArrows=1
 let NERDTreeShowLineNumbers=1
 let NERDTreeMapOpenInTab='\t'
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
+nnoremap gn :tabprevious<CR>
+nnoremap gt :tabnext<CR>
+
 
 "NerdTree ++
 "let g:NERDTreeGitStatusIndicatorMapCustom = {
@@ -42,11 +44,54 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 "let g:NERDTreeGitStatusConcealBrackets = 1 " default: 0
 "
 " Open the existing NERDTree on each new tab.
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-pairs', 'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace', 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint-plugin', 'coc-python', 'coc-jedi', 'coc-webpack', 'coc-pydocstring', 'coc-prettier', 'coc-pyright', 'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator', 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github', 'coc-htmldjango']
+" COC plugins
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-pairs', 'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace', 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint-plugin', 'coc-jedi', 'coc-webpack', 'coc-pydocstring', 'coc-prettier', 'coc-pyright', 'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator', 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github', 'coc-htmldjango', 'coc-angular', 'coc-eslint']
 
 
 "airline
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+"statusBar
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'subseparator': {
+      \   'left': '',
+      \   'right': ''
+      \ }
+      \ }
+
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_infos': 'lightline#ale#infos',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+
+let g:lightline.component_type = {
+      \     'linter_checking': 'right',
+      \     'linter_infos': 'right',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'right',
+      \ }
+
+let g:lightline.active = {
+            \ 'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+            \            [ 'lineinfo' ],
+	    \            [ 'percent' ],
+	    \            [ 'fileformat', 'fileencoding', 'filetype'] ] }
+
+
+let g:lightline#ale#indicator_checking = "\uf110"
+let g:lightline#ale#indicator_infos = "\uf129"
+let g:lightline#ale#indicator_warnings = "\uf071"
+let g:lightline#ale#indicator_errors = "\uf05e"
+let g:lightline#ale#indicator_ok = "\uf00c"
+
 
 "iconos
 let g:WebDevIconsDisableDefaultFolderSymbolColorFromNERDTreeDir = 1
@@ -98,11 +143,13 @@ let g:NERDTreeLimitedSyntax = 1
 " set g:NERDTreeExtensionHighlightColor if you want a custom color instead of the default one
 let g:NERDTreeSyntaxEnabledExtensions = ['hbs', 'lhs'] " enable highlight to .hbs and .lhs files with default colors
 let g:NERDTreeSyntaxEnabledExactMatches = ['dropbox', 'node_modules', 'favicon.ico'] " enable highlight for dropbox and node_modules folders, and favicon.ico files with default colors
+
 "indent
 let g:indentLine_setColors = 0
 let g:indentLine_defaultGroup = 'SpecialKey'
 let g:indentLine_char_list = ['|', '¦', '┆', '┊',]
 let g:indentLine_bgcolor_gui = ''
+let g:indentLine_conceallevel = 2
 
 ""Syntaxis new
 "let g:polyglot_disabled = ['markdown']
@@ -118,6 +165,12 @@ let g:syntastic_quiet_messages = { "type": "style" }
 "Vista de erores
 let g:ale_sign_error = '☠' 
 let g:ale_sign_warning = '⚠'
+let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
+
+" Fix files with prettier, and then ESLint.
+let b:ale_fixers = ['prettier', 'eslint']
+" Equivalent to the above.
+let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
 
 "let g:ale_linters = {
 "      \   'python': ['flake8', 'pylint', 'pyright'],
@@ -169,13 +222,13 @@ set conceallevel=0
 let g:python_highlight_class_vars = 1
 let g:python_highlight_operators = 1
 let g:python_highlight_all = 1
-"let g:python_highlight_func_calls = 1
+let g:python_highlight_func_calls = 1
 let g:python_highlight_builtins = 1
 let g:python_highlight_builtin_objs = 1 
 let g:python_highlight_builtin_types = 1
 let g:python_highlight_builtin_funcs = 1 
 let g:python_highlight_builtin_funcs_kwarg = 1 
-let g:python_slow_sync = 0
+let g:python_slow_sync = 1 
 
 
 ""python jedi
@@ -202,25 +255,25 @@ let g:jedi#show_call_signatures = "1"
 "hi! RainbowLevel8 ctermbg=232 guibg=#080808
 "
 "Rainbow pairs
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-
+"let g:rbpt_colorpairs = [
+"    \ ['brown',       'RoyalBlue3'],
+"    \ ['Darkblue',    'SeaGreen3'],
+"    \ ['darkgray',    'DarkOrchid3'],
+"    \ ['darkgreen',   'firebrick3'],
+"    \ ['darkcyan',    'RoyalBlue3'],
+"    \ ['darkred',     'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['brown',       'firebrick3'],
+"    \ ['gray',        'RoyalBlue3'],
+"    \ ['black',       'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['Darkblue',    'firebrick3'],
+"    \ ['darkgreen',   'RoyalBlue3'],
+"    \ ['darkcyan',    'SeaGreen3'],
+"    \ ['darkred',     'DarkOrchid3'],
+"    \ ['red',         'firebrick3'],
+"    \ ]
+"
 "au VimEnter * RainbowParenthesesToggle
 "au Syntax * RainbowParenthesesLoadRound
 "au Syntax * RainbowParenthesesLoadSquare
@@ -381,3 +434,40 @@ nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-6> :TmuxNavigatePrevious<cr>
 
+
+"Fzf
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+map <C-g> :Ag
+nnoremap <C-p> :Files<Cr>
+
+"terminal
+
+nnoremap <F7> :call vimterm#toggle() <CR>
+tnoremap <F7> <C-\><C-n>:call vimterm#toggle() <CR>
+
+
+""nvim-tree
+"let g:nvim_tree_icons = {
+"    \ 'default': '',
+"    \ 'symlink': '',
+"    \ 'git': {
+"    \   'unstaged': "✗",
+"    \   'staged': "✓",
+"    \   'unmerged': "",
+"    \   'renamed': "➜",
+"    \   'untracked': "★",
+"    \   'deleted': "",
+"    \   'ignored': "◌"
+"    \   },
+"    \ 'folder': {
+"    \   'arrow_open': "",
+"    \   'arrow_closed': "",
+"    \   'default': "",
+"    \   'open': "",
+"    \   'empty': "",
+"    \   'empty_open': "",
+"    \   'symlink': "",
+"    \   'symlink_open': "",
+"    \   }
+"    \ }

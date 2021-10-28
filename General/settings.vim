@@ -16,8 +16,8 @@ set autoindent    ""- turns it on
 set smartindent   ""- does the right thing (mostly) in programs
 set cindent       ""- stricter rules for C programs
 
-"" Encoding
-set encoding=utf-8
+" Encoding
+set encoding=UTF-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 
@@ -27,7 +27,7 @@ set backspace=indent,eol,start
 "" Tabs. May be overridden by autocmd rules
 set tabstop=4
 set softtabstop=0
-set shiftwidth=4
+"set shiftwidth=4
 set expandtab
 
 "" Map leader to ,
