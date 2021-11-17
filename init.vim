@@ -5,4 +5,3 @@ so ~/.config/nvim/Plugins/plugins.vim
 so ~/.config/nvim/Plug-Config/plug-config.vim
 lua require('Plug-Config.plug-config')
 lua require('General.settings')
-

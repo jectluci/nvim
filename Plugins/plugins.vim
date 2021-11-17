@@ -11,7 +11,6 @@ Plug 'morhetz/gruvbox'
 "Plug 'sainnhe/gruvbox-material'
 "Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 "Plug 'christianchiarulli/nvcode-color-schemes.vim'
-"Plug 'nvim-treesitter/nvim-treesitter'
 "Plug 'sainnhe/edge'
 "Plug 'olimorris/onedarkpro.nvim'
 
@@ -34,7 +33,7 @@ Plug 'jistr/vim-nerdtree-tabs'
 ""icons
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-"Plug 'yamatsum/nvim-nonicons'
+Plug 'yamatsum/nvim-nonicons'
 Plug 'kyazdani42/nvim-web-devicons'
 
 "fzf
@@ -50,9 +49,11 @@ Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 "Plug 'billyvg/tigris.nvim', { 'do': './install.sh' }
 "Plug 'sheerun/vim-polyglot'
 Plug 'sheerun/vim-polyglot'
+
 """indent
 "Plug 'yggdroot/indentline'
 Plug 'lukas-reineke/indent-blankline.nvim'
+
 """Rainbow
 "Plug 'thiagoalessio/rainbow_levels.vim'
 "Plug 'kien/rainbow_parentheses.vim'
@@ -67,12 +68,21 @@ Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdcommenter'
 "
 """autocomplete
-Plug 'sirver/ultisnips'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'rafcamlet/coc-nvim-lua'
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'honza/vim-snippets'
 Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
+
+"Snippets
+Plug 'natebosch/dartlang-snippets'
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
+"Snippets VSCode
+Plug 'Neevash/awesome-flutter-snippets'
+
 
 ""Emmet
 Plug 'mattn/emmet-vim'
@@ -107,12 +117,22 @@ Plug 'ehamberg/vim-cute-python'
 "Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 Plug 'lambdalisue/vim-django-support'
+Plug 'PieterjanMontens/vim-pipenv'
+
 
 """Django
 Plug 'tweekmonster/django-plus.vim'
 "Plug 'tweekmonster/impsort.vim'
 
 ""flutter
+Plug 'nvim-lua/plenary.nvim'
+Plug 'akinsho/flutter-tools.nvim'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
+Plug 'natebosch/vim-lsc'
+Plug 'natebosch/vim-lsc-dart'
+
+"Plug 'hrsh7th/nvim-cmp'
 
 ""format
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
@@ -126,10 +146,11 @@ Plug 'eslint/eslint'
 Plug 'tpope/vim-fugitive'
 
 "Multi cursor
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+"Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 "Terminal
 Plug 'wvffle/vimterm'
+Plug 'fladson/vim-kitty' "Kitty sintaxys
 
 "Plug Lua
 "Plug 'kyazdani42/nvim-tree.lua'
@@ -138,6 +159,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend upda
 Plug 'neovim/nvim-lspconfig'
 Plug 'folke/lsp-colors.nvim'
 
+"Refactoring
 
 
 

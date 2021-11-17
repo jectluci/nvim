@@ -31,6 +31,7 @@
     "prettier.eslintIntegration": true,
     "prettier.tslintIntegration": true,
     "prettier.tabWidth": 4,
+    "coc.preferences.colorSupport": true,
     "coc.preferences.formatOnSaveFiletypes": [
         "css",
         "markdown",
@@ -46,7 +47,8 @@
         "json",
         "javascriptreact",
         "typescript.tsx",
-        "graphql"
+        "graphql",
+        "dart"
     ],
     "diagnostic-languageserver.filetypes": {
         "python": "flake8"
@@ -83,17 +85,8 @@
             }
         }
     },
-    "languageserver": {
-        "lua": {
-            "command": "lua-lsp",
-            "filetypes": ["lua"]
-        }
-    },
-    "languageserver": {
-        "sql": {
-            "command": "sql-language-server",
-            "args": ["up", "--method", "stdio"],
-            "filetypes": ["sql", "mysql"]
-        }
-    }
+    "flutter.enabled": true,
+    "flutter.lsp.debug": true,
+    "flutter.lsp.initialization.closingLabels": true,
+    "flutter.UIPath": true
 }

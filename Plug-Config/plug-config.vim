@@ -23,6 +23,10 @@ nnoremap gn :tabprevious<CR>
 nnoremap gt :tabnext<CR>
 
 
+
+"Key Leader
+let mapleader=","
+
 "NerdTree ++
 "let g:NERDTreeGitStatusIndicatorMapCustom = {
 "                \ 'Modified'  :'✹',
@@ -45,8 +49,14 @@ nnoremap gt :tabnext<CR>
 "
 " Open the existing NERDTree on each new tab.
 " COC plugins
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-pairs', 'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace', 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint-plugin', 'coc-jedi', 'coc-webpack', 'coc-pydocstring', 'coc-prettier', 'coc-pyright', 'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator', 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github', 'coc-htmldjango', 'coc-angular', 'coc-eslint']
-
+let g:coc_global_extensions = [
+      \'coc-json', 'coc-git', 'coc-pairs', 
+      \ 'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace',
+      \ 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint-plugin',
+      \ 'coc-jedi', 'coc-webpack', 'coc-pydocstring', 'coc-prettier', 'coc-pyright',
+      \ 'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator',
+      \ 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github',
+      \ 'coc-htmldjango', 'coc-angular', 'coc-eslint', 'coc-flutter', 'coc-flutter-tools']
 
 "airline
 "let g:airline_powerline_fonts = 1
@@ -54,36 +64,67 @@ let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-pairs', 'coc-css', 'c
 "let g:airline#extensions#tabline#left_alt_sep = '|'
 "let g:airline#extensions#tabline#formatter = 'unique_tail'
 
+"WEBicons
+" Can be enabled or disabled
+let g:webdevicons_enable_nerdtree = 1
+" whether or not to show the nerdtree brackets around flags
+let g:webdevicons_conceal_nerdtree_brackets = 1
+" Can be enabled or disabled
+" adding the custom source to unite
+let g:webdevicons_enable_unite = 1
+" Can be enabled or disabled
+" add glyphs to all modes
+let g:webdevicons_enable_ctrlp = 1
+" Can be enabled or disabled
+" adding to vim-startify screen
+let g:webdevicons_enable_startify = 1
+" Can be enabled or disabled
+" adding to flagship's statusline
+let g:webdevicons_enable_flagship_statusline = 1
+
+
+
 "statusBar
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ 'subseparator': {
-      \   'left': '',
-      \   'right': ''
-      \ }
-      \ }
+\ 'component_function': {
+\   'filetype': 'MyFiletype',
+\   'fileformat': 'MyFileformat',
+\ }
+\ }
+
+function! MyFiletype()
+return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+
+
 
 let g:lightline.component_expand = {
-      \  'linter_checking': 'lightline#ale#checking',
-      \  'linter_infos': 'lightline#ale#infos',
-      \  'linter_warnings': 'lightline#ale#warnings',
-      \  'linter_errors': 'lightline#ale#errors',
-      \  'linter_ok': 'lightline#ale#ok',
-      \ }
+\  'linter_checking': 'lightline#ale#checking',
+\  'linter_infos': 'lightline#ale#infos',
+\  'linter_warnings': 'lightline#ale#warnings',
+\  'linter_errors': 'lightline#ale#errors',
+\  'linter_ok': 'lightline#ale#ok',
+\ }
 
 let g:lightline.component_type = {
-      \     'linter_checking': 'right',
-      \     'linter_infos': 'right',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \     'linter_ok': 'right',
-      \ }
+\     'linter_checking': 'right',
+\     'linter_infos': 'right',
+\     'linter_warnings': 'warning',
+\     'linter_errors': 'error',
+\     'linter_ok': 'right',
+\ }
+
 
 let g:lightline.active = {
-            \ 'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
-            \            [ 'lineinfo' ],
-	    \            [ 'percent' ],
-	    \            [ 'fileformat', 'fileencoding', 'filetype'] ] }
+\ 'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+\            [ 'lineinfo' ],
+\            [ 'percent' ],
+\            [ 'fileformat', 'fileencoding', 'filetype'] ] }
+
 
 
 let g:lightline#ale#indicator_checking = "\uf110"
@@ -139,7 +180,7 @@ let g:NERDTreeExtensionHighlightColor = {} "this line is needed to avoid error
 let g:NERDTreeExtensionHighlightColor['css'] = '' "assigning it to an empty string will skip highlight
 
 let g:NERDTreeLimitedSyntax = 1
- 
+
 " set g:NERDTreeExtensionHighlightColor if you want a custom color instead of the default one
 let g:NERDTreeSyntaxEnabledExtensions = ['hbs', 'lhs'] " enable highlight to .hbs and .lhs files with default colors
 let g:NERDTreeSyntaxEnabledExactMatches = ['dropbox', 'node_modules', 'favicon.ico'] " enable highlight for dropbox and node_modules folders, and favicon.ico files with default colors
@@ -155,7 +196,7 @@ let g:indentLine_conceallevel = 2
 "let g:polyglot_disabled = ['markdown']
 "let g:polyglot_disabled = ['sensible']
 "let g:polyglot_disabled = ['autoindent']
-""Syntaxis 
+""Syntaxis
 let g:syntastic_quiet_messages = { "type": "style" }
 
 
@@ -163,7 +204,7 @@ let g:syntastic_quiet_messages = { "type": "style" }
 ""Erorres
 ""ALE
 "Vista de erores
-let g:ale_sign_error = '☠' 
+let g:ale_sign_error = '☠'
 let g:ale_sign_warning = '⚠'
 let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 
@@ -178,16 +219,16 @@ let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
 "      \   'javascript': ['eslint'],
 "      \}
 
- "" g:ale_disable_lsp = 0 
+"" g:ale_disable_lsp = 0
 
 
 
 "Css
 setlocal iskeyword+=-
 augroup VimCSS3Syntax
-  autocmd!
+autocmd!
 
-  autocmd FileType css setlocal iskeyword+=-
+autocmd FileType css setlocal iskeyword+=-
 augroup END
 :highlight VendorPrefix guifg=#00ffff gui=bold
 :match VendorPrefix /-\(moz\|webkit\|o\|ms\)-[a-zA-Z-]\+/
@@ -198,8 +239,8 @@ let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1
 
 augroup javascript_folding
-    au!
-    au FileType javascript setlocal foldmethod=syntax
+au!
+au FileType javascript setlocal foldmethod=syntax
 augroup END
 
 let g:javascript_conceal_function             = "ƒ"
@@ -224,11 +265,11 @@ let g:python_highlight_operators = 1
 let g:python_highlight_all = 1
 let g:python_highlight_func_calls = 1
 let g:python_highlight_builtins = 1
-let g:python_highlight_builtin_objs = 1 
+let g:python_highlight_builtin_objs = 1
 let g:python_highlight_builtin_types = 1
-let g:python_highlight_builtin_funcs = 1 
-let g:python_highlight_builtin_funcs_kwarg = 1 
-let g:python_slow_sync = 1 
+let g:python_highlight_builtin_funcs = 1
+let g:python_highlight_builtin_funcs_kwarg = 1
+let g:python_slow_sync = 1
 
 
 ""python jedi
@@ -238,71 +279,29 @@ let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#show_call_signatures = "1"
 
 
-""Rainbow levels 
-" Creating a mapping to turn it on and off:
-"map <leader>l :RainbowLevelsToggle<cr>
-
-" Or automatically turning it on for certain file types:
-"autocmd Filetype * if index(['javascript', 'python', 'php', 'xml', 'yaml'], &ft) | call rainbow_levels#on() | else | call rainbow_levels#off() | endif
-"hi! RainbowLevel0 ctermbg=240 guibg=#585858
-"hi! RainbowLevel1 ctermbg=239 guibg=#4e4e4e
-"hi! RainbowLevel2 ctermbg=238 guibg=#444444
-"hi! RainbowLevel3 ctermbg=237 guibg=#3a3a3a
-"hi! RainbowLevel4 ctermbg=236 guibg=#303030
-"hi! RainbowLevel5 ctermbg=235 guibg=#262626
-"hi! RainbowLevel6 ctermbg=234 guibg=#1c1c1c
-"hi! RainbowLevel7 ctermbg=233 guibg=#121212
-"hi! RainbowLevel8 ctermbg=232 guibg=#080808
-"
-"Rainbow pairs
-"let g:rbpt_colorpairs = [
-"    \ ['brown',       'RoyalBlue3'],
-"    \ ['Darkblue',    'SeaGreen3'],
-"    \ ['darkgray',    'DarkOrchid3'],
-"    \ ['darkgreen',   'firebrick3'],
-"    \ ['darkcyan',    'RoyalBlue3'],
-"    \ ['darkred',     'SeaGreen3'],
-"    \ ['darkmagenta', 'DarkOrchid3'],
-"    \ ['brown',       'firebrick3'],
-"    \ ['gray',        'RoyalBlue3'],
-"    \ ['black',       'SeaGreen3'],
-"    \ ['darkmagenta', 'DarkOrchid3'],
-"    \ ['Darkblue',    'firebrick3'],
-"    \ ['darkgreen',   'RoyalBlue3'],
-"    \ ['darkcyan',    'SeaGreen3'],
-"    \ ['darkred',     'DarkOrchid3'],
-"    \ ['red',         'firebrick3'],
-"    \ ]
-"
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
-
-
 
 "COC
 " diagnostics appear/become resolved.
 if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
+" Recently vim can merge signcolumn and number column into one
+set signcolumn=number
 else
-  set signcolumn=yes
+set signcolumn=yes
 endif
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
+" use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+  return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()  
+" use <c-space>for trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -435,6 +434,7 @@ nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-6> :TmuxNavigatePrevious<cr>
 
 
+
 "Fzf
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -447,27 +447,53 @@ nnoremap <F7> :call vimterm#toggle() <CR>
 tnoremap <F7> <C-\><C-n>:call vimterm#toggle() <CR>
 
 
-""nvim-tree
-"let g:nvim_tree_icons = {
-"    \ 'default': '',
-"    \ 'symlink': '',
-"    \ 'git': {
-"    \   'unstaged': "✗",
-"    \   'staged': "✓",
-"    \   'unmerged': "",
-"    \   'renamed': "➜",
-"    \   'untracked': "★",
-"    \   'deleted': "",
-"    \   'ignored': "◌"
-"    \   },
-"    \ 'folder': {
-"    \   'arrow_open': "",
-"    \   'arrow_closed': "",
-"    \   'default': "",
-"    \   'open': "",
-"    \   'empty': "",
-"    \   'empty_open': "",
-"    \   'symlink': "",
-"    \   'symlink_open': "",
-"    \   }
-"    \ }
+"Fluter
+let g:flutter_hot_reload_on_save = 1 
+let g:hot_reload_on_save=1
+let g:flutter_command = "/opt/flutter/bin/flutter"
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+let g:lsc_auto_map = v:true
+
+"Dart / Flutter
+let g:dart_format_on_save = 1
+
+
+
+set completeopt=menuone,noselect,longest
+
+" NOTE: You can use other key to expand snippet.
+
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+
+"If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ['javascript']
+let g:vsnip_filetypes.typescriptreact = ['typescript']
+
+
+
+
+
+
+
