@@ -1,27 +1,16 @@
 call plug#begin('~/.config/nvim/plugged/')
 "THemes
-"Plug 'dracula/vim',{'as':'dracula'}
-"Plug 'joshdick/onedark.vim'
-"Plug 'flazz/vim-colorschemes'
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'mangeshrex/uwu.vim'
-"Plug 'mhartington/oceanic-next'
-Plug 'morhetz/gruvbox'
-"Plug 'tomasiser/vim-code-dark'
-"Plug 'sainnhe/gruvbox-material'
-"Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-"Plug 'christianchiarulli/nvcode-color-schemes.vim'
-"Plug 'sainnhe/edge'
-"Plug 'olimorris/onedarkpro.nvim'
+Plug 'Mofiqul/dracula.nvim'
 
 ""airline
 "Plug 'vim-airline/vim-airline'
 "Plug 'vim-airline/vim-airline-themes'
 
 "statusBar
-Plug 'maximbaz/lightline-ale'
-Plug 'itchyny/lightline.vim'
+" Plug 'maximbaz/lightline-ale'
+" Plug 'itchyny/lightline.vim'
 
+Plug 'nvim-lualine/lualine.nvim'
 
 "NerdTree
 Plug 'scrooloose/nerdtree'
@@ -118,6 +107,7 @@ Plug 'ehamberg/vim-cute-python'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 Plug 'lambdalisue/vim-django-support'
 Plug 'PieterjanMontens/vim-pipenv'
+Plug 'ambv/black'
 
 
 """Django

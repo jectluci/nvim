@@ -1,13 +1,13 @@
 ""GUI
-colorscheme gruvbox
-let g:gruvbox_italic=1
-let g:gruvbox_termcolors = 256
-let g:gruvbox_bold=1
-let g:gruvbox_underline = 1
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_undercurl = 1
-let g:gruvbox_invert_indent_guides = 1
-let g:gruvbox_transparent_bg = 1
+" colorscheme gruvbox
+" let g:gruvbox_italic=1
+" let g:gruvbox_termcolors = 256
+" let g:gruvbox_bold=1
+" let g:gruvbox_underline = 1
+" let g:gruvbox_contrast_dark = 'hard'
+" let g:gruvbox_undercurl = 1
+" let g:gruvbox_invert_indent_guides = 1
+" let g:gruvbox_transparent_bg = 1
 "  nerdtree
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
@@ -58,11 +58,6 @@ let g:coc_global_extensions = [
       \ 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github',
       \ 'coc-htmldjango', 'coc-angular', 'coc-eslint', 'coc-flutter', 'coc-flutter-tools']
 
-"airline
-"let g:airline_powerline_fonts = 1
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-"let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 "WEBicons
 " Can be enabled or disabled
@@ -84,106 +79,56 @@ let g:webdevicons_enable_flagship_statusline = 1
 
 
 
-"statusBar
-let g:lightline = {
-\ 'component_function': {
-\   'filetype': 'MyFiletype',
-\   'fileformat': 'MyFileformat',
-\ }
-\ }
+""statusBar
+"let g:lightline = {
+"\ 'component_function': {
+"\   'filetype': 'MyFiletype',
+"\   'fileformat': 'MyFileformat',
+"\ }
+"\ }
 
-function! MyFiletype()
-return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
+"function! MyFiletype()
+"return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+"endfunction
 
-function! MyFileformat()
-return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
-
-
-
-let g:lightline.component_expand = {
-\  'linter_checking': 'lightline#ale#checking',
-\  'linter_infos': 'lightline#ale#infos',
-\  'linter_warnings': 'lightline#ale#warnings',
-\  'linter_errors': 'lightline#ale#errors',
-\  'linter_ok': 'lightline#ale#ok',
-\ }
-
-let g:lightline.component_type = {
-\     'linter_checking': 'right',
-\     'linter_infos': 'right',
-\     'linter_warnings': 'warning',
-\     'linter_errors': 'error',
-\     'linter_ok': 'right',
-\ }
-
-
-let g:lightline.active = {
-\ 'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
-\            [ 'lineinfo' ],
-\            [ 'percent' ],
-\            [ 'fileformat', 'fileencoding', 'filetype'] ] }
+"function! MyFileformat()
+"return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+"endfunction
 
 
 
-let g:lightline#ale#indicator_checking = "\uf110"
-let g:lightline#ale#indicator_infos = "\uf129"
-let g:lightline#ale#indicator_warnings = "\uf071"
-let g:lightline#ale#indicator_errors = "\uf05e"
-let g:lightline#ale#indicator_ok = "\uf00c"
+"let g:lightline.component_expand = {
+"\  'linter_checking': 'lightline#ale#checking',
+"\  'linter_infos': 'lightline#ale#infos',
+"\  'linter_warnings': 'lightline#ale#warnings',
+"\  'linter_errors': 'lightline#ale#errors',
+"\  'linter_ok': 'lightline#ale#ok',
+"\ }
+
+"let g:lightline.component_type = {
+"\     'linter_checking': 'right',
+"\     'linter_infos': 'right',
+"\     'linter_warnings': 'warning',
+"\     'linter_errors': 'error',
+"\     'linter_ok': 'right',
+"\ }
 
 
-"iconos
-let g:WebDevIconsDisableDefaultFolderSymbolColorFromNERDTreeDir = 1
-let g:WebDevIconsDisableDefaultFileSymbolColorFromNERDTreeFile = 1
+"let g:lightline.active = {
+"\ 'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+"\            [ 'lineinfo' ],
+"\            [ 'percent' ],
+"\            [ 'fileformat', 'fileencoding', 'filetype'] ] }
 
-let g:NERDTreeDisableFileExtensionHighlight = 1
-let g:NERDTreeDisableExactMatchHighlight = 1
-let g:NERDTreeDisablePatternMatchHighlight = 1
 
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
 
-let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
-let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
+"let g:lightline#ale#indicator_checking = "\uf110"
+"let g:lightline#ale#indicator_infos = "\uf129"
+"let g:lightline#ale#indicator_warnings = "\uf071"
+"let g:lightline#ale#indicator_errors = "\uf05e"
+"let g:lightline#ale#indicator_ok = "\uf00c"
 
-" you can add these colors to your .vimrc to help customizing
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "689FB6"
-let s:purple = "834F79"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:white = "FFFFFF"
 
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['css'] = s:blue " sets the color of css files to blue
-
-let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:orange " sets the color for .gitignore files
-
-let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:red " sets the color for files ending with _spec.rb
-
-let g:WebDevIconsDefaultFolderSymbolColor = s:beige " sets the color for folders that did not match any rule
-let g:WebDevIconsDefaultFileSymbolColor = s:blue " sets the color for files that did not match any rule
-
-" If you have vim-devicons you can customize your icons for each file type.
-let g:NERDTreeExtensionHighlightColor = {} "this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['css'] = '' "assigning it to an empty string will skip highlight
-
-let g:NERDTreeLimitedSyntax = 1
-
-" set g:NERDTreeExtensionHighlightColor if you want a custom color instead of the default one
-let g:NERDTreeSyntaxEnabledExtensions = ['hbs', 'lhs'] " enable highlight to .hbs and .lhs files with default colors
-let g:NERDTreeSyntaxEnabledExactMatches = ['dropbox', 'node_modules', 'favicon.ico'] " enable highlight for dropbox and node_modules folders, and favicon.ico files with default colors
 
 "indent
 let g:indentLine_setColors = 0
@@ -490,10 +435,5 @@ xmap        S   <Plug>(vsnip-cut-text)
 let g:vsnip_filetypes = {}
 let g:vsnip_filetypes.javascriptreact = ['javascript']
 let g:vsnip_filetypes.typescriptreact = ['typescript']
-
-
-
-
-
 
 
