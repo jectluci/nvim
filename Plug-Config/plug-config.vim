@@ -1,14 +1,7 @@
-""GUI
-" colorscheme gruvbox
-" let g:gruvbox_italic=1
-" let g:gruvbox_termcolors = 256
-" let g:gruvbox_bold=1
-" let g:gruvbox_underline = 1
-" let g:gruvbox_contrast_dark = 'hard'
-" let g:gruvbox_undercurl = 1
-" let g:gruvbox_invert_indent_guides = 1
-" let g:gruvbox_transparent_bg = 1
-"  nerdtree
+"theme
+colorscheme codedark
+
+
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 let NERDTreeAutoDeleteBuffer=1
@@ -21,43 +14,6 @@ nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
 nnoremap gn :tabprevious<CR>
 nnoremap gt :tabnext<CR>
-
-
-
-"Key Leader
-let mapleader=","
-
-"NerdTree ++
-"let g:NERDTreeGitStatusIndicatorMapCustom = {
-"                \ 'Modified'  :'✹',
-"                \ 'Staged'    :'✚',
-"                \ 'Untracked' :'✭',
-"                \ 'Renamed'   :'➜',
-"                \ 'Unmerged'  :'═',
-"                \ 'Deleted'   :'✖',
-"                \ 'Dirty'     :'✗',
-"                \ 'Ignored'   :'☒',
-"                \ 'Clean'     :'✔︎',
-"                \ 'Unknown'   :'?',
-"                \ }
-"
-"let g:NERDTreeGitStatusUseNerdFonts = 1 " you should install nerdfonts by yourself. default: 0
-"let g:NERDTreeGitStatusUntrackedFilesMode = 'all' " a heavy feature too. default: normal
-"let g:NERDTreeGitStatusGitBinPath = '/your/file/path' " default: git (auto find in path)
-"let g:NERDTreeGitStatusShowClean = 1 " default: 0
-"let g:NERDTreeGitStatusConcealBrackets = 1 " default: 0
-"
-" Open the existing NERDTree on each new tab.
-" COC plugins
-let g:coc_global_extensions = [
-      \'coc-json', 'coc-git', 'coc-pairs', 
-      \ 'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace',
-      \ 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint-plugin',
-      \ 'coc-jedi', 'coc-webpack', 'coc-pydocstring', 'coc-prettier', 'coc-pyright',
-      \ 'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator',
-      \ 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github',
-      \ 'coc-htmldjango', 'coc-angular', 'coc-eslint', 'coc-flutter', 'coc-flutter-tools']
-
 
 "WEBicons
 " Can be enabled or disabled
@@ -78,56 +34,19 @@ let g:webdevicons_enable_startify = 1
 let g:webdevicons_enable_flagship_statusline = 1
 
 
+"Key Leader
+let mapleader=","
 
-""statusBar
-"let g:lightline = {
-"\ 'component_function': {
-"\   'filetype': 'MyFiletype',
-"\   'fileformat': 'MyFileformat',
-"\ }
-"\ }
-
-"function! MyFiletype()
-"return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-"endfunction
-
-"function! MyFileformat()
-"return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-"endfunction
-
-
-
-"let g:lightline.component_expand = {
-"\  'linter_checking': 'lightline#ale#checking',
-"\  'linter_infos': 'lightline#ale#infos',
-"\  'linter_warnings': 'lightline#ale#warnings',
-"\  'linter_errors': 'lightline#ale#errors',
-"\  'linter_ok': 'lightline#ale#ok',
-"\ }
-
-"let g:lightline.component_type = {
-"\     'linter_checking': 'right',
-"\     'linter_infos': 'right',
-"\     'linter_warnings': 'warning',
-"\     'linter_errors': 'error',
-"\     'linter_ok': 'right',
-"\ }
-
-
-"let g:lightline.active = {
-"\ 'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
-"\            [ 'lineinfo' ],
-"\            [ 'percent' ],
-"\            [ 'fileformat', 'fileencoding', 'filetype'] ] }
-
-
-
-"let g:lightline#ale#indicator_checking = "\uf110"
-"let g:lightline#ale#indicator_infos = "\uf129"
-"let g:lightline#ale#indicator_warnings = "\uf071"
-"let g:lightline#ale#indicator_errors = "\uf05e"
-"let g:lightline#ale#indicator_ok = "\uf00c"
-
+" Open the existing NERDTree on each new tab.
+" COC plugins
+let g:coc_global_extensions = [
+      \'coc-json', 'coc-git', 'coc-pairs', 
+      \ 'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace',
+      \ 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint-plugin',
+      \ 'coc-jedi', 'coc-webpack', 'coc-pydocstring', 'coc-prettier', 'coc-pyright',
+      \ 'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator',
+      \ 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github',
+      \ 'coc-htmldjango', 'coc-angular', 'coc-eslint', 'coc-flutter', 'coc-flutter-tools']
 
 
 "indent
@@ -137,14 +56,8 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊',]
 let g:indentLine_bgcolor_gui = ''
 let g:indentLine_conceallevel = 2
 
-""Syntaxis new
-"let g:polyglot_disabled = ['markdown']
-"let g:polyglot_disabled = ['sensible']
-"let g:polyglot_disabled = ['autoindent']
 ""Syntaxis
 let g:syntastic_quiet_messages = { "type": "style" }
-
-
 
 ""Erorres
 ""ALE
@@ -215,11 +128,13 @@ let g:python_highlight_builtin_types = 1
 let g:python_highlight_builtin_funcs = 1
 let g:python_highlight_builtin_funcs_kwarg = 1
 let g:python_slow_sync = 1
-
+"
+"doq
+let g:pydocstring_doq_path = '~/.local/bin/doq'
 
 ""python jedi
-"let g:jedi#auto_initialization = 1
-let g:jedi#auto_vim_configuration = 0
+let g:jedi#auto_initialization = 1
+let g:jedi#auto_vim_configuration = 1
 let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#show_call_signatures = "1"
 

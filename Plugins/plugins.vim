@@ -1,22 +1,28 @@
 call plug#begin('~/.config/nvim/plugged/')
 "THemes
-Plug 'Mofiqul/dracula.nvim'
+" Plug 'Mofiqul/dracula.nvim'
+" Plug 'Mofiqul/vscode.nvim'
+" Plug 'rktjmp/lush.nvim'
+" Plug 'ellisonleao/gruvbox.nvim'
+" Plug 'navarasu/onedark.nvim'
+Plug 'tomasiser/vim-code-dark'
 
-""airline
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 
-"statusBar
-" Plug 'maximbaz/lightline-ale'
-" Plug 'itchyny/lightline.vim'
+"opacity 
+" Plug 'sunjon/shade.nvim'
 
+"Status bar
 Plug 'nvim-lualine/lualine.nvim'
+
+"Tabbar
+Plug 'alvarosevilla95/luatab.nvim'
 
 "NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'kyazdani42/nvim-tree.lua'
 
 
 ""icons
@@ -33,10 +39,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 """sintaxys
 Plug 'scrooloose/syntastic'
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 "Plug 'neovim/node-host', { 'do': 'npm install' }
 "Plug 'billyvg/tigris.nvim', { 'do': './install.sh' }
-"Plug 'sheerun/vim-polyglot'
 Plug 'sheerun/vim-polyglot'
 
 """indent
@@ -48,10 +53,6 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 "Plug 'kien/rainbow_parentheses.vim'
 Plug 'p00f/nvim-ts-rainbow'
 
-""plegado
-"Plug 'godlygeek/tabular'
-"Plug 'plasticboy/vim-markdown'
-"
 """Comentarios
 Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdcommenter'
@@ -79,6 +80,8 @@ Plug 'mattn/webapi-vim'
 
 ""html
 Plug 'othree/html5.vim'
+"""JInja2
+Plug 'glench/vim-jinja2-syntax'
 
 ""css
 Plug 'ap/vim-css-color'
@@ -135,21 +138,23 @@ Plug 'eslint/eslint'
 "GIt
 Plug 'tpope/vim-fugitive'
 
+"c++
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+
 "Multi cursor
-"Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 "Terminal
 Plug 'wvffle/vimterm'
 Plug 'fladson/vim-kitty' "Kitty sintaxys
 
 "Plug Lua
-"Plug 'kyazdani42/nvim-tree.lua'
 Plug 'yamatsum/nvim-cursorline'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'folke/lsp-colors.nvim'
 
-"Refactoring
 
 
 
