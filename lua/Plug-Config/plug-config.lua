@@ -1,14 +1,14 @@
 --THemes
 
-
-require'lualine'.setup {
+--lualine
+require('lualine').setup {
   options = {
-    icons_enabled = true,
-    theme = 'codedark',
+   icons_enabled = true,
+    theme = 'dracula-nvim',
     section_separators = { left = '', right = ''},
     component_separators = { left = '', right = ''},
     disabled_filetypes = {},
-    always_divide_middle = true,
+    always_divide_middle = true
   },
   sections = {
     lualine_a = {'mode'},
@@ -26,11 +26,9 @@ require'lualine'.setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {},   
+  tabline = {},
   extensions = {}
 }
-
-
 --Tabbar
 vim.opt.termguicolors = true
 require('luatab').setup{}
@@ -64,12 +62,14 @@ require'nvim-web-devicons'.has_loaded()
 
 --LspConfig
 require'lspconfig'.pyright.setup{}
---require'lspconfig'.rust_analyzer.setup{}
---require'lspconfig'.zls.setup{}
 require'lspconfig'.jedi_language_server.setup{}
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.yamlls.setup{}
---require'lspconfig'.vimls.setup{}
+require'lspconfig'.cssmodules_ls.setup{}
+require'lspconfig'.eslint.setup{}
+require'lspconfig'.dockerls.setup{}
+require'lspconfig'.cssmodules_ls.setup{}
+-- require'lspconfig'.java_language_server.setup{}
 
 
 --LspConfig color
@@ -81,31 +81,26 @@ require("lsp-colors").setup({
   Hint = "#10B981"
 })
 
-
---Rainbow
-require("nvim-treesitter.configs").setup {
-  highlight = {
-      -- ...
-  },
-  -- ...
+require'nvim-treesitter.configs'.setup {
   rainbow = {
     enable = true,
     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
     max_file_lines = nil, -- Do not enable for files with more than n lines, int
-    -- colors = {}, -- table of hex strings
-    -- termcolors = {} -- table of colour name strings
+    colors = {}, -- table of hex strings
+    termcolors = {} -- table of colour name strings
   }
 }
 
---Indent
-vim.opt.list = true
-vim.opt.listchars:append("space:⋅")
-vim.opt.listchars:append("eol:↴")
+
+----Indent
+--vim.opt.list = true
+--vim.opt.listchars:append("space:⋅")
+--vim.opt.listchars:append("eol:↴")
 
 require("indent_blankline").setup {
-    space_char_blankline = " ",
-    show_current_context = true,
-    show_current_context_start = true,
+   show_current_context_start = true,
+--    space_char_blankline = " ",
+--    show_current_context = true,
 }
 
 

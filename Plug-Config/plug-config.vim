@@ -1,7 +1,17 @@
-"theme
-colorscheme codedark
+""theme
+colorscheme dracula
+" Enable/disable animations
+" let bufferline.animation = v:true
+" show the '~' characters after the end of buffers
+let g:dracula_show_end_of_buffer = 1
+" use transparent background
+let g:dracula_transparent_bg = 0
+" set custom lualine background color
+let g:dracula_lualine_bg_color = "#37355a"
+"-- set italic comment
+let g:dracula_italic_comment = 1
 
-
+"NErdTRee
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 let NERDTreeAutoDeleteBuffer=1
@@ -15,7 +25,19 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 nnoremap gn :tabprevious<CR>
 nnoremap gt :tabnext<CR>
 
-"WEBicons
+
+"devicons
+" loading the plugin
+let g:webdevicons_enable = 1
+" adding the column to vimfiler
+let g:webdevicons_enable_vimfiler = 1
+" adding to vim-airline's statusline
+let g:webdevicons_enable_airline_statusline = 1
+" adding to flagship's statusline
+let g:webdevicons_enable_flagship_statusline = 1
+
+
+" WEBicons
 " Can be enabled or disabled
 let g:webdevicons_enable_nerdtree = 1
 " whether or not to show the nerdtree brackets around flags
@@ -33,6 +55,38 @@ let g:webdevicons_enable_startify = 1
 " adding to flagship's statusline
 let g:webdevicons_enable_flagship_statusline = 1
 
+" enable open and close folder/directory glyph flags (disabled by default with 0)
+let g:DevIconsEnableFoldersOpenClose = 1
+" enable pattern matching glyphs on folder/directory (enabled by default with 1)
+let g:DevIconsEnableFolderPatternMatching = 1
+
+
+"NvimTree
+" vimrc
+
+" nnoremap <F2> :NvimTreeOpen<CR>
+" nnoremap <F3> :NvimTreeToggle<CR>
+" nnoremap <leader>r :NvimTreeRefresh<CR>
+" nnoremap <leader>n :NvimTreeFindFile<CR>
+" More available functions:
+" NvimTreeOpen
+" NvimTreeClose
+" NvimTreeFocus
+" NvimTreeFindFileToggle
+" NvimTreeResize
+
+"Neomake 
+" When writing a buffer (no delay).
+call neomake#configure#automake('w')
+" When writing a buffer (no delay), and on normal mode changes (after 750ms).
+call neomake#configure#automake('nw', 750)
+" When reading a buffer (after 1s), and when writing (no delay).
+call neomake#configure#automake('rw', 1000)
+" Full config: when writing or reading a buffer, and on changes in insert and
+" normal mode (after 500ms; no delay when writing).
+call neomake#configure#automake('nrwi', 500)
+
+hi rainbowcol1 guifg=#123456
 
 "Key Leader
 let mapleader=","
@@ -40,21 +94,24 @@ let mapleader=","
 " Open the existing NERDTree on each new tab.
 " COC plugins
 let g:coc_global_extensions = [
-      \'coc-json', 'coc-git', 'coc-pairs', 
+      \ 'coc-json', 'coc-git', 'coc-pairs', 
       \ 'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace',
-      \ 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint-plugin',
-      \ 'coc-jedi', 'coc-webpack', 'coc-pydocstring', 'coc-prettier', 'coc-pyright',
+      \ 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint',
+      \ 'coc-jedi', 'coc-webpack', 'coc-prettier', 'coc-pyright',
       \ 'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator',
       \ 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github',
-      \ 'coc-htmldjango', 'coc-angular', 'coc-eslint', 'coc-flutter', 'coc-flutter-tools']
+      \ 'coc-htmldjango', 'coc-angular', 'coc-eslint', 'coc-flutter', 'coc-flutter-tools',
+      \ 'coc-kotlin', 'coc-simple-react-snippets', 'coc-html-css-support', 'coc-tsdetect',
+      \ 'coc-sql', 'coc-vimlsp', 'coc-docker', 'coc-yaml', 'coc-phpls', 'coc-react-refactor', 
+      \ 'coc-omnisharp', 'coc-powershell', 'coc-java', 'coc-metals', 'coc-java-debug' ]
 
 
-"indent
-let g:indentLine_setColors = 0
-let g:indentLine_defaultGroup = 'SpecialKey'
-let g:indentLine_char_list = ['|', '¦', '┆', '┊',]
-let g:indentLine_bgcolor_gui = ''
-let g:indentLine_conceallevel = 2
+""indent
+"let g:indentLine_setColors = 0
+"let g:indentLine_defaultGroup = 'SpecialKey'
+"let g:indentLine_char_list = ['|', '¦', '┆', '┊',]
+"let g:indentLine_bgcolor_gui = ''
+"let g:indentLine_conceallevel = 2
 
 ""Syntaxis
 let g:syntastic_quiet_messages = { "type": "style" }
@@ -69,15 +126,11 @@ let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 " Fix files with prettier, and then ESLint.
 let b:ale_fixers = ['prettier', 'eslint']
 " Equivalent to the above.
-let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let b:ale_fixers = {'javascript': ['prettier', 'eslint'], 'jsx':['eslint','prettier']}
 
-"let g:ale_linters = {
-"      \   'python': ['flake8', 'pylint', 'pyright'],
-"      \   'ruby': ['standardrb', 'rubocop'],
-"      \   'javascript': ['eslint'],
-"      \}
+let g:ale_linters = {'javascript': ['eslint'], 'jsx':['eslint']}
 
-"" g:ale_disable_lsp = 0
+let g:ale_disable_lsp = 0
 
 
 
@@ -114,8 +167,19 @@ let g:javascript_conceal_arrow_function       = "⇒"
 let g:javascript_conceal_noarg_arrow_function = "🞅"
 let g:javascript_conceal_underscore_arrow_function = "🞅"
 
-set conceallevel=0
+" set conceallevel=1
 
+" React jsx
+let g:jsx_ext_required = 1
+let g:jsx_pragma_required = 1
+
+"javascript and React Syntaxis
+autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_underscore = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_backbone = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_prelude = 0
+autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 0
+let g:used_javascript_libs = 'underscore,backbone'
 
 "python sintaxys
 let g:python_highlight_class_vars = 1
@@ -138,8 +202,14 @@ let g:jedi#auto_vim_configuration = 1
 let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#show_call_signatures = "1"
 
-
-
+"senshi 
+"
+let g:semshi#filetypes = ['python']
+let g:semshi#excluded_hl_groups =  ['local']
+let g:semshi#mark_selected_nodes = 1
+let g:semshi#self_to_attribute = 'true'
+autocmd ColorScheme * call MyCustomHighlights()
+"
 "COC
 " diagnostics appear/become resolved.
 if has("nvim-0.5.0") || has("patch-8.1.1564")
@@ -285,6 +355,8 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
  
+
+"Tmux
 let g:tmux_navigator_no_mappings = 1
 
 nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
@@ -351,4 +423,6 @@ let g:vsnip_filetypes = {}
 let g:vsnip_filetypes.javascriptreact = ['javascript']
 let g:vsnip_filetypes.typescriptreact = ['typescript']
 
-
+"eslint 
+autocmd BufWritePre <buffer> <cmd>EslintFixAll<CR>
+"

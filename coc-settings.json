@@ -34,22 +34,25 @@
     "coc.preferences.colorSupport": true,
     "coc.preferences.formatOnSaveFiletypes": [
         "css",
+        "scss",
         "markdown",
         "html",
         "django",
-        "python",
-        "htmldjango",
-        "js",
-        "jsx",
         "javascript",
+        "javascript.jsx",
         "typescript",
         "typescriptreact",
         "json",
         "javascriptreact",
         "typescript.tsx",
+        "htmldjango",
+        "js",
+        "jsx",
         "graphql",
         "dart"
     ],
+    "tsserver.formatOnType": true,
+    "coc.preferences.formatOnType": true,
     "diagnostic-languageserver.filetypes": {
         "python": "flake8"
     },
@@ -112,5 +115,23 @@
         "reference": "\uf87a",
         "typeParameter": "\uf278",
         "default": "\uf29c"
-    }
+    },
+    "tsserver.enableJavascript": true,
+    "eslint.autoFixOnSave": true,
+    "eslint.format.enable": true,
+    "typescript.validate.enable": true,
+    "typescript.autoClosingTags": true,
+    "tsserver.trace.server": "verbose",
+    "languageserver": {
+        "flow": {
+            "command": "flow",
+            "args": ["lsp"],
+            "filetypes": ["javascript", "javascriptreact"],
+            "initializationOptions": {},
+            "requireRootPattern": true,
+            "settings": {},
+            "rootPatterns": [".flowconfig"]
+        }
+    },
+    "metals.javaHome": "/usr/lib/jvm/java-17-openjdk"
 }

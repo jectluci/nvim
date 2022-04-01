@@ -61,5 +61,8 @@ set shortmess+=c
 "completeopt COC
 set completeopt=menuone,noselect
 
+"wrap
+" set nowrap
+
 
 
