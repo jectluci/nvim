@@ -1,15 +1,6 @@
 ""theme
+" Vim-Script:
 colorscheme dracula
-" Enable/disable animations
-" let bufferline.animation = v:true
-" show the '~' characters after the end of buffers
-let g:dracula_show_end_of_buffer = 1
-" use transparent background
-let g:dracula_transparent_bg = 0
-" set custom lualine background color
-let g:dracula_lualine_bg_color = "#37355a"
-"-- set italic comment
-let g:dracula_italic_comment = 1
 
 "NErdTRee
 let NERDTreeShowHidden=1
@@ -103,7 +94,7 @@ let g:coc_global_extensions = [
       \ 'coc-htmldjango', 'coc-angular', 'coc-eslint', 'coc-flutter', 'coc-flutter-tools',
       \ 'coc-kotlin', 'coc-simple-react-snippets', 'coc-html-css-support', 'coc-tsdetect',
       \ 'coc-sql', 'coc-vimlsp', 'coc-docker', 'coc-yaml', 'coc-phpls', 'coc-react-refactor', 
-      \ 'coc-omnisharp', 'coc-powershell', 'coc-java', 'coc-metals', 'coc-java-debug' ]
+      \ 'coc-omnisharp', 'coc-powershell', 'coc-java', 'coc-java-debug', 'coc-db' ]
 
 
 ""indent
@@ -150,8 +141,8 @@ let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1
 
 augroup javascript_folding
-au!
-au FileType javascript setlocal foldmethod=syntax
+      au!
+      au FileType javascript setlocal foldmethod=syntax
 augroup END
 
 let g:javascript_conceal_function             = "ƒ"
@@ -167,7 +158,7 @@ let g:javascript_conceal_arrow_function       = "⇒"
 let g:javascript_conceal_noarg_arrow_function = "🞅"
 let g:javascript_conceal_underscore_arrow_function = "🞅"
 
-" set conceallevel=1
+set conceallevel=1
 
 " React jsx
 let g:jsx_ext_required = 1
@@ -204,11 +195,11 @@ let g:jedi#show_call_signatures = "1"
 
 "senshi 
 "
-let g:semshi#filetypes = ['python']
-let g:semshi#excluded_hl_groups =  ['local']
-let g:semshi#mark_selected_nodes = 1
-let g:semshi#self_to_attribute = 'true'
-autocmd ColorScheme * call MyCustomHighlights()
+" let g:semshi#filetypes = ['python']
+" let g:semshi#excluded_hl_groups =  ['local']
+" let g:semshi#mark_selected_nodes = 1
+" let g:semshi#self_to_attribute = 'true'
+" autocmd ColorScheme * call MyCustomHighlights()
 "
 "COC
 " diagnostics appear/become resolved.
@@ -413,10 +404,10 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 
 " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
 " See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
+" nmap        s   <Plug>(vsnip-select-text)
+" xmap        s   <Plug>(vsnip-select-text)
+" nmap        S   <Plug>(vsnip-cut-text)
+" xmap        S   <Plug>(vsnip-cut-text)
 
 "If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
 let g:vsnip_filetypes = {}
@@ -425,4 +416,10 @@ let g:vsnip_filetypes.typescriptreact = ['typescript']
 
 "eslint 
 autocmd BufWritePre <buffer> <cmd>EslintFixAll<CR>
+"
+"
+""Folding
+"set foldmethod=expr
+"set foldexpr=nvim_treesitter#foldexpr()
+"
 "

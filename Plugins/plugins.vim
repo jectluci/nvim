@@ -74,7 +74,7 @@ Plug 'lambdalisue/suda.vim'
 "-----------  Sintaxis -------------
 """syntastic
 Plug 'scrooloose/syntastic'
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
+" Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 Plug 'sheerun/vim-polyglot'
 Plug 'jparise/vim-graphql'
 Plug 'jelera/vim-javascript-syntax'
@@ -99,8 +99,10 @@ Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 Plug 'natebosch/dartlang-snippets'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
-" Plug 'hrsh7th/vim-vsnip'
-" Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
 "Snippets VSCode=>
 " Flutter
@@ -194,6 +196,8 @@ Plug 'jupyter-vim/jupyter-vim'
 
 "----------Desarrollo JAVA -----------
 Plug 'mikelue/vim-maven-plugin'
+Plug 'scalameta/nvim-metals'
+Plug 'mfussenegger/nvim-dap'
 
 "----------Desarrollo C++ -----------
 "c++
@@ -224,6 +228,9 @@ Plug 'elzr/vim-json'
 " Plug 'fantasyczl/smarty-vim'
 
 "----------Bases de datos -----------
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'kristijanhusak/vim-dadbod-completion'
 "
 "Postgresql
 Plug 'vim-scripts/dbext.vim'
