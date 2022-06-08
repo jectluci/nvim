@@ -28,10 +28,9 @@
         "venv"
     ],
     "suggest.noselect": false,
-    "prettier.eslintIntegration": true,
-    "prettier.tslintIntegration": true,
-    "prettier.tabWidth": 4,
-    "coc.preferences.colorSupport": true,
+    "tsserver.enable": true,
+    "prettier.enable": true,
+    "prettier.useTabs": true,
     "coc.preferences.formatOnSaveFiletypes": [
         "css",
         "scss",
@@ -117,11 +116,8 @@
         "default": "\uf29c"
     },
     "tsserver.enableJavascript": true,
-    "eslint.autoFixOnSave": true,
-    "eslint.format.enable": true,
     "typescript.validate.enable": true,
     "typescript.autoClosingTags": true,
-    "tsserver.trace.server": "verbose",
     "languageserver": {
         "flow": {
             "command": "flow",
@@ -132,6 +128,5 @@
             "settings": {},
             "rootPatterns": [".flowconfig"]
         }
-    },
-    "metals.javaHome": "/usr/lib/jvm/java-17-openjdk"
+    }
 }

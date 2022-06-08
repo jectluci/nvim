@@ -1,6 +1,15 @@
 ""theme
 " Vim-Script:
-colorscheme dracula
+colorscheme gruvbox
+
+let g:gruvbox_bold = 1
+let g:gruvbox_italic = 1
+let g:gruvbox_underline = 1
+let g:gruvbox_undercurl = 1
+let g:gruvbox_italicize_strings = 1
+let g:gruvbox_italicize_comments = 1
+let g:gruvbox_contrast_dark = "hard"
+
 
 "NErdTRee
 let NERDTreeShowHidden=1
@@ -66,18 +75,18 @@ let g:DevIconsEnableFolderPatternMatching = 1
 " NvimTreeFindFileToggle
 " NvimTreeResize
 
-"Neomake 
-" When writing a buffer (no delay).
-call neomake#configure#automake('w')
-" When writing a buffer (no delay), and on normal mode changes (after 750ms).
-call neomake#configure#automake('nw', 750)
-" When reading a buffer (after 1s), and when writing (no delay).
-call neomake#configure#automake('rw', 1000)
-" Full config: when writing or reading a buffer, and on changes in insert and
-" normal mode (after 500ms; no delay when writing).
-call neomake#configure#automake('nrwi', 500)
+""Neomake 
+"" When writing a buffer (no delay).
+"call neomake#configure#automake('w')
+"" When writing a buffer (no delay), and on normal mode changes (after 750ms).
+"call neomake#configure#automake('nw', 750)
+"" When reading a buffer (after 1s), and when writing (no delay).
+"call neomake#configure#automake('rw', 1000)
+"" Full config: when writing or reading a buffer, and on changes in insert and
+"" normal mode (after 500ms; no delay when writing).
+"call neomake#configure#automake('nrwi', 500)
 
-hi rainbowcol1 guifg=#123456
+" hi rainbowcol1 guifg=#123456
 
 "Key Leader
 let mapleader=","
@@ -193,14 +202,11 @@ let g:jedi#auto_vim_configuration = 1
 let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#show_call_signatures = "1"
 
-"senshi 
-"
-" let g:semshi#filetypes = ['python']
-" let g:semshi#excluded_hl_groups =  ['local']
-" let g:semshi#mark_selected_nodes = 1
-" let g:semshi#self_to_attribute = 'true'
-" autocmd ColorScheme * call MyCustomHighlights()
-"
+""virtualenv
+let g:virtualenv_directory = "/home/ject/.local/share/virtualenvs"
+
+
+
 "COC
 " diagnostics appear/become resolved.
 if has("nvim-0.5.0") || has("patch-8.1.1564")

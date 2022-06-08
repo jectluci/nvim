@@ -1,10 +1,13 @@
 call plug#begin('~/.config/nvim/plugged/')
 
 "----------  interface  ------------
+"Config
+Plug 'editorconfig/editorconfig-vim'
+"
 "THemes
 " Plug 'joshdick/onedark.vim'
-" Plug 'morhetz/gruvbox'
-Plug 'Mofiqul/dracula.nvim'
+Plug 'morhetz/gruvbox'
+" Plug 'Mofiqul/dracula.nvim'
 
 "Status bar
 Plug 'nvim-lualine/lualine.nvim'
@@ -33,7 +36,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
 "
 "EasyMotion
-Plug 'easymotion/vim-easymotion'
+"Plug 'easymotion/vim-easymotion'
 "
 "Tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -76,8 +79,8 @@ Plug 'lambdalisue/suda.vim'
 Plug 'scrooloose/syntastic'
 " Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 Plug 'sheerun/vim-polyglot'
-Plug 'jparise/vim-graphql'
-Plug 'jelera/vim-javascript-syntax'
+"Plug 'jparise/vim-graphql'
+"Plug 'jelera/vim-javascript-syntax'
 Plug 'neomake/neomake'
 " Plug 'othree/es.next.syntax.vim/issues'
 
@@ -130,23 +133,23 @@ Plug 'ap/vim-css-color'
 Plug 'hail2u/vim-css3-syntax'
 
 ""SCSS
-Plug 'tpope/vim-haml'
+"Plug 'tpope/vim-haml'
 "Plug 'shmargum/vim-sass-colors'
 
 ""SASS
-Plug 'AtsushiM/sass-compile.vim'
+"Plug 'AtsushiM/sass-compile.vim'
 "Plug 'AtsushiM/search-parent.vim'
 
 ""javascript && typescript && Angular
 Plug 'yuezk/vim-js'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 "javascript
-Plug 'pangloss/vim-javascript'
+"Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'othree/yajs.vim'
+"Plug 'othree/yajs.vim'
 "typescript
-Plug 'leafgarland/typescript-vim'
+"Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 "Angular
 "React
@@ -171,19 +174,19 @@ Plug 'PieterjanMontens/vim-pipenv'
 Plug 'fisadev/vim-isort'
 
 """Django
-Plug 'tweekmonster/django-plus.vim'
+"Plug 'tweekmonster/django-plus.vim'
 ""Jupyter
-Plug 'jupyter-vim/jupyter-vim'
+"Plug 'jupyter-vim/jupyter-vim'
 
 
 "----------Desarrollo Mobil -----------
 "flutter
- Plug 'nvim-lua/plenary.nvim'
- Plug 'akinsho/flutter-tools.nvim'
- Plug 'dart-lang/dart-vim-plugin'
- Plug 'thosakwe/vim-flutter'
- Plug 'natebosch/vim-lsc'
- Plug 'natebosch/vim-lsc-dart'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'akinsho/flutter-tools.nvim'
+" Plug 'dart-lang/dart-vim-plugin'
+" Plug 'thosakwe/vim-flutter'
+" Plug 'natebosch/vim-lsc'
+" Plug 'natebosch/vim-lsc-dart'
 
 ""Swift
 "Plug 'keith/swift.vim' " syntax highlighting
@@ -201,18 +204,20 @@ Plug 'mfussenegger/nvim-dap'
 
 "----------Desarrollo C++ -----------
 "c++
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+"Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 "----------Desarrollo C# -----------
 "c++
 Plug 'omnisharp/omnisharp-vim'
+Plug 'nickspoons/vim-sharpenup'
 Plug 'OrangeT/vim-csharp'
+Plug 'nickspoons/vim-sharpenup'
 "
 "
 "----------Docker -----------
-" Plug 'docker/docker'
-" Plug 'ekalinin/dockerfile.vim'
-" Plug 'kevinhui/vim-docker-tools'
+Plug 'docker/docker'
+Plug 'ekalinin/dockerfile.vim'
+Plug 'kevinhui/vim-docker-tools'
 
 "----------YAML -----------
 Plug 'stephpy/vim-yaml'
@@ -233,8 +238,8 @@ Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'kristijanhusak/vim-dadbod-completion'
 "
 "Postgresql
-Plug 'vim-scripts/dbext.vim'
-Plug 'lifepillar/pgsql.vim'
+"Plug 'vim-scripts/dbext.vim'
+"Plug 'lifepillar/pgsql.vim'
 
 
 "----------SVN-----------
@@ -250,12 +255,15 @@ Plug 'folke/lsp-colors.nvim'
 Plug 'liuchengxu/vista.vim'
 
 " Autocompletado de lsp
-" Plug 'prabirshrestha/asyncomplete.vim'
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-" Plug 'Shougo/ddc.vim'
-" Plug 'shun/ddc-vim-lsp'
+Plug 'Shougo/ddc.vim'
+Plug 'shun/ddc-vim-lsp'
 
+"------Plugins de cargado Para mas rapido---------
+Plug 'nathom/filetype.nvim'
+Plug 'lewis6991/impatient.nvim'
 
 
 
