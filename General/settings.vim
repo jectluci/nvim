@@ -62,7 +62,8 @@ set shortmess+=c
 set completeopt=menuone,noselect
 
 "wrap
-" set nowrap
+set nowrap
+
 
 
 

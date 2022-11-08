@@ -1,403 +1,358 @@
-----THemes
-----Global Settings
---vim.opt_global.completeopt = { "menu", "noinsert", "noselect" }
---vim.opt_global.shortmess:remove("F"):append("c")
----- Lua:
---vim.cmd[[colorscheme dracula]]
----- customize dracula color palette
---vim.g.dracula_colors = {
---  bg = "#282A36",
---  fg = "#F8F8F2",
---  selection = "#44475A",
---  comment = "#6272A4",
---  red = "#FF5555",
---  orange = "#FFB86C",
---  yellow = "#F1FA8C",
---  green = "#50fa7b",
---  purple = "#BD93F9",
---  cyan = "#8BE9FD",
---  pink = "#FF79C6",
---  bright_red = "#FF6E6E",
---  bright_green = "#69FF94",
---  bright_yellow = "#FFFFA5",
---  bright_blue = "#D6ACFF",
---  bright_magenta = "#FF92DF",
---  bright_cyan = "#A4FFFF",
---  bright_white = "#FFFFFF",
---  menu = "#21222C",
---  visual = "#3E4452",
---  gutter_fg = "#4B5263",
---  nontext = "#3B4048",
---}
----- show the '~' characters after the end of buffers
---vim.g.dracula_show_end_of_buffer = true
----- use transparent background
---vim.g.dracula_transparent_bg = true
----- set custom lualine background color
----- vim.g.dracula_lualine_bg_color = "#44475a"
----- set italic comment
---vim.g.dracula_italic_comment = true
-
---lualine
--- require('lualine').setup {
---   options = {
---    icons_enabled = true,
---     theme = 'gruvbox',
---     section_separators = { left = '', right = ''},
---     component_separators = {left = '', right = ''},
---     disabled_filetypes = {},
---     always_divide_middle = true
---   },
---   sections = {
---     lualine_a = {'mode'},
---     lualine_b = {'branch', 'diff', 'diagnostics'},
---     lualine_c = {'filename'},
---     lualine_x = {'encoding', 'fileformat', 'filetype'},
---     lualine_y = {'progress'},
---     lualine_z = {'location'}
---   },
---   inactive_sections = {
---     lualine_a = {},
---     lualine_b = {},
---     lualine_c = {'filename'},
---     lualine_x = {'location'},
---     lualine_y = {},
---     lualine_z = {}
---   },
---   tabline = {},
---   extensions = {}
--- }
-
--- Eviline config for lualine
--- Author: shadmansaleh
--- Credit: glepnir
-local lualine = require('lualine')
-
--- Color table for highlights
--- stylua: ignore
-local colors = {
-  bg       = '#202328',
-  fg       = '#bbc2cf',
-  yellow   = '#ECBE7B',
-  cyan     = '#008080',
-  darkblue = '#081633',
-  green    = '#98be65',
-  orange   = '#FF8800',
-  violet   = '#a9a1e1',
-  magenta  = '#c678dd',
-  blue     = '#51afef',
-  red      = '#ec5f67',
-}
-
-local conditions = {
-  buffer_not_empty = function()
-    return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
-  end,
-  hide_in_width = function()
-    return vim.fn.winwidth(0) > 80
-  end,
-  check_git_workspace = function()
-    local filepath = vim.fn.expand('%:p:h')
-    local gitdir = vim.fn.finddir('.git', filepath .. ';')
-    return gitdir and #gitdir > 0 and #gitdir < #filepath
-  end,
-}
-
--- Config
-local config = {
-  options = {
-    -- Disable sections and component separators
-    component_separators = '',
-    section_separators = '',
-    theme = {
-      -- We are going to use lualine_c an lualine_x as left and
-      -- right section. Both are highlighted by c theme .  So we
-      -- are just setting default looks o statusline
-      normal = { c = { fg = colors.fg, bg = colors.bg } },
-      inactive = { c = { fg = colors.fg, bg = colors.bg } },
-    },
-  },
-  sections = {
-    -- these are to remove the defaults
-    lualine_a = {},
-    lualine_b = {},
-    lualine_y = {},
-    lualine_z = {},
-    -- These will be filled later
-    lualine_c = {},
-    lualine_x = {},
-  },
-  inactive_sections = {
-    -- these are to remove the defaults
-    lualine_a = {},
-    lualine_b = {},
-    lualine_y = {},
-    lualine_z = {},
-    lualine_c = {},
-    lualine_x = {},
-  },
-}
-
--- Inserts a component in lualine_c at left section
-local function ins_left(component)
-  table.insert(config.sections.lualine_c, component)
-end
-
--- Inserts a component in lualine_x ot right section
-local function ins_right(component)
-  table.insert(config.sections.lualine_x, component)
-end
-
-ins_left {
-  function()
-    return '▊'
-  end,
-  color = { fg = colors.blue }, -- Sets highlighting of component
-  padding = { left = 0, right = 1 }, -- We don't need space before this
-}
-
-ins_left {
-  -- mode component
-  function()
-    return ''
-  end,
-  color = function()
-    -- auto change color according to neovims mode
-    local mode_color = {
-      n = colors.red,
-      i = colors.green,
-      v = colors.blue,
-      [''] = colors.blue,
-      V = colors.blue,
-      c = colors.magenta,
-      no = colors.red,
-      s = colors.orange,
-      S = colors.orange,
-      [''] = colors.orange,
-      ic = colors.yellow,
-      R = colors.violet,
-      Rv = colors.violet,
-      cv = colors.red,
-      ce = colors.red,
-      r = colors.cyan,
-      rm = colors.cyan,
-      ['r?'] = colors.cyan,
-      ['!'] = colors.red,
-      t = colors.red,
+--THemes
+vim.o.background = "dark" -- or "light" for light mode
+-- setup must be called before loading the colorscheme
+-- Default options:
+require("gruvbox").setup(
+    {
+        undercurl = true,
+        underline = true,
+        bold = true,
+        italic = true,
+        strikethrough = true,
+        invert_selection = false,
+        invert_signs = false,
+        invert_tabline = false,
+        invert_intend_guides = false,
+        inverse = true, -- invert background for search, diffs, statuslines and errors
+        contrast = "hard", -- can be "hard", "soft" or empty string
+        palette_overrides = {},
+        overrides = {},
+        dim_inactive = false,
+        transparent_mode = false
     }
-    return { fg = mode_color[vim.fn.mode()] }
-  end,
-  padding = { right = 1 },
+)
+vim.cmd("colorscheme gruvbox")
+-- Lua
+-- Example config in Lua
+-- require("onedark").setup({
+--   functionStyle = "italic",
+--   sidebars = {"qf", "vista_kind", "terminal", "packer"},
+
+--   -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+--   colors = {hint = "orange", error = "#ff0000"}
+-- })
+--Global Settings
+vim.opt_global.completeopt = {"menu", "noinsert", "noselect"}
+vim.opt_global.shortmess:remove("F"):append("c")
+-- Lua:
+require("lualine").setup {
+    options = {
+        icons_enabled = true,
+        theme = "gruvbox",
+        component_separators = {left = "", right = ""},
+        section_separators = {left = "", right = ""},
+        disabled_filetypes = {
+            statusline = {},
+            winbar = {}
+        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = true,
+        refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000
+        }
+    },
+    sections = {
+        lualine_a = {"mode"},
+        lualine_b = {"branch", "diff", "diagnostics"},
+        lualine_c = {"filename"},
+        lualine_x = {"encoding", "fileformat", "filetype"},
+        lualine_y = {"progress"},
+        lualine_z = {"location"}
+    },
+    inactive_sections = {
+        lualine_a = {"g:coc_status", "bo:filetype"},
+        lualine_b = {},
+        lualine_c = {"filename"},
+        lualine_x = {"location"},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {},
+    winbar = {
+        lualine_a = {
+            {
+                "windows",
+                show_filename_only = true, -- Shows shortened relative path when set to false.
+                show_modified_status = true, -- Shows indicator when the window is modified.
+                mode = 0, -- 0: Shows window name
+                -- 1: Shows window index
+                -- 2: Shows window name + window index
+
+                max_length = vim.o.columns * 2 / 3, -- Maximum width of windows component,
+                -- it can also be a function that returns
+                -- the value of `max_length` dynamically.
+                filetype_names = {
+                    TelescopePrompt = "Telescope",
+                    dashboard = "Dashboard",
+                    packer = "Packer",
+                    fzf = "FZF",
+                    alpha = "Alpha"
+                }, -- Shows specific window name for that filetype ( { `filetype` = `window_name`, ... } )
+                disabled_buftypes = {"quickfix", "prompt"}, -- Hide a window if its buffer's type is disabled
+                windows_color = {
+                    -- Same values as the general color option can be used here.
+                    active = "lualine_{section}_normal", -- Color for active window.
+                    inactive = "lualine_{section}_inactive" -- Color for inactive window.
+                }
+            }
+        },
+        lualine_b = {},
+        lualine_c = {"filename"},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    inactive_winbar = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {"filename"},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    extensions = {}
 }
 
-ins_left {
-  -- filesize component
-  'filesize',
-  cond = conditions.buffer_not_empty,
-}
-
-ins_left {
-  'filename',
-  cond = conditions.buffer_not_empty,
-  color = { fg = colors.magenta, gui = 'bold' },
-}
-
-ins_left { 'location' }
-
-ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
-
-ins_left {
-  'diagnostics',
-  sources = { 'nvim_diagnostic' },
-  symbols = { error = ' ', warn = ' ', info = ' ' },
-  diagnostics_color = {
-    color_error = { fg = colors.red },
-    color_warn = { fg = colors.yellow },
-    color_info = { fg = colors.cyan },
-  },
-}
-
--- Insert mid section. You can make any number of sections in neovim :)
--- for lualine it's any number greater then 2
-ins_left {
-  function()
-    return '%='
-  end,
-}
-
-ins_left {
-  -- Lsp server name .
-  function()
-    local msg = 'No Active Lsp'
-    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    local clients = vim.lsp.get_active_clients()
-    if next(clients) == nil then
-      return msg
-    end
-    for _, client in ipairs(clients) do
-      local filetypes = client.config.filetypes
-      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client.name
-      end
-    end
-    return msg
-  end,
-  icon = ' LSP:',
-  color = { fg = '#ffffff', gui = 'bold' },
-}
-
--- Add components to right sections
-ins_right {
-  'o:encoding', -- option component same as &encoding in viml
-  fmt = string.upper, -- I'm not sure why it's upper case either ;)
-  cond = conditions.hide_in_width,
-  color = { fg = colors.green, gui = 'bold' },
-}
-
-ins_right {
-  'fileformat',
-  fmt = string.upper,
-  icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-  color = { fg = colors.green, gui = 'bold' },
-}
-
-ins_right {
-  'branch',
-  icon = '',
-  color = { fg = colors.violet, gui = 'bold' },
-}
-
-ins_right {
-  'diff',
-  -- Is it me or the symbol for modified us really weird
-  symbols = { added = ' ', modified = '柳 ', removed = ' ' },
-  diff_color = {
-    added = { fg = colors.green },
-    modified = { fg = colors.orange },
-    removed = { fg = colors.red },
-  },
-  cond = conditions.hide_in_width,
-}
-
-ins_right {
-  function()
-    return '▊'
-  end,
-  color = { fg = colors.blue },
-  padding = { left = 1 },
-}
-
--- Now don't forget to initialize lualine
-lualine.setup(config)
-
-
---
 --Tabbar
 vim.opt.termguicolors = true
-require('luatab').setup{}
-
-
+require("bufferline").setup {
+    options = {
+        mode = "tabs",
+        numbers = "ordinal",
+        diagnostics = "nvim_lsp"
+    }
+}
 
 ---Icons
--- require("nvim-web-devicons").set_default_icon('', '#6d8086')
--- require'nvim-web-devicons'.setup {
---  override = {
---   zsh = {
---     icon = "",
---     color = "#428850",
---     name = "Zsh"
---   },
---   angular={
---     icon = "",
---     color = "#E23237"
---   },
---   git={
---     icon = "",
---     color = "#F14C28",
---     cterm_color = "202",
---     name = "GitLogo",
---   }
---  };
---  defaults = true;
--- }
+require("nvim-web-devicons").set_default_icon("", "#6d8086")
+require "nvim-web-devicons".setup {
+    override = {
+        zsh = {
+            icon = "",
+            color = "#428850",
+            name = "Zsh"
+        },
+        angular = {
+            icon = "",
+            color = "#E23237"
+        },
+        git = {
+            icon = "",
+            color = "#F14C28",
+            cterm_color = "202",
+            name = "GitLogo"
+        }
+    },
+    defaults = true
+}
 
--- require("nvim-web-devicons").set_icon{
---   htm={
---     icon="",
---     color = "#428850",
---     cterm_color = "65",
---     name = "Htm",
---   },
---   html={
---     icon="",
---     color = "#428850",
---     cterm_color = "65",
---     name = "Html",
---   }
--- }
+require("nvim-web-devicons").set_icon {
+    htm = {
+        icon = "",
+        color = "#428850",
+        cterm_color = "65",
+        name = "Htm"
+    },
+    html = {
+        icon = "",
+        color = "#428850",
+        cterm_color = "65",
+        name = "Html"
+    }
+}
 
-require'nvim-web-devicons'.has_loaded()
-
-
+require "nvim-web-devicons".has_loaded()
 
 --Icons Nerdtree
 
-require'nvim-web-devicons'.get_icons()
-
-
---LspConfig
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.jedi_language_server.setup{}
-require'lspconfig'.pylsp.setup{}
-require'lspconfig'.yamlls.setup{}
-require'lspconfig'.cssmodules_ls.setup{}
-require'lspconfig'.eslint.setup{}
-require'lspconfig'.dockerls.setup{}
-require'lspconfig'.cssmodules_ls.setup{}
-require'lspconfig'.java_language_server.setup{}
-
+require "nvim-web-devicons".get_icons()
 
 --LspConfig color
 -- Lua
-require("lsp-colors").setup({
-  Error = "#db4b4b",
-  Warning = "#e0af68",
-  Information = "#0db9d7",
-  Hint = "#10B981"
-})
+require("lsp-colors").setup(
+    {
+        Error = "#db4b4b",
+        Warning = "#e0af68",
+        Information = "#0db9d7",
+        Hint = "#10B981"
+    }
+)
 
-require'nvim-treesitter.configs'.setup {
-  highlight={
-    enable = true,
-    disable = { "css","html" }
-  },
-  rainbow = {
-    enable = false,
-    disable={"html"},
-    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-    max_file_lines = nil, -- Do not enable for files with more than n lines, int
-    colors = {}, -- table of hex strings
-    termcolors = {} -- table of colour name strings
-  }
+require "nvim-treesitter.configs".setup {
+    highlight = {
+        enable = true,
+        disable = {"css", "html"}
+    },
+    rainbow = {
+        enable = true,
+        disable = {"html"},
+        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+        max_file_lines = nil -- Do not enable for files with more than n lines, int
+        -- colors = {}, -- table of hex strings
+        -- termcolors = {} -- table of colour name strings
+    }
 }
-
-
-
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
 
 require("indent_blankline").setup {
-    show_end_of_line = true,
+    show_end_of_line = true
 }
 
+local cmp = require "cmp"
 
---flutter
--- require("flutter-tools").setup{} -- use defaults
+cmp.setup(
+    {
+        snippet = {
+            -- REQUIRED - you must specify a snippet engine
+            expand = function(args)
+                vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+                -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+                -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+            end
+        },
+        window = {},
+        mapping = cmp.mapping.preset.insert(
+            {
+                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                ["<C-Space>"] = cmp.mapping.complete(),
+                ["<C-e>"] = cmp.mapping.abort(),
+                ["<CR>"] = cmp.mapping.confirm({select = true}) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+            }
+        ),
+        sources = cmp.config.sources(
+            {
+                {name = "nvim_lsp"},
+                {name = "vsnip"} -- For vsnip users.
+                -- { name = 'luasnip' }, -- For luasnip users.
+                -- { name = 'ultisnips' }, -- For ultisnips users.
+                -- { name = 'snippy' }, -- For snippy users.
+            },
+            {
+                {name = "buffer"}
+            }
+        )
+    }
+)
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype(
+    "gitcommit",
+    {
+        sources = cmp.config.sources(
+            {
+                {name = "cmp_git"} -- You can specify the `cmp_git` source if you were installed it.
+            },
+            {
+                {name = "buffer"}
+            }
+        )
+    }
+)
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(
+    "/",
+    {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+            {name = "buffer"}
+        }
+    }
+)
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(
+    ":",
+    {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources(
+            {
+                {name = "path"}
+            },
+            {
+                {name = "cmdline"}
+            }
+        )
+    }
+)
+
+-- Setup lspconfig.
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+require("lspconfig")["<YOUR_LSP_SERVER>"].setup {
+    capabilities = capabilities
+}
 
 ---DBUI
 vim.g.db_ui_use_nerd_fonts = 1
 
+--hierarchy-tree-go
+require("hierarchy-tree-go").setup(
+    {
+        icon = {
+            fold = "", -- fold icon
+            unfold = "", -- unfold icon
+            func = "₣", -- symbol
+            last = "☉" -- last level icon
+        },
+        hl = {
+            current_module = "guifg=Green", -- highlight cwd module line
+            others_module = "guifg=Black", -- highlight others module line
+            cursorline = "guibg=Gray guifg=White" -- hl  window cursorline
+        },
+        keymap = {
+            --global keymap
+            incoming = "<space>fi", -- call incoming under cursorword
+            outgoing = "<space>fo", -- call outgoing under cursorword
+            open = "<space>ho", -- open hierarchy win
+            close = "<space>hc", -- close hierarchy win
+            -- focus: if hierarchy win is valid but is not current win, set to current win
+            -- focus: if hierarchy win is valid and is current win, close
+            -- focus  if hierarchy win not existing,open and focus
+            focus = "<space>fu",
+            -- bufkeymap
+            expand = "o", -- expand or collapse hierarchy
+            jump = "<CR>", -- jump
+            move = "<space><space>" -- switch the hierarchy window position, must be current win
+        }
+    }
+)
 
---impatient
-require'impatient'.enable_profile()
-
+---Tidy
+require("tidy").setup(
+    {
+        filetype_exclude = {"markdown", "diff"}
+        -- filetype_exclude = { "html","diff" },
+    }
+)
+--Discord
+-- The setup config table shows all available config options with their default values:
+require("presence"):setup(
+    {
+        -- General options
+        auto_update = true, -- Update activity based on autocmd events (if `false`, map or manually execute `:lua package.loaded.presence:update()`)
+        neovim_image_text = "The One True Text Editor", -- Text displayed when hovered over the Neovim image
+        main_image = "neovim", -- Main image display (either "neovim" or "file")
+        client_id = "793271441293967371", -- Use your own Discord application client id (not recommended)
+        log_level = nil, -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
+        debounce_timeout = 10, -- Number of seconds to debounce events (or calls to `:lua package.loaded.presence:update(<filename>, true)`)
+        enable_line_number = false, -- Displays the current line number instead of the current project
+        blacklist = {}, -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
+        buttons = true, -- Configure Rich Presence button(s), either a boolean to enable/disable, a static table (`{{ label = "<label>", url = "<url>" }, ...}`, or a function(buffer: string, repo_url: string|nil): table)
+        file_assets = {}, -- Custom file asset definitions keyed by file names and extensions (see default config at `lua/presence/file_assets.lua` for reference)
+        -- Rich Presence text options
+        editing_text = "Editing %s", -- Format string rendered when an editable file is loaded in the buffer (either string or function(filename: string): string)
+        file_explorer_text = "Browsing %s", -- Format string rendered when browsing a file explorer (either string or function(file_explorer_name: string): string)
+        git_commit_text = "Committing changes", -- Format string rendered when committing changes in git (either string or function(filename: string): string)
+        plugin_manager_text = "Managing plugins", -- Format string rendered when managing plugins (either string or function(plugin_manager_name: string): string)
+        reading_text = "Reading %s", -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer (either string or function(filename: string): string)
+        workspace_text = "Working on %s", -- Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
+        line_number_text = "Line %s out of %s" -- Format string rendered when `enable_line_number` is set to true (either string or function(line_number: number, line_count: number): string)
+    }
+)
