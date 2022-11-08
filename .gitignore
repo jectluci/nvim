@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-autoload/
 
 # C extensions
 *.so
@@ -128,5 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
+# nvim
 /plugged/
+autoload/
