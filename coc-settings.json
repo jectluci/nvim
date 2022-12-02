@@ -8,6 +8,10 @@
 	"tsserver.enableJavascript": true,
 	"typescript.validate.enable": true,
 	"typescript.autoClosingTags": true,
+	"eslint.run": true,
+	"eslint.autoFixOnSave": true,
+	"html-css-support.enable": true,
+	"emmet.includeLanguages": { "javascript": "javascriptreact" },
 	"languageserver": {
 		"flow": {
 			"command": "flow",
@@ -18,5 +22,6 @@
 			"settings": {},
 			"rootPatterns": [".flowconfig"]
 		}
-	}
+  },
+  "snippets.ultisnips.pythonPrompt": false
 }
