@@ -2,7 +2,10 @@ call plug#begin('~\AppData\Local\nvim\plugged\')
 
 "----------  interface  ------------
 "THemes
-Plug 'ellisonleao/gruvbox.nvim'
+" Plug 'ellisonleao/gruvbox.nvim'
+
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+
 "Status bar
 Plug 'nvim-lualine/lualine.nvim'
 " Plug 'itchyny/lightline.vim'
