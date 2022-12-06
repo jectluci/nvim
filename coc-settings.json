@@ -1,0 +1,27 @@
+{
+	"tsserver.formatOnType": true,
+	"coc.preferences.formatOnType": true,
+	"suggest.noselect": false,
+	"tsserver.enable": true,
+	"prettier.enable": true,
+	"prettier.useTabs": true,
+	"tsserver.enableJavascript": true,
+	"typescript.validate.enable": true,
+	"typescript.autoClosingTags": true,
+	"eslint.run": true,
+	"eslint.autoFixOnSave": true,
+	"html-css-support.enable": true,
+	"emmet.includeLanguages": { "javascript": "javascriptreact" },
+	"languageserver": {
+		"flow": {
+			"command": "flow",
+			"args": ["lsp"],
+			"filetypes": ["javascript", "javascriptreact"],
+			"initializationOptions": {},
+			"requireRootPattern": true,
+			"settings": {},
+			"rootPatterns": [".flowconfig"]
+		}
+  },
+  "snippets.ultisnips.pythonPrompt": false
+}
