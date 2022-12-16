@@ -1,5 +1,5 @@
 ""theme
-syntax on
+" syntax on
 " colorscheme gruvbox
 "NErdTRee
 let NERDTreeShowHidden=1
@@ -15,17 +15,8 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 nnoremap gn :tabprevious<CR>
 nnoremap gt :tabnext<CR>
 
-""Status bar
-"let g:lightline = {
-"      \ 'colorscheme': 'gruvbox',
-"      \ 'active': {
-"      \   'left': [ [ 'mode', 'paste' ],
-"      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-"      \ },
-"      \ 'component_function': {
-"      \   'gitbranch': 'FugitiveHead'
-"      \ },
-"      \ }
+
+
 
 
 "devicons
@@ -63,20 +54,6 @@ let g:DevIconsEnableFoldersOpenClose = 1
 let g:DevIconsEnableFolderPatternMatching = 1
 
 
-"NvimTree
-" vimrc
-
-" nnoremap <F2> :NvimTreeOpen<CR>
-" nnoremap <F3> :NvimTreeToggle<CR>
-" nnoremap <leader>r :NvimTreeRefresh<CR>
-" nnoremap <leader>n :NvimTreeFindFile<CR>
-" More available functions:
-" NvimTreeOpen
-" NvimTreeClose
-" NvimTreeFocus
-" NvimTreeFindFileToggle
-" NvimTreeResize
-
 "Neomake
 " When writing a buffer (no delay).
 call neomake#configure#automake('w')
@@ -104,7 +81,7 @@ let g:coc_global_extensions = [
       \ 'coc-htmldjango', 'coc-angular', 'coc-eslint', 'coc-flutter', 'coc-flutter-tools',
       \ 'coc-kotlin', 'coc-simple-react-snippets', 'coc-html-css-support', 'coc-tsdetect',
       \ 'coc-sql', 'coc-vimlsp', 'coc-docker', 'coc-yaml', 'coc-phpls', 'coc-blade', 'coc-blade-formatter', 'coc-react-refactor',
-      \ 'coc-omnisharp', 'coc-powershell', 'coc-java', 'coc-java-debug', 'coc-db', 'coc-tabnine']
+      \ 'coc-omnisharp', 'coc-powershell', 'coc-java', 'coc-java-debug', 'coc-db', 'coc-tabnine', 'coc-symbol-line']
 
 ""indent
 "let g:indentLine_setColors = 0
@@ -181,8 +158,8 @@ set conceallevel=0
 
 
 " React jsx
-" let g:jsx_ext_required = 1
-" let g:jsx_pragma_required = 1
+let g:jsx_ext_required = 1
+let g:jsx_pragma_required = 1
 
 "javascript and React Syntaxis
 autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
@@ -351,7 +328,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.

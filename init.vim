@@ -1,5 +1,3 @@
-syntax on
-
 source ~\AppData\Local\nvim\gnvimqt.vim
 source ~\AppData\Local\nvim\General\settings.vim
 source ~\AppData\Local\nvim\General\providers.vim

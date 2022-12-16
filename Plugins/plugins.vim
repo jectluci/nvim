@@ -2,9 +2,8 @@ call plug#begin('~\AppData\Local\nvim\plugged\')
 
 "----------  interface  ------------
 "THemes
-" Plug 'ellisonleao/gruvbox.nvim'
-
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'uloco/bluloco.nvim',
+Plug 'rktjmp/lush.nvim'
 
 "Status bar
 Plug 'nvim-lualine/lualine.nvim'
@@ -99,30 +98,27 @@ Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 ""Snippets
 Plug 'natebosch/dartlang-snippets'
 Plug 'sirver/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
 " For luasnip users.
- Plug 'L3MON4D3/LuaSnip'
- Plug 'saadparwaiz1/cmp_luasnip'
+" Plug 'L3MON4D3/LuaSnip'
+" Plug 'saadparwaiz1/cmp_luasnip'
 
 " For ultisnips users.
- Plug 'SirVer/ultisnips'
- Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+" Plug 'SirVer/ultisnips'
+" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 " For snippy users.
- Plug 'dcampos/nvim-snippy'
- Plug 'dcampos/cmp-snippy'
+" Plug 'dcampos/nvim-snippy'
+" Plug 'dcampos/cmp-snippy'
 
 "Snippets VSCode=>
 " Flutter
@@ -188,7 +184,7 @@ Plug 'ambv/black'
 Plug 'plytophogy/vim-virtualenv'
 Plug 'PieterjanMontens/vim-pipenv'
 "" --
-Plug 'fisadev/vim-isort'
+" Plug 'fisadev/vim-isort'
 
 """Django
 Plug 'tweekmonster/django-plus.vim'

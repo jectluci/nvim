@@ -10,18 +10,36 @@
 	"typescript.autoClosingTags": true,
 	"eslint.run": true,
 	"eslint.autoFixOnSave": true,
+	"eslint.enable": true,
 	"html-css-support.enable": true,
 	"emmet.includeLanguages": { "javascript": "javascriptreact" },
-	"languageserver": {
-		"flow": {
-			"command": "flow",
-			"args": ["lsp"],
-			"filetypes": ["javascript", "javascriptreact"],
-			"initializationOptions": {},
-			"requireRootPattern": true,
-			"settings": {},
-			"rootPatterns": [".flowconfig"]
-		}
-  },
-  "snippets.ultisnips.pythonPrompt": false
+	"javascript.showDeprecated": true,
+	"javascript.showUnused": true,
+	"javascript.autoClosingTags": true,
+	"javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+	"snippets.ultisnips.pythonPrompt": false,
+	"suggest.completionItemKindLabels": {
+		"variable": "\uf71b",
+		"constant": "\uf8ff",
+		"struct": "\ufb44",
+		"class": "\uf0e8",
+		"interface": "\ufa52",
+		"text": "\ue612",
+		"enum": "\uf435",
+		"enumMember": "\uf02b",
+		"color": "\ue22b",
+		"property": "\ufab6",
+		"field": "\uf93d",
+		"unit": "\uf475",
+		"file": "\uf471",
+		"value": "\uf8a3",
+		"event": "\ufacd",
+		"folder": "\uf115",
+		"keyword": "\uf893",
+		"snippet": "\uf64d",
+		"operator": "\uf915",
+		"reference": "\uf87a",
+		"typeParameter": "\uf278",
+		"default": "\uf29c"
+	}
 }

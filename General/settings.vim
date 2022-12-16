@@ -59,7 +59,7 @@ set shortmess+=c
 " Always show the signcolumn, otherwise it would shift the text each time
 
 "completeopt COC
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 
 "wrap
 set nowrap

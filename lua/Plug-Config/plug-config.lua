@@ -1,85 +1,18 @@
 --THemes
--- vim.o.background = "dark" -- or "light" for light mode
--- setup must be called before loading the colorscheme
--- Default options:
--- require("gruvbox").setup(
---     {
---         undercurl = true,
---         underline = true,
---         bold = true,
---         italic = true,
---         strikethrough = true,
---         invert_selection = false,
---         invert_signs = false,
---         invert_tabline = false,
---         invert_intend_guides = false,
---         inverse = true, -- invert background for search, diffs, statuslines and errors
---         contrast = "soft", -- can be "hard", "soft" or empty string
---         palette_overrides = {},
---         overrides = {},
---         dim_inactive = false,
---         transparent_mode = false
---     }
--- )
--- vim.cmd("colorscheme gruvbox")
 -- Lua
--- Example config in Lua
--- require("onedark").setup({
---   functionStyle = "italic",
---   sidebars = {"qf", "vista_kind", "terminal", "packer"},
-
---   -- Change the "hint" color to the "orange" color, and make the "error" color bright red
---   colors = {hint = "orange", error = "#ff0000"}
--- })
--- Lua
-vim.cmd[[colorscheme tokyonight]]
-
-require("tokyonight").setup({
-  -- your configuration comes here
-  -- or leave it empty to use the default settings
-  style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-  light_style = "day", -- The theme comes in three styles, `used when the background is set to light
-  transparent = false, -- Enable this to disable setting the background color
-  terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
-  styles = {
-    -- Style to be applied to different syntax groups
-    -- Value is any valid attr-list value for `:help nvim_set_hl`
-    comments = { italic = true },
-    keywords = { italic = true },
-    functions = {},
-    variables = {},
-    -- Background styles. Can be "dark", "transparent" or "normal"
-    sidebars = "dark", -- style for sidebars, see below
-    floats = "dark", -- style for floating windows
-  },
-  sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-  day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
-  hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
-  dim_inactive = false, -- dims inactive windows
-  lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
-
-  --- You can override specific color groups to use other groups or a hex color
-  --- function will be called with a ColorScheme table
-  ---@param colors ColorScheme
-  on_colors = function(colors) end,
-
-  --- You can override specific highlights to use other groups or a hex color
-  --- function will be called with a Highlights and ColorScheme table
-  ---@param highlights Highlights
-  ---@param colors ColorScheme
-  on_highlights = function(highlights, colors) end,
+require("bluloco").setup({
+  style = "auto" ,              -- "auto" | "dark" | "light"
+  transparent = false,
+  italics = false,
 })
 
+vim.cmd('colorscheme bluloco')
 
 
---Global Settings
-vim.opt_global.completeopt = {"menu", "noinsert", "noselect"}
-vim.opt_global.shortmess:remove("F"):append("c")
--- Lua:
 require("lualine").setup {
     options = {
         icons_enabled = true,
-        theme = "tokyonight",
+        theme = "auto",
         component_separators = {left = "", right = ""},
         section_separators = {left = "", right = ""},
         disabled_filetypes = {
@@ -114,31 +47,31 @@ require("lualine").setup {
     tabline = {},
     winbar = {
         lualine_a = {
-            {
-                "windows",
-                show_filename_only = true, -- Shows shortened relative path when set to false.
-                show_modified_status = true, -- Shows indicator when the window is modified.
-                mode = 0, -- 0: Shows window name
-                -- 1: Shows window index
-                -- 2: Shows window name + window index
+            -- {
+            --     "windows",
+            --     -- show_filename_only = true, -- Shows shortened relative path when set to false.
+            --     -- show_modified_status = true, -- Shows indicator when the window is modified.
+            --     -- mode = 0, -- 0: Shows window name
+            --     -- 1: Shows window index
+            --     -- 2: Shows window name + window index
 
-                max_length = vim.o.columns * 2 / 3, -- Maximum width of windows component,
-                -- it can also be a function that returns
-                -- the value of `max_length` dynamically.
-                filetype_names = {
-                    TelescopePrompt = "Telescope",
-                    dashboard = "Dashboard",
-                    packer = "Packer",
-                    fzf = "FZF",
-                    alpha = "Alpha"
-                }, -- Shows specific window name for that filetype ( { `filetype` = `window_name`, ... } )
-                disabled_buftypes = {"quickfix", "prompt"}, -- Hide a window if its buffer's type is disabled
-                windows_color = {
-                    -- Same values as the general color option can be used here.
-                    active = "lualine_{section}_normal", -- Color for active window.
-                    inactive = "lualine_{section}_inactive" -- Color for inactive window.
-                }
-            }
+            --     max_length = vim.o.columns * 2 / 3, -- Maximum width of windows component,
+            --     -- it can also be a function that returns
+            --     -- the value of `max_length` dynamically.
+            --     -- filetype_names = {
+            --     --     TelescopePrompt = "Telescope",
+            --     --     dashboard = "Dashboard",
+            --     --     packer = "Packer",
+            --     --     fzf = "FZF",
+            --     --     alpha = "Alpha"
+            --     -- }, -- Shows specific window name for that filetype ( { `filetype` = `window_name`, ... } )
+            --     disabled_buftypes = {"quickfix", "prompt"}, -- Hide a window if its buffer's type is disabled
+            --     windows_color = {
+            --         -- Same values as the general color option can be used here.
+            --         active = "lualine_{section}_normal", -- Color for active window.
+            --         inactive = "lualine_{section}_inactive" -- Color for inactive window.
+            --     }
+            -- }
         },
         lualine_b = {},
         lualine_c = {"filename"},
@@ -236,99 +169,99 @@ require "nvim-treesitter.configs".setup {
         -- termcolors = {} -- table of colour name strings
     }
 }
+
+
+function _G.symbol_line()
+  local curwin = vim.g.statusline_winid or 0
+  local curbuf = vim.api.nvim_win_get_buf(curwin)
+  local ok, line = pcall(vim.api.nvim_buf_get_var, curbuf, 'coc_symbol_line')
+  return ok and line or ''
+end
+
+-- vim.o.tabline = '%!v:lua.symbol_line()'
+vim.o.statusline = '%!v:lua.symbol_line()'
+vim.o.winbar = '%!v:lua.symbol_line()'
+
+
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
+
+
+
 
 require("indent_blankline").setup {
     show_end_of_line = true
 }
 
-local cmp = require "cmp"
 
-cmp.setup(
-    {
-        snippet = {
-            -- REQUIRED - you must specify a snippet engine
-            expand = function(args)
-                vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-                -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-                -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-                -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-            end
-        },
-        window = {},
-        mapping = cmp.mapping.preset.insert(
-            {
-                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                ["<C-Space>"] = cmp.mapping.complete(),
-                ["<C-e>"] = cmp.mapping.abort(),
-                ["<CR>"] = cmp.mapping.confirm({select = true}) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-            }
-        ),
-        sources = cmp.config.sources(
-            {
-                {name = "nvim_lsp"},
-                {name = "vsnip"} -- For vsnip users.
-                -- { name = 'luasnip' }, -- For luasnip users.
-                -- { name = 'ultisnips' }, -- For ultisnips users.
-                -- { name = 'snippy' }, -- For snippy users.
-            },
-            {
-                {name = "buffer"}
-            }
-        )
+
+local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+      end,
+    },
+    window = {
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      { name = 'luasnip' }, -- For luasnip users.
+      { name = 'ultisnips' }, -- For ultisnips users.
+      { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Set configuration for specific filetype.
+  cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
     }
-)
+  })
 
--- Set configuration for specific filetype.
-cmp.setup.filetype(
-    "gitcommit",
-    {
-        sources = cmp.config.sources(
-            {
-                {name = "cmp_git"} -- You can specify the `cmp_git` source if you were installed it.
-            },
-            {
-                {name = "buffer"}
-            }
-        )
-    }
-)
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(
-    "/",
-    {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-            {name = "buffer"}
-        }
-    }
-)
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(
-    ":",
-    {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources(
-            {
-                {name = "path"}
-            },
-            {
-                {name = "cmdline"}
-            }
-        )
-    }
-)
-
--- Setup lspconfig.
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require("lspconfig")["<YOUR_LSP_SERVER>"].setup {
+  -- Set up lspconfig.
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  require('lspconfig')['tsserver'].setup {
     capabilities = capabilities
-}
+  }
 
 ---DBUI
 vim.g.db_ui_use_nerd_fonts = 1
