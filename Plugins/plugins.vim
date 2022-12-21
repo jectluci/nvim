@@ -19,19 +19,27 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 
 ""icons
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'yamatsum/nvim-nonicons'
 Plug 'kyazdani42/nvim-web-devicons'
-
+Plug 'DaikyXendo/nvim-material-icon'
 
 "-----------  Utilidades -------------
+"NEOTREE
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-neo-tree/neo-tree.nvim'
+
+Plug 's1n7ax/nvim-window-picker'
+"
 ""NvimTree
+" Plug 'nvim-tree/nvim-web-devicons' " optional, for file icons
+" Plug 'nvim-tree/nvim-tree.lua'
 "Plug 'kyazdani42/nvim-tree.lua'
 "
 "NerdTree
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'scrooloose/nerdtree'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 "
 "EasyMotion
 Plug 'easymotion/vim-easymotion'

@@ -1,23 +1,3 @@
-""theme
-" syntax on
-" colorscheme gruvbox
-"NErdTRee
-let NERDTreeShowHidden=1
-let NERDTreeQuitOnOpen=1
-let NERDTreeAutoDeleteBuffer=1
-let NERDTreeMinimalUI=1
-let g:NERDTreeWinPos = "right"
-let NERDTreeDirArrows=1
-let NERDTreeShowLineNumbers=1
-let NERDTreeMapOpenInTab='\t'
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
-nnoremap gn :tabprevious<CR>
-nnoremap gt :tabnext<CR>
-
-
-
-
 
 "devicons
 " loading the plugin
@@ -52,6 +32,12 @@ let g:webdevicons_enable_flagship_statusline = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 " enable pattern matching glyphs on folder/directory (enabled by default with 1)
 let g:DevIconsEnableFolderPatternMatching = 1
+
+
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:NERDTreeGitStatusNodeColorization = 1
+let g:NERDTreeGitStatusWithFlags = 1
+
 
 
 "Neomake
