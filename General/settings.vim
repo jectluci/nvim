@@ -1,7 +1,12 @@
 set nocompatible
 set number
 set numberwidth=1
+<<<<<<< HEAD
 set clipboard=unnamed
+=======
+" set clipboard=unnamed
+set clipboard+=unnamedplus
+>>>>>>> f547956 (change neovim)
 syntax on
 set showcmd
 set ruler
@@ -62,7 +67,11 @@ set shortmess+=c
 set completeopt=menuone,noselect
 
 "wrap
+<<<<<<< HEAD
 " set nowrap
+=======
+set nowrap
+>>>>>>> f547956 (change neovim)
 
 
 

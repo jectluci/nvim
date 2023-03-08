@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -129,3 +130,6 @@ dmypy.json
 .pyre/
 
 /plugged/
+=======
+plugged/
+>>>>>>> f547956 (change neovim)

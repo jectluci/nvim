@@ -1,4 +1,5 @@
 ""theme
+<<<<<<< HEAD
 " Vim-Script:
 colorscheme gruvbox
 
@@ -26,12 +27,19 @@ nnoremap gn :tabprevious<CR>
 nnoremap gt :tabnext<CR>
 
 
+=======
+syntax on 
+>>>>>>> f547956 (change neovim)
 "devicons
 " loading the plugin
 let g:webdevicons_enable = 1
 " adding the column to vimfiler
 let g:webdevicons_enable_vimfiler = 1
+<<<<<<< HEAD
 " adding to vim-airline's statusline
+=======
+"adding to vim-airline's statusline
+>>>>>>> f547956 (change neovim)
 let g:webdevicons_enable_airline_statusline = 1
 " adding to flagship's statusline
 let g:webdevicons_enable_flagship_statusline = 1
@@ -60,6 +68,7 @@ let g:DevIconsEnableFoldersOpenClose = 1
 " enable pattern matching glyphs on folder/directory (enabled by default with 1)
 let g:DevIconsEnableFolderPatternMatching = 1
 
+<<<<<<< HEAD
 
 "NvimTree
 " vimrc
@@ -88,6 +97,8 @@ let g:DevIconsEnableFolderPatternMatching = 1
 
 " hi rainbowcol1 guifg=#123456
 
+=======
+>>>>>>> f547956 (change neovim)
 "Key Leader
 let mapleader=","
 
@@ -102,6 +113,7 @@ let g:coc_global_extensions = [
       \ 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github',
       \ 'coc-htmldjango', 'coc-angular', 'coc-eslint', 'coc-flutter', 'coc-flutter-tools',
       \ 'coc-kotlin', 'coc-simple-react-snippets', 'coc-html-css-support', 'coc-tsdetect',
+<<<<<<< HEAD
       \ 'coc-sql', 'coc-vimlsp', 'coc-docker', 'coc-yaml', 'coc-phpls', 'coc-react-refactor', 
       \ 'coc-omnisharp', 'coc-powershell', 'coc-java', 'coc-java-debug', 'coc-db' ]
 
@@ -112,13 +124,33 @@ let g:coc_global_extensions = [
 "let g:indentLine_char_list = ['|', '¦', '┆', '┊',]
 "let g:indentLine_bgcolor_gui = ''
 "let g:indentLine_conceallevel = 2
+=======
+      \ 'coc-sql', 'coc-vimlsp', 'coc-docker', 'coc-yaml',  'coc-blade', 'coc-react-refactor', 
+      \  'coc-db', 'coc-tabnine', 'coc-lua' ]
+
+"'coc-phpls','coc-omnisharp', 'coc-powershell', 'coc-java', 'coc-java-debug',
+>>>>>>> f547956 (change neovim)
 
 ""Syntaxis
 let g:syntastic_quiet_messages = { "type": "style" }
 
+<<<<<<< HEAD
 ""Erorres
 ""ALE
 "Vista de erores
+=======
+"Emmet 
+let g:user_emmet_mode='n'    "only enable normal mode functions.
+let g:user_emmet_mode='inv'  "enable all functions, which is equal to
+let g:user_emmet_mode='a'    "enable all function in all mode.
+
+let g:user_emmet_install_global = 1
+autocmd FileType html,css,javascript,typescript, EmmetInstall
+
+
+""Erorres
+""ALE
+>>>>>>> f547956 (change neovim)
 let g:ale_sign_error = '☠'
 let g:ale_sign_warning = '⚠'
 let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
@@ -178,7 +210,11 @@ autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
 autocmd BufReadPre *.js let b:javascript_lib_use_underscore = 1
 autocmd BufReadPre *.js let b:javascript_lib_use_backbone = 1
 autocmd BufReadPre *.js let b:javascript_lib_use_prelude = 0
+<<<<<<< HEAD
 autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 0
+=======
+autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 1
+>>>>>>> f547956 (change neovim)
 let g:used_javascript_libs = 'underscore,backbone'
 
 "python sintaxys
@@ -242,6 +278,10 @@ endif
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+<<<<<<< HEAD
+=======
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+>>>>>>> f547956 (change neovim)
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -408,6 +448,7 @@ smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
+<<<<<<< HEAD
 " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
 " See https://github.com/hrsh7th/vim-vsnip/pull/50
 " nmap        s   <Plug>(vsnip-select-text)
@@ -415,6 +456,8 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 " nmap        S   <Plug>(vsnip-cut-text)
 " xmap        S   <Plug>(vsnip-cut-text)
 
+=======
+>>>>>>> f547956 (change neovim)
 "If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
 let g:vsnip_filetypes = {}
 let g:vsnip_filetypes.javascriptreact = ['javascript']
@@ -422,6 +465,7 @@ let g:vsnip_filetypes.typescriptreact = ['typescript']
 
 "eslint 
 autocmd BufWritePre <buffer> <cmd>EslintFixAll<CR>
+<<<<<<< HEAD
 "
 "
 ""Folding
@@ -429,3 +473,12 @@ autocmd BufWritePre <buffer> <cmd>EslintFixAll<CR>
 "set foldexpr=nvim_treesitter#foldexpr()
 "
 "
+=======
+
+"Fold Treesister
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set tabstop=2
+
+>>>>>>> f547956 (change neovim)
