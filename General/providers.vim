@@ -5,10 +5,5 @@
  "Ruby"
  let g:ruby_host_prog ='/home/ject/.local/share/gem/ruby/3.0.0/bin/neovim-ruby-host'
  "perl"
-<<<<<<< HEAD
- let g:loaded_perl_provider = '/usr/bin/perl'
-
-=======
  " let g:loaded_perl_provider = '/usr/bin/perl'
 let g:loaded_perl_provider = 0
->>>>>>> f547956 (change neovim)
