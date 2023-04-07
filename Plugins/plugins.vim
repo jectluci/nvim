@@ -46,11 +46,6 @@ Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 's1n7ax/nvim-window-picker'
 "
 "
-"NerdTree
-" Plug 'scrooloose/nerdtree'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-" Plug 'jistr/vim-nerdtree-tabs'
-"
 "EasyMotion
 Plug 'easymotion/vim-easymotion'
 "
@@ -99,6 +94,11 @@ Plug 'anuvyklack/keymap-amend.nvim' "Plugin necesario para usar fold-preview
 
 " autoPairs
 
+"Images 
+Plug 'm00qek/baleia.nvim', { 'tag': 'v1.2.0' }
+
+Plug 'samodostal/image.nvim'
+
 " Plug 'windwp/nvim-autopairs'
 
 
@@ -106,7 +106,7 @@ Plug 'anuvyklack/keymap-amend.nvim' "Plugin necesario para usar fold-preview
 """syntastic
 Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
-Plug 'jparise/vim-graphql'
+" Plug 'jparise/vim-graphql'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'neomake/neomake'
 
@@ -123,7 +123,7 @@ Plug 'mcauley-penney/tidy.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'rafcamlet/coc-nvim-lua'
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
+" Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 
 ""Snippets
 Plug 'natebosch/dartlang-snippets'
@@ -136,10 +136,6 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-
-
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
 
 " For luasnip users.
  " Plug 'L3MON4D3/LuaSnip'
@@ -160,9 +156,6 @@ Plug 'hrsh7th/vim-vsnip'
 " React
 Plug 'mlaursen/vim-react-snippets'
 Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
-
-
-
 
 "-----------  Desarrollo web  -------------
 ""Emmet
@@ -190,8 +183,8 @@ Plug 'shmargum/vim-sass-colors'
 ""javascript && typescript && Angular
 Plug 'yuezk/vim-js'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'Quramy/tsuquyomi'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+" Plug 'Quramy/tsuquyomi'
+" Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 "javascript
 "Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
@@ -207,30 +200,23 @@ Plug 'elzr/vim-json'
 
 "----------Desarrollo Python -----------
 "Python
-Plug 'vim-python/python-syntax'
-Plug 'davidhalter/jedi-vim'
-" Plug 'klen/python-mode'
-Plug 'hacksoftware/vim-python-domain-knowledge'
+Plug 'vim-python/python-syntax'  
+Plug 'davidhalter/jedi-vim'  
+Plug 'klen/python-mode'  
+Plug 'hacksoftware/vim-python-domain-knowledge'  
 " Plug 'ehamberg/vim-cute-python'
-Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
-Plug 'ambv/black'
-
+Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }  
+Plug 'ambv/black'  
 
 "Entornos virtuales
-Plug 'plytophogy/vim-virtualenv'
-Plug 'PieterjanMontens/vim-pipenv'
-"" --
-Plug 'fisadev/vim-isort'
+Plug 'plytophogy/vim-virtualenv'  
+Plug 'PieterjanMontens/vim-pipenv'  
+Plug 'fisadev/vim-isort'  
 
-"""Django
-"Plug 'tweekmonster/django-plus.vim'
-""Jupyter
-"Plug 'jupyter-vim/jupyter-vim'
-" Plug 'AckslD/swenv.nvim'
 
 "----------Desarrollo Mobil -----------
 "flutter
-Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/plenary.nvim'  
 " Plug 'akinsho/flutter-tools.nvim'
 " Plug 'dart-lang/dart-vim-plugin'
 " Plug 'thosakwe/vim-flutter'
@@ -319,8 +305,7 @@ Plug 'onsails/lspkind.nvim'
 "------Plugins de cargado Para mas rapido---------
 Plug 'nathom/filetype.nvim'
 Plug 'lewis6991/impatient.nvim'
-
-Plug 'editorconfig/editorconfig-vim'
+" Plug 'editorconfig/editorconfig-vim'
 
 "- Tetris-"
 " Plug 'alec-gibson/nvim-tetris'

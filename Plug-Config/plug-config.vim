@@ -371,3 +371,8 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set tabstop=2
 
+
+"Baleia
+let s:baleia = luaeval("require('baleia').setup { }")
+command! BaleiaColorize call s:baleia.once(bufnr('%'))
+
