@@ -10,9 +10,10 @@ require("lazy").setup({
   
   --Icons
   {'ryanoasis/vim-devicons'},
-    {'yamatsum/nvim-nonicons'},
-      -- {'kyazdani42/nvim-web-devicons'},
-        {'DaikyXendo/nvim-material-icon'},
+  {'yamatsum/nvim-nonicons'},
+  {'DaikyXendo/nvim-material-icon'},
+  --Symbols
+  {'simrat39/symbols-outline.nvim'},
 
 	--Status bar
 	{'nvim-lualine/lualine.nvim'},
@@ -37,6 +38,10 @@ require("lazy").setup({
 
 --Erros 
  {'dense-analysis/ale'},
+ {'eslint/eslint', lazy = true,ft = "javascript" },
+
+ --Git
+ {'tpope/vim-fugitive'},
 
 --Lua
  {'yamatsum/nvim-cursorline'},
@@ -45,9 +50,13 @@ require("lazy").setup({
  {'williamboman/nvim-lsp-installer'},
  {'folke/lsp-colors.nvim'},
  {'liuchengxu/vista.vim'},
+ --Terminal
+ {'wvffle/vimterm'},
+ {'fladson/vim-kitty'}
 
 
 
-})
+}
+)
 
 
