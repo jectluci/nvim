@@ -78,6 +78,10 @@ require("lazy").setup({
  {                                     },
  {'dcampos/nvim-snippy'                },
  {'dcampos/cmp-snippy'                 },
+ --Mason
+ {
+    "williamboman/mason.nvim",
+}
  
 
 }

@@ -6,3 +6,7 @@ vim.opt.breakindent = true
 vim.opt.tabstop = 2
 vim.opt.mouse = 'a'
 vim.opt.ruler=true
+
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+
+
