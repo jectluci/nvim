@@ -31,6 +31,8 @@ require("lazy").setup({
 -- Surround
 { 'tpope/vim-surround'},
 
+-- Indent
+{ "lukas-reineke/indent-blankline.nvim" },
 
 --Syntaxis
  {'scrooloose/syntastic'}, 
@@ -38,11 +40,13 @@ require("lazy").setup({
 
 --Erros 
  {'dense-analysis/ale'},
- {'eslint/eslint', lazy = true,ft = "javascript" },
+ {'eslint/eslint'},
 
  --Git
  {'tpope/vim-fugitive'},
 
+ --Emmet
+ {'mattn/emmet-vim'},
 --Lua
  {'yamatsum/nvim-cursorline'},
  {'nvim-treesitter/nvim-treesitter'}, 
@@ -52,9 +56,29 @@ require("lazy").setup({
  {'liuchengxu/vista.vim'},
  --Terminal
  {'wvffle/vimterm'},
- {'fladson/vim-kitty'}
-
-
+ {'fladson/vim-kitty'},
+ --Prettier
+ {'prettier/vim-prettier'},
+ --CMP
+ --'neovim/nvim-lspconfig'
+ {'hrsh7th/cmp-nvim-lsp'               },
+ {'hrsh7th/cmp-buffer'                 },
+ {'hrsh7th/cmp-path'                   },
+ {'hrsh7th/cmp-cmdline'                },
+ {'hrsh7th/nvim-cmp'                   },
+ {                                     },
+ {'hrsh7th/cmp-vsnip'                  },
+ {'hrsh7th/vim-vsnip'                  },
+ {                                     },
+ {'L3MON4D3/LuaSnip'                   },
+ {'saadparwaiz1/cmp_luasnip'           },
+ {                                     },
+ {'SirVer/ultisnips'                   },
+ {'quangnguyen30192/cmp-nvim-ultisnips'},
+ {                                     },
+ {'dcampos/nvim-snippy'                },
+ {'dcampos/cmp-snippy'                 },
+ 
 
 }
 )

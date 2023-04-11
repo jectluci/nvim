@@ -491,3 +491,80 @@ require("nvim-material-icon").get_icon_cterm_color_by_filetype(filetype, opts)
 --Icons Nerdtree
 
 require 'nvim-web-devicons'.get_icons()
+
+require('lspconfig')['tsserver'].setup {
+  on_attach = on_attach,
+  flags = lsp_flags,
+}
+require 'lspconfig'.angularls.setup {
+  cmd = { "ngserver", "--stdio", },
+  filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" }
+}
+require 'lspconfig'.emmet_ls.setup {
+  cmd = { "emmet-ls", "--stdio" },
+  filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" },
+  -- root_dir="git root",
+  single_file_support = true
+}
+
+require 'lspconfig'.tailwindcss.setup {
+  cmd = { "tailwindcss-language-server", "--stdio" },
+  filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte" },
+  settings = {
+    tailwindCSS = {
+      classAttributes = { "class", "className", "classList", "ngClass" },
+      lint = {
+        cssConflict = "warning",
+        invalidApply = "error",
+        invalidConfigPath = "error",
+        invalidScreen = "error",
+        invalidTailwindDirective = "error",
+        invalidVariant = "error",
+        recommendedVariantOrder = "warning"
+      },
+      validate = true
+    }
+  }
+}
+
+require("lsp-colors").setup({
+  Error = "#db4b4b",
+  Warning = "#e0af68",
+  Information = "#0db9d7",
+  Hint = "#10B981"
+})
+
+require 'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    disable = { "html" }
+  },
+  rainbow = {
+    enable = true,
+    disable = { "html" },
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    colors = {}, -- table of hex strings
+    termcolors = {} -- table of colour name strings
+  }
+}
+--Indent
+vim.opt.list = true
+vim.opt.listchars:append "space:⋅"
+vim.opt.listchars:append "eol:↴"
+
+require("indent_blankline").setup {
+  space_char_blankline = " ",
+  show_current_context = true,
+  show_current_context_start = true,
+}
+
+--Plugin prettier
+vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+
+vim.g.user_emmet_mode = 'n'
+vim.g.user_emmet_mode = 'inv'
+vim.g.user_emmet_mode = 'a'
+
+vim.g.user_emmet_install_global = 1
+vim.cmd("autocmd FileType html,css,javascript EmmetInstall")
