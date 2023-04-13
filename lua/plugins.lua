@@ -8,6 +8,8 @@ require("lazy").setup({
   {"MunifTanjim/nui.nvim"},
   {'s1n7ax/nvim-window-picker'},
   
+  --FZF
+  {'ibhagwan/fzf-lua'},
   --Icons
   {'ryanoasis/vim-devicons'},
   {'yamatsum/nvim-nonicons'},
@@ -60,7 +62,7 @@ require("lazy").setup({
  --Prettier
  {'prettier/vim-prettier'},
  --CMP
- --'neovim/nvim-lspconfig'
+ {'neovim/nvim-lspconfig'},
  {'hrsh7th/cmp-nvim-lsp'               },
  {'hrsh7th/cmp-buffer'                 },
  {'hrsh7th/cmp-path'                   },
@@ -78,10 +80,13 @@ require("lazy").setup({
  {                                     },
  {'dcampos/nvim-snippy'                },
  {'dcampos/cmp-snippy'                 },
+ {'onsails/lspkind.nvim'},
  --Mason
- {
-    "williamboman/mason.nvim",
-}
+ {"williamboman/mason.nvim"},
+ --COC
+ {'neoclide/coc.nvim'},
+ --Cursor
+ {'gen740/SmoothCursor.nvim'}
  
 
 }
