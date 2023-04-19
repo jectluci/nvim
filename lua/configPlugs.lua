@@ -960,6 +960,11 @@ keyset("n", "<space>k", ":<C-u>CocPrev<cr>", opts)
 keyset("n", "<space>p", ":<C-u>CocListResume<cr>", opts)
 
 
+--COC
+vim.api.nvim_set_keymap('i', '<C-Space>', '<cmd>CocRefresh()<CR>', { silent = true })
+vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { expr = true })
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { expr = true })
+
 
 --Fzf
 vim.keymap.set("n", "<c-P>",
