@@ -40,6 +40,8 @@ require("tokyonight").setup({
 -- Lua
 vim.cmd [[colorscheme tokyonight]]
 
+
+
 --NeoTree
 -- Unless you are still migrating, remove the deprecated commands from v1.x
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
@@ -566,7 +568,7 @@ vim.g.user_emmet_mode = 'n'
 vim.g.user_emmet_mode = 'inv'
 vim.g.user_emmet_mode = 'a'
 
-vim.g.user_emmet_install_global = 1
+vim.g.user_emmet_install_global = 0
 vim.cmd("autocmd FileType html,css EmmetInstall")
 
 require('lspkind').init({
@@ -806,7 +808,7 @@ keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r
 -- Use <c-j> to trigger snippets
 keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
 -- Use <c-space> to trigger completion
-keyset("i", "<c-space>", "coc#refresh()", { silent = true, expr = true })
+keyset("i", "<zxc>", "coc#refresh()", { silent = true, expr = true })
 
 -- Use `[g` and `]g` to navigate diagnostics
 -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
