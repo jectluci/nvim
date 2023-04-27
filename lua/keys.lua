@@ -10,3 +10,4 @@ vim.cmd("cnoreabbrev Q q")
 vim.cmd("cnoreabbrev Qall qall")
 vim.cmd("cnoreabbrev WQA wqa")
 vim.cmd("cnoreabbrev Wqa wqa")
+

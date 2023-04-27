@@ -1,6 +1,11 @@
 require("lazy").setup({
   --Schema
-  { 'folke/tokyonight.nvim',              lazy = false, priority = 1000 },
+  { 
+    'projekt0n/github-nvim-theme', 
+    version = 'v0.0.7', 
+    lazy = false,
+    priority = 1000 ,
+  },
   --NeoTree
   { "nvim-neo-tree/neo-tree.nvim" },
   { "nvim-lua/plenary.nvim" },
@@ -36,6 +41,9 @@ require("lazy").setup({
   -- Indent
   { "lukas-reineke/indent-blankline.nvim" },
 
+
+  --Suda 
+  {'lambdalisue/suda.vim'},
   --Syntaxis
   { 'scrooloose/syntastic' },
   { 'sheerun/vim-polyglot' },
@@ -84,8 +92,8 @@ require("lazy").setup({
   --Cursor
   { 'gen740/SmoothCursor.nvim' },
   --DBUI
-  { 'tpope/vim-dadbod', cmd="DBUI"  },
-  { 'kristijanhusak/vim-dadbod-ui', cmd="BDUI" }
+  { 'tpope/vim-dadbod'  },
+  { 'kristijanhusak/vim-dadbod-ui' }
 
 }
 )
