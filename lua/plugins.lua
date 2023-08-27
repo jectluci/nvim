@@ -1,26 +1,27 @@
 require("lazy").setup({
   --Schema
-  { 
-    'projekt0n/github-nvim-theme', 
-    version = 'v0.0.7', 
+  -- { "ellisonleao/gruvbox.nvim",           lazy = true, priority = 1000 },
+  {
+    "folke/tokyonight.nvim",
     lazy = false,
-    priority = 1000 ,
+    priority = 1000,
+    opts = {},
   },
   --NeoTree
-  { "nvim-neo-tree/neo-tree.nvim" },
+  { "nvim-neo-tree/neo-tree.nvim",        lazy = true, priority = 1000 },
   { "nvim-lua/plenary.nvim" },
-  { "nvim-tree/nvim-web-devicons" },
+  { "nvim-tree/nvim-web-devicons",        lazy = true, priority = 1000 },
   { "MunifTanjim/nui.nvim" },
   { 's1n7ax/nvim-window-picker' },
 
   --FZF
   { 'ibhagwan/fzf-lua' },
   --Icons
-  { 'ryanoasis/vim-devicons' },
-  { 'yamatsum/nvim-nonicons' },
-  { 'DaikyXendo/nvim-material-icon' },
+  { 'ryanoasis/vim-devicons',             lazy = true, priority = 1001 },
+  { 'yamatsum/nvim-nonicons',             lazy = true, priority = 1002 },
+  { 'DaikyXendo/nvim-material-icon',      lazy = true, priority = 1003 },
   --Symbols
-  { 'simrat39/symbols-outline.nvim' },
+  { 'simrat39/symbols-outline.nvim',      lazy = true, priority = 1006 },
 
   --Status bar
   { 'nvim-lualine/lualine.nvim' },
@@ -42,8 +43,8 @@ require("lazy").setup({
   { "lukas-reineke/indent-blankline.nvim" },
 
 
-  --Suda 
-  {'lambdalisue/suda.vim'},
+  --Suda
+  { 'lambdalisue/suda.vim' },
   --Syntaxis
   { 'scrooloose/syntastic' },
   { 'sheerun/vim-polyglot' },
@@ -57,6 +58,10 @@ require("lazy").setup({
 
   --Emmet
   { 'mattn/emmet-vim' },
+  --Css 
+  {
+'brenoprata10/nvim-highlight-colors'
+  },
   --Lua
   { 'yamatsum/nvim-cursorline' },
   { 'nvim-treesitter/nvim-treesitter' },
@@ -92,7 +97,7 @@ require("lazy").setup({
   --Cursor
   { 'gen740/SmoothCursor.nvim' },
   --DBUI
-  { 'tpope/vim-dadbod'  },
+  { 'tpope/vim-dadbod' },
   { 'kristijanhusak/vim-dadbod-ui' }
 
 }

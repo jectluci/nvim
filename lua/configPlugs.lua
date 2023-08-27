@@ -1,8 +1,41 @@
 ---@diagnostic disable: unused-local, undefined-global
 --
--- Example config in Lua
-vim.cmd('colorscheme github_dark_default')
+require("tokyonight").setup({
+  -- your configuration comes here
+  -- or leave it empty to use the default settings
+  style = "night",        -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+  light_style = "day",    -- The theme is used when the background is set to light
+  transparent = false,    -- Enable this to disable setting the background color
+  terminal_colors = true, -- Configure the colors used when opening a `:terminal` in [Neovim](https://github.com/neovim/neovim)
+  styles = {
+    -- Style to be applied to different syntax groups
+    -- Value is any valid attr-list value for `:help nvim_set_hl`
+    comments = { italic = true },
+    keywords = { italic = true },
+    functions = {},
+    variables = {},
+    -- Background styles. Can be "dark", "transparent" or "normal"
+    sidebars = "dark",              -- style for sidebars, see below
+    floats = "dark",                -- style for floating windows
+  },
+  sidebars = { "qf", "help" },      -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
+  day_brightness = 0.3,             -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
+  hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+  dim_inactive = false,             -- dims inactive windows
+  lualine_bold = false,             -- When `true`, section headers in the lualine theme will be bold
 
+  --- You can override specific color groups to use other groups or a hex color
+  --- function will be called with a ColorScheme table
+  ---param colors ColorScheme
+  on_colors = function(colors) end,
+
+  --- You can override specific highlights to use other groups or a hex color
+  --- function will be called with a Highlights and ColorScheme table
+  ---param highlights Highlights
+  ---param colors ColorScheme
+  on_highlights = function(highlights, colors) end,
+})
+vim.cmd [[colorscheme tokyonight]]
 --NeoTree
 -- Unless you are still migrating, remove the deprecated commands from v1.x
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
@@ -24,7 +57,7 @@ require("neo-tree").setup({
   enable_git_status = true,
   enable_diagnostics = true,
   sort_case_insensitive = false, -- used when sorting files and directories in the tree
-  sort_function = nil, -- use a custom function for sorting files and directories in the tree
+  sort_function = nil,           -- use a custom function for sorting files and directories in the tree
   -- sort_function = function (a,b)
   --       if a.type == b.type then
   --           return a.path > b.path
@@ -165,9 +198,9 @@ require("neo-tree").setup({
         --".null-ls_*",
       },
     },
-    follow_current_file = true, -- This will find and focus the file in the active buffer every
+    follow_current_file = true,             -- This will find and focus the file in the active buffer every
     -- time the current file is changed while the tree is open.
-    group_empty_dirs = false, -- when true, empty folders will be grouped together
+    group_empty_dirs = false,               -- when true, empty folders will be grouped together
     hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
     -- in whatever position is specified in window.position
     -- "open_current",  -- netrw disabled, opening a directory opens within the
@@ -192,7 +225,7 @@ require("neo-tree").setup({
   buffers = {
     follow_current_file = true, -- This will find and focus the file in the active buffer every
     -- time the current file is changed while the tree is open.
-    group_empty_dirs = true, -- when true, empty folders will be grouped together
+    group_empty_dirs = true,    -- when true, empty folders will be grouped together
     show_unloaded = true,
     window = {
       mappings = {
@@ -402,6 +435,51 @@ local icons = require "nvim-nonicons"
 
 icons.get("file")
 
+
+require 'nvim-web-devicons'.setup {
+  -- your personnal icons can go here (to override)
+  -- you can specify color or cterm_color instead of specifying both of them
+  -- DevIcon will be appended to `name`
+  override = {
+    zsh = {
+      icon = "",
+      color = "#428850",
+      cterm_color = "65",
+      name = "Zsh"
+    }
+  },
+  -- globally enable different highlight colors per icon (default to true)
+  -- if set to false all icons will have the default icon's color
+  color_icons = true,
+  -- globally enable default icons (default to false)
+  -- will get overriden by `get_icons` option
+  default = true,
+  -- globally enable "strict" selection of icons - icon will be looked up in
+  -- different tables, first by filename, and if not found by extension; this
+  -- prevents cases when file doesn't have any extension but still gets some icon
+  -- because its name happened to match some extension (default to false)
+  strict = true,
+  -- same as `override` but specifically for overrides by filename
+  -- takes effect when `strict` is true
+  override_by_filename = {
+    [".gitignore"] = {
+      icon = "",
+      color = "#f1502f",
+      name = "Gitignore"
+    }
+  },
+  -- same as `override` but specifically for overrides by extension
+  -- takes effect when `strict` is true
+  override_by_extension = {
+    ["log"] = {
+      icon = "",
+      color = "#81e043",
+      name = "Log"
+    }
+  },
+}
+
+
 require 'nvim-web-devicons'.has_loaded()
 
 
@@ -451,6 +529,8 @@ require("nvim-material-icon").get_icon_colors_by_filetype(filetype, opts)
 require("nvim-material-icon").get_icon_color_by_filetype(filetype, opts)
 require("nvim-material-icon").get_icon_cterm_color_by_filetype(filetype, opts)
 
+require("nvim-web-devicons").set_default_icon('', '#6d8086', 65)
+
 --Icons Nerdtree
 
 require 'nvim-web-devicons'.get_icons()
@@ -472,7 +552,11 @@ require 'lspconfig'.emmet_ls.setup {
 
 require 'lspconfig'.tailwindcss.setup {
   cmd = { "tailwindcss-language-server", "--stdio" },
-  filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte" },
+  filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge",
+    "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex",
+    "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css",
+    "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript",
+    "typescript", "typescriptreact", "vue", "svelte" },
   settings = {
     tailwindCSS = {
       classAttributes = { "class", "className", "classList", "ngClass" },
@@ -507,8 +591,8 @@ require 'nvim-treesitter.configs'.setup {
     disable = { "html" },
     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
     max_file_lines = nil, -- Do not enable for files with more than n lines, int
-    colors = {}, -- table of hex strings
-    termcolors = {} -- table of colour name strings
+    colors = {},          -- table of hex strings
+    termcolors = {}       -- table of colour name strings
   }
 }
 --Indent
@@ -588,7 +672,7 @@ cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      vim.fn["vsnip#anonymous"](args.body)     -- For `vsnip` users.
       require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
       -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
       -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
@@ -599,7 +683,7 @@ cmp.setup({
     documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs( -4),
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
@@ -607,8 +691,8 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
-    { name = 'luasnip' }, -- For luasnip users.
+    { name = 'vsnip' },     -- For vsnip users.
+    { name = 'luasnip' },   -- For luasnip users.
     { name = 'ultisnips' }, -- For ultisnips users.
     { name = 'buffer' },
     { name = 'treesitter' },
@@ -660,32 +744,80 @@ require("mason").setup({
     }
   }
 })
+require('lspkind').init({
+  -- DEPRECATED (use mode instead): enables text annotations
+  --
+  -- default: true
+  -- with_text = true,
 
-local lspkind = require('lspkind')
-cmp.setup {
-  formatting = {
-    format = lspkind.cmp_format({
-      mode = 'symbol', -- show only symbol annotations
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+  -- defines how annotations are shown
+  -- default: symbol
+  -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+  mode = 'symbol_text',
 
-      -- The function below will be called before any actual modifications from lspkind
-      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-      before = function(entry, vim_item)
-        return vim_item
-      end
-    })
-  }
-}
+  -- default symbol map
+  -- can be either 'default' (requires nerd-fonts font) or
+  -- 'codicons' for codicon preset (requires vscode-codicons font)
+  --
+  -- default: 'default'
+  preset = 'codicons',
+
+  -- override preset symbols
+  --
+  -- default: {}
+  symbol_map = {
+    Text = "󰉿",
+    Method = "󰆧",
+    Function = "󰊕",
+    Constructor = "",
+    Field = "󰜢",
+    Variable = "󰀫",
+    Class = "󰠱",
+    Interface = "",
+    Module = "",
+    Property = "󰜢",
+    Unit = "󰑭",
+    Value = "󰎠",
+    Enum = "",
+    Keyword = "󰌋",
+    Snippet = "",
+    Color = "󰏘",
+    File = "󰈙",
+    Reference = "󰈇",
+    Folder = "󰉋",
+    EnumMember = "",
+    Constant = "󰏿",
+    Struct = "󰙅",
+    Event = "",
+    Operator = "󰆕",
+    TypeParameter = "",
+  },
+})
+-- local lspkind = require('lspkind')
+-- cmp.setup {
+--   formatting = {
+--     format = lspkind.cmp_format({
+--       mode = 'symbol', -- show only symbol annotations
+--       maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+--       ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+
+--       -- The function below will be called before any actual modifications from lspkind
+--       -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+--       before = function(entry, vim_item)
+--         return vim_item
+--       end
+--     })
+--   }
+-- }
 
 require('smoothcursor').setup({
   autostart = true,
-  cursor = "", -- cursor shape (need nerd font)
+  cursor = "",          -- cursor shape (need nerd font)
   texthl = "SmoothCursor", -- highlight group, default is { bg = nil, fg = "#FFD400" }
-  linehl = nil, -- highlight sub-cursor line like 'cursorline', "CursorLine" recommended
-  type = "default", -- define cursor movement calculate function, "default" or "exp" (exponential).
+  linehl = nil,            -- highlight sub-cursor line like 'cursorline', "CursorLine" recommended
+  type = "default",        -- define cursor movement calculate function, "default" or "exp" (exponential).
   fancy = {
-    enable = true, -- enable fancy mode
+    enable = true,         -- enable fancy mode
     head = { cursor = "▷", texthl = "SmoothCursor", linehl = nil },
     body = {
       { cursor = "", texthl = "SmoothCursorRed" },
@@ -698,15 +830,15 @@ require('smoothcursor').setup({
     },
     tail = { cursor = nil, texthl = "SmoothCursor" }
   },
-  flyin_effect = nil, -- "bottom" or "top"
-  speed = 25, -- max is 100 to stick to your current position
-  intervals = 35, -- tick interval
-  priority = 10, -- set marker priority
-  timeout = 3000, -- timout for animation
-  threshold = 3, -- animate if threshold lines jump
+  flyin_effect = nil,        -- "bottom" or "top"
+  speed = 25,                -- max is 100 to stick to your current position
+  intervals = 35,            -- tick interval
+  priority = 10,             -- set marker priority
+  timeout = 3000,            -- timout for animation
+  threshold = 3,             -- animate if threshold lines jump
   disable_float_win = false, -- disable on float window
-  enabled_filetypes = nil, -- example: { "lua", "vim" }
-  disabled_filetypes = nil, -- this option will be skipped if enabled_filetypes is set. example: { "TelescopePrompt", "NvimTree" }
+  enabled_filetypes = nil,   -- example: { "lua", "vim" }
+  disabled_filetypes = nil,  -- this option will be skipped if enabled_filetypes is set. example: { "TelescopePrompt", "NvimTree" }
 })
 
 local autocmd = vim.api.nvim_create_autocmd
@@ -933,3 +1065,54 @@ vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { 
 --Fzf
 vim.keymap.set("n", "<c-P>",
   "<cmd>lua require('fzf-lua').files()<CR>", { silent = true })
+
+--Css
+require("nvim-highlight-colors").setup {
+  render = 'background', -- or 'foreground' or 'first_column'
+  enable_named_colors = true,
+  enable_tailwind = false,
+  custom_colors = {
+    -- label property will be used as a pattern initially(string.gmatch), therefore you need to escape the special characters by yourself with %
+    { label = '%-%-theme%-font%-color',       color = '#fff' },
+    { label = '%-%-theme%-background%-color', color = '#23222f' },
+    { label = '%-%-theme%-primary%-color',    color = '#0f1219' },
+    { label = '%-%-theme%-secondary%-color',  color = '#5a5d64' },
+    { label = '%-%-theme%-contrast%-color',   color = '#fff' },
+    { label = '%-%-theme%-accent%-color',     color = '#55678e' },
+  }
+}
+
+---DB SQL SERVER
+
+vim.g.db_ui_use_nerd_fonts = 1
+vim.g.db_ui_show_database_icon = 1
+vim.g.db_ui_force_echo_notifications = 1
+vim.g.db_ui_win_position = "left"
+vim.g.db_ui_winwidth = 80
+vim.g.db_ui_icons = {
+  expanded = {
+    db = "▾ ",
+    buffers = "▾ ",
+    saved_queries = "▾ ",
+    schemas = "▾ ",
+    schema = "▾ פּ",
+    tables = "▾ 藺",
+    table = "▾ ",
+  },
+  collapsed = {
+    db = "▸ ",
+    buffers = "▸ ",
+    saved_queries = "▸ ",
+    schemas = "▸ ",
+    schema = "▸ פּ",
+    tables = "▸ 藺",
+    table = "▸ ",
+  },
+  saved_query = "",
+  new_query = "璘",
+  tables = "離",
+  buffers = "﬘",
+  add_connection = "",
+  connection_ok = "✓",
+  connection_error = "✕",
+}
