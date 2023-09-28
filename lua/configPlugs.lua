@@ -12,8 +12,8 @@ require("tokyonight").setup({
     -- Value is any valid attr-list value for `:help nvim_set_hl`
     comments = { italic = true },
     keywords = { italic = true },
-    functions = {},
-    variables = {},
+    functions = { bold = true, underline = true  },
+    variables = { italic = true, bold = true },
     -- Background styles. Can be "dark", "transparent" or "normal"
     sidebars = "dark",              -- style for sidebars, see below
     floats = "dark",                -- style for floating windows
@@ -37,8 +37,8 @@ require("tokyonight").setup({
 })
 vim.cmd [[colorscheme tokyonight]]
 --NeoTree
--- Unless you are still migrating, remove the deprecated commands from v1.x
-vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+
+
 
 -- If you want icons for diagnostic errors, you'll need to define them somewhere:
 vim.fn.sign_define("DiagnosticSignError",
@@ -255,8 +255,6 @@ vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 
 vim.keymap.set('n', "<F2>", ':Neotree show<cr>')
 vim.keymap.set('n', "<F3>", ':Neotree toggle<cr>')
-
-
 
 require 'window-picker'.setup({
   -- when there is only one window available to pick from, use that window
@@ -696,9 +694,8 @@ cmp.setup({
     { name = 'ultisnips' }, -- For ultisnips users.
     { name = 'buffer' },
     { name = 'treesitter' },
-
-    -- { name = 'coc' }
-    -- { name = 'snippy' }, -- For snippy users.
+    { name = 'coc' },
+    { name = 'snippy' }, -- For snippy users.
   }, {
   })
 })
@@ -812,12 +809,12 @@ require('lspkind').init({
 
 require('smoothcursor').setup({
   autostart = true,
-  cursor = "",          -- cursor shape (need nerd font)
+  cursor = "", -- cursor shape (need nerd font)
   texthl = "SmoothCursor", -- highlight group, default is { bg = nil, fg = "#FFD400" }
-  linehl = nil,            -- highlight sub-cursor line like 'cursorline', "CursorLine" recommended
-  type = "default",        -- define cursor movement calculate function, "default" or "exp" (exponential).
+  linehl = nil, -- highlight sub-cursor line like 'cursorline', "CursorLine" recommended
+  type = "default", -- define cursor movement calculate function, "default" or "exp" (exponential).
   fancy = {
-    enable = true,         -- enable fancy mode
+    enable = true, -- enable fancy mode
     head = { cursor = "▷", texthl = "SmoothCursor", linehl = nil },
     body = {
       { cursor = "", texthl = "SmoothCursorRed" },
@@ -825,8 +822,8 @@ require('smoothcursor').setup({
       { cursor = "●", texthl = "SmoothCursorYellow" },
       { cursor = "●", texthl = "SmoothCursorGreen" },
       { cursor = "•", texthl = "SmoothCursorAqua" },
-      { cursor = ".",   texthl = "SmoothCursorBlue" },
-      { cursor = ".",   texthl = "SmoothCursorPurple" },
+      { cursor = ".", texthl = "SmoothCursorBlue" },
+      { cursor = ".", texthl = "SmoothCursorPurple" },
     },
     tail = { cursor = nil, texthl = "SmoothCursor" }
   },
@@ -1060,6 +1057,21 @@ keyset("n", "<space>p", ":<C-u>CocListResume<cr>", opts)
 vim.api.nvim_set_keymap('i', '<C-Space>', '<cmd>CocRefresh()<CR>', { silent = true })
 vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { expr = true })
 vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { expr = true })
+
+
+
+vim.g.coc_global_extensions = {
+  'coc-json', 'coc-git', 'coc-pairs',
+  'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace',
+  'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint',
+  'coc-jedi', 'coc-webpack', 'coc-prettier', 'coc-pyright',
+  'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator',
+  'coc-sourcekit', 'coc-tslint-plugin',  'coc-github',
+  'coc-htmldjango', 'coc-angular', 'coc-eslint',
+  'coc-simple-react-snippets', 'coc-html-css-support', 'coc-tsdetect',
+  'coc-sql', 'coc-vimlsp', 'coc-docker', 'coc-yaml', 'coc-blade',
+  'coc-db', 'coc-lua'
+}
 
 
 --Fzf

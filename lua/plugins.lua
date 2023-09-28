@@ -8,10 +8,15 @@ require("lazy").setup({
     opts = {},
   },
   --NeoTree
-  { "nvim-neo-tree/neo-tree.nvim",        lazy = true, priority = 1000 },
-  { "nvim-lua/plenary.nvim" },
-  { "nvim-tree/nvim-web-devicons",        lazy = true, priority = 1000 },
-  { "MunifTanjim/nui.nvim" },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
+  },
   { 's1n7ax/nvim-window-picker' },
 
   --FZF
@@ -58,9 +63,9 @@ require("lazy").setup({
 
   --Emmet
   { 'mattn/emmet-vim' },
-  --Css 
+  --Css
   {
-'brenoprata10/nvim-highlight-colors'
+    'brenoprata10/nvim-highlight-colors'
   },
   --Lua
   { 'yamatsum/nvim-cursorline' },
