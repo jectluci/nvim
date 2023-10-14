@@ -1,12 +1,9 @@
 require("lazy").setup({
   --Schema
-  -- { "ellisonleao/gruvbox.nvim",           lazy = true, priority = 1000 },
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
+  { "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+},
   --NeoTree
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -22,11 +19,11 @@ require("lazy").setup({
   --FZF
   { 'ibhagwan/fzf-lua' },
   --Icons
-  { 'ryanoasis/vim-devicons',             lazy = true, priority = 1001 },
-  { 'yamatsum/nvim-nonicons',             lazy = true, priority = 1002 },
-  { 'DaikyXendo/nvim-material-icon',      lazy = true, priority = 1003 },
+  { 'ryanoasis/vim-devicons',              lazy = true,  priority = 1001 },
+  { 'yamatsum/nvim-nonicons',              lazy = true,  priority = 1002 },
+  { 'DaikyXendo/nvim-material-icon',       lazy = true,  priority = 1003 },
   --Symbols
-  { 'simrat39/symbols-outline.nvim',      lazy = true, priority = 1006 },
+  { 'simrat39/symbols-outline.nvim',       lazy = true,  priority = 1006 },
 
   --Status bar
   { 'nvim-lualine/lualine.nvim' },
@@ -45,7 +42,7 @@ require("lazy").setup({
   { 'tpope/vim-surround' },
 
   -- Indent
-  { "lukas-reineke/indent-blankline.nvim" },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 
 
   --Suda
@@ -103,7 +100,12 @@ require("lazy").setup({
   { 'gen740/SmoothCursor.nvim' },
   --DBUI
   { 'tpope/vim-dadbod' },
-  { 'kristijanhusak/vim-dadbod-ui' }
+  { 'kristijanhusak/vim-dadbod-ui' },
+  --Python
+  ----Formater
+  {'averms/black-nvim'},
+  --
+  {'davidhalter/jedi-vim'}
 
 }
 )

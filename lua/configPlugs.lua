@@ -1,5 +1,5 @@
 ---@diagnostic disable: unused-local, undefined-global
---
+
 require("tokyonight").setup({
   -- your configuration comes here
   -- or leave it empty to use the default settings
@@ -22,7 +22,7 @@ require("tokyonight").setup({
   day_brightness = 0.3,             -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
   hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
   dim_inactive = false,             -- dims inactive windows
-  lualine_bold = false,             -- When `true`, section headers in the lualine theme will be bold
+  lualine_bold = true,             -- When `true`, section headers in the lualine theme will be bold
 
   --- You can override specific color groups to use other groups or a hex color
   --- function will be called with a ColorScheme table
@@ -35,7 +35,7 @@ require("tokyonight").setup({
   ---param colors ColorScheme
   on_highlights = function(highlights, colors) end,
 })
-vim.cmd [[colorscheme tokyonight]]
+vim.cmd [[colorscheme tokyonight-night]]
 --NeoTree
 
 
@@ -255,6 +255,56 @@ vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 
 vim.keymap.set('n', "<F2>", ':Neotree show<cr>')
 vim.keymap.set('n', "<F3>", ':Neotree toggle<cr>')
+
+
+
+local highlights = require("neo-tree.ui.highlights")
+
+require("neo-tree").setup({
+  filesystem = {
+    components = {
+      icon = function(config, node, state)
+        local icon = config.default or ""
+        local padding = config.padding or ""
+        local highlight = config.highlight or highlights.FILE_ICON
+
+        if node.type == "directory" then
+          highlight = highlights.DIRECTORY_ICON
+          if node:is_expanded() then
+            icon = config.folder_open or ""
+          else
+            icon = config.folder_closed or ""
+          end
+          if node.name == ".git" then
+            icon = ""
+            highlight = highlights.DIRECTORY_ICON
+          elseif node.name == "node_modules" then
+            icon = "󰎙"
+            highlight = highlights.DIRECTORY_ICON
+          elseif node.name == "app" then
+            icon = "󱋣"
+          elseif node.name == ".vim" then
+            icon = ""
+          elseif node.name == "service" or node.name == "services" then
+            icon = "󰡰"
+          end
+        elseif node.type == "file" then
+          local success, web_devicons = pcall(require, "nvim-web-devicons")
+          if success then
+            local devicon, hl = web_devicons.get_icon(node.name, node.ext)
+            icon = devicon or icon
+            highlight = hl or highlight
+          end
+        end
+
+        return {
+          text = icon .. padding,
+          highlight = highlight,
+        }
+      end,
+    }
+  }
+})
 
 require 'window-picker'.setup({
   -- when there is only one window available to pick from, use that window
@@ -594,15 +644,7 @@ require 'nvim-treesitter.configs'.setup {
   }
 }
 --Indent
-vim.opt.list = true
-vim.opt.listchars:append "space:⋅"
-vim.opt.listchars:append "eol:↴"
-
-require("indent_blankline").setup {
-  space_char_blankline = " ",
-  show_current_context = true,
-  show_current_context_start = true,
-}
+require("ibl").setup()
 
 --Plugin prettier
 vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
@@ -1066,7 +1108,7 @@ vim.g.coc_global_extensions = {
   'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint',
   'coc-jedi', 'coc-webpack', 'coc-prettier', 'coc-pyright',
   'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator',
-  'coc-sourcekit', 'coc-tslint-plugin',  'coc-github',
+  'coc-sourcekit', 'coc-tslint-plugin', 'coc-github',
   'coc-htmldjango', 'coc-angular', 'coc-eslint',
   'coc-simple-react-snippets', 'coc-html-css-support', 'coc-tsdetect',
   'coc-sql', 'coc-vimlsp', 'coc-docker', 'coc-yaml', 'coc-blade',
@@ -1128,3 +1170,16 @@ vim.g.db_ui_icons = {
   connection_ok = "✓",
   connection_error = "✕",
 }
+
+vim.cmd([[
+highlight! link NeoTreeDirectoryIcon NvimTreeFolderIcon
+highlight! link NeoTreeDirectoryName NvimTreeFolderName
+highlight! link NeoTreeSymbolicLinkTarget NvimTreeSymlink
+highlight! link NeoTreeRootName NvimTreeRootFolder
+highlight! link NeoTreeDirectoryName NvimTreeOpenedFolderName
+highlight! link NeoTreeFileNameOpened NvimTreeOpenedFile
+]])
+
+
+-- Establecer el tipo de archivo para *.html como htmldjango
+vim.cmd("autocmd BufNewFile,BufRead *.html set filetype=htmldjango")
