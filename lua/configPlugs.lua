@@ -14,7 +14,7 @@ vim.fn.sign_define("DiagnosticSignWarn",
 vim.fn.sign_define("DiagnosticSignInfo",
   { text = " ", texthl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DiagnosticSignHint",
-  { text = "", texthl = "DiagnosticSignHint" })
+  { text = "󰻸", texthl = "DiagnosticSignHint" })
 -- NOTE: this is changed from v1.x, which used the old style of highlight groups
 -- in the form "LspDiagnosticsSignWarning"
 require("neo-tree").setup({
@@ -372,14 +372,14 @@ require 'window-picker'.setup({
 
 
 
--- vim.opt.termguicolors = true
--- require("bufferline").setup {
---   options = {
---     mode = "tabs",
---     numbers = "ordinal",
---     diagnostics = "nvim_lsp"
---   }
--- }
+vim.opt.termguicolors = true
+require("bufferline").setup {
+  options = {
+    mode = "tabs",
+    numbers = "ordinal",
+    diagnostics = "nvim_lsp"
+  }
+}
 
 local icons = require "nvim-nonicons"
 

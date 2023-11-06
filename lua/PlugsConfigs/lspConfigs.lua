@@ -1,7 +1,8 @@
 ---- -- Setup language servers.
 local lspconfig = require('lspconfig')
----- lspconfig.pyright.setup {}
+lspconfig.pyright.setup {}
 lspconfig.tsserver.setup {}
+lspconfig.jedi_language_server.setup{}
 ---- lspconfig.rust_analyzer.setup {
 ----   -- Server-specific settings. See `:help lspconfig-setup`
 ----   settings = {
@@ -63,31 +64,41 @@ lspconfig.tsserver.setup {}
    end,
  }
 
----- require 'lspconfig'.tailwindcss.setup {
-----   cmd = { "tailwindcss-language-server", "--stdio" },
-----   filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge",
-----     "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex",
-----     "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css",
-----     "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript",
-----     "typescript", "typescriptreact", "vue", "svelte" },
-----   settings = {
-----     tailwindCSS = {
-----       classAttributes = { "class", "className", "classList", "ngClass" },
-----       lint = {
-----         cssConflict = "warning",
-----         invalidApply = "error",
-----         invalidConfigPath = "error",
-----         invalidScreen = "error",
-----         invalidTailwindDirective = "error",
-----         invalidVariant = "error",
-----         recommendedVariantOrder = "warning"
-----       },
-----       validate = true
-----     }
-----   }
----- }
-----
-----
+lspconfig.eslint.setup({
+  --- ...
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+})
+
+require 'lspconfig'.tailwindcss.setup {
+  cmd = { "tailwindcss-language-server", "--stdio" },
+  filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge",
+    "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex",
+    "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css",
+    "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript",
+    "typescript", "typescriptreact", "vue", "svelte" },
+  settings = {
+    tailwindCSS = {
+      classAttributes = { "class", "className", "classList", "ngClass" },
+      lint = {
+        cssConflict = "warning",
+        invalidApply = "error",
+        invalidConfigPath = "error",
+        invalidScreen = "error",
+        invalidTailwindDirective = "error",
+        invalidVariant = "error",
+        recommendedVariantOrder = "warning"
+      },
+      validate = true
+    }
+  }
+}
+
+
 require('lspkind').init({
   -- DEPRECATED (use mode instead): enables text annotations
   --
