@@ -1,9 +1,7 @@
 require("lazy").setup({
-----Schema
-{ "folke/tokyonight.nvim",
-lazy = false,
-priority = 1000,
-},
+--Schema
+-- { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true},
+{"rebelot/kanagawa.nvim"},
 --NeoTree
 {
   "nvim-neo-tree/neo-tree.nvim",
@@ -46,7 +44,7 @@ priority = 1000,
 
 
 --Suda
-{ 'lambdalisue/suda.vim' },
+{'lambdalisue/suda.vim' },
 --Syntaxis
 { 'scrooloose/syntastic' },
 { 'sheerun/vim-polyglot' },
@@ -63,6 +61,16 @@ priority = 1000,
 --Css
 {
   'brenoprata10/nvim-highlight-colors'
+},
+--TaildWindCss
+{
+  "roobert/tailwindcss-colorizer-cmp.nvim",
+  -- optionally, override the default options:
+  config = function()
+    require("tailwindcss-colorizer-cmp").setup({
+      color_square_width = 2,
+    })
+  end
 },
 --Lua
 { 'yamatsum/nvim-cursorline' },
@@ -128,11 +136,35 @@ priority = 1000,
   end,
 },
 --Telescope
+{
+ 'nvim-telescope/telescope.nvim', 
+   dependencies = { 'nvim-lua/plenary.nvim' }
+ },
 
- {
-  'nvim-telescope/telescope.nvim', 
-    dependencies = { 'nvim-lua/plenary.nvim' }
+--DashBoard
+{
+  'nvimdev/dashboard-nvim',
+  event = 'VimEnter',
+  config = function()
+    require('dashboard').setup {
+        config = {
+          center = {
+            {
+              icon = '',
+              icon_hl = 'group',
+              desc = 'description',
+              desc_hl = 'group',
+              key = 'shortcut key in dashboard buffer not keymap !!',
+              key_hl = 'group',
+              key_format = ' [%s]', -- `%s` will be substituted with value of `key`
+              action = '',
+            },
   },
-
+  footer = {},
+}
+    }
+  end,
+  dependencies = { {'nvim-tree/nvim-web-devicons'}}
+}
 }
 )
