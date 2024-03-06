@@ -1,11 +1,15 @@
 ---- -- Setup language servers.
 local lspconfig = require('lspconfig')
-lspconfig.pyright.setup{}
 lspconfig.tsserver.setup{}
 lspconfig.jedi_language_server.setup{
   filetypes = { "python" }
 }
-lspconfig.pylsp.setup{}
+lspconfig.pyright.setup{
+  filetypes = { "python" }
+}
+lspconfig.pylsp.setup{
+  filetypes = { "python" }
+}
 ---- lspconfig.rust_analyzer.setup {
 ----   -- Server-specific settings. See `:help lspconfig-setup`
 ----   settings = {
@@ -103,26 +107,10 @@ require 'lspconfig'.tailwindcss.setup {
 
 
 require('lspkind').init({
-  -- DEPRECATED (use mode instead): enables text annotations
-  --
-  -- default: true
-  -- with_text = true,
-
-  -- defines how annotations are shown
-  -- default: symbol
-  -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
   mode = 'symbol_text',
 
-  -- default symbol map
-  -- can be either 'default' (requires nerd-fonts font) or
-  -- 'codicons' for codicon preset (requires vscode-codicons font)
-  --
-  -- default: 'default'
   preset = 'codicons',
 
-  -- override preset symbols
-  --
-  -- default: {}
   symbol_map = {
     Text = "󰉿",
     Method = "󰆧",
@@ -174,6 +162,7 @@ cmp.setup({
       before = function (entry, vim_item)
         return vim_item
       end
+      
     })
   },
   window = {

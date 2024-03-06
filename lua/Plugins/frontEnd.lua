@@ -4,8 +4,7 @@ return {
 --Css
 {
   'brenoprata10/nvim-highlight-colors', 
-  ft = "['html','css','scss','sass']"
 },
 --Prettier
-{ 'prettier/vim-prettier'  },
+{ 'prettier/vim-prettier', ft = {'html','typescript', 'javascript'}  },
 }

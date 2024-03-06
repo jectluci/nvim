@@ -1,6 +1,4 @@
 return {
-
-{ 'nvim-treesitter/nvim-treesitter' },
-------Angular Treesitter
-{'nvim-treesitter/nvim-treesitter-angular'},
+{ 'nvim-treesitter/nvim-treesitter'  },
+{'nvim-treesitter/nvim-treesitter-angular', event = "VeryLazy"},
 }

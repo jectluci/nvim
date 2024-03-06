@@ -3,6 +3,11 @@ return {
 { 'neovim/nvim-lspconfig' },
 { 'williamboman/nvim-lsp-installer' },
 { 'folke/lsp-colors.nvim' },
+--NEOCONF 
+{
+  "folke/neoconf.nvim",
+},
+
 --CMP 
 { 'neovim/nvim-lspconfig' },
 { 'hrsh7th/cmp-nvim-lsp' },

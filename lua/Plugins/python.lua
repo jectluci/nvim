@@ -1,7 +1,7 @@
 return {
 --Python
-{'averms/black-nvim'},
-{'psf/black'},
-{'jose-elias-alvarez/null-ls.nvim'},
-{'davidhalter/jedi-vim'},
+{'averms/black-nvim', ft='python'},
+{'psf/black',ft='python'},
+{'jose-elias-alvarez/null-ls.nvim' , ft='python'},
+{'davidhalter/jedi-vim',ft='python'},
 }

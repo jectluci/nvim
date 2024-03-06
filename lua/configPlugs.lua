@@ -1,17 +1,65 @@
 ---@diagnostic disable: unused-local, undefined-global
 ---PlugsConfigs
 require('PlugsConfigs.colorSchema')
+
+
+require("neoconf").setup(
+{
+
+  -- name of the local settings files
+  local_settings = ".neoconf.json",
+  -- name of the global settings file in your Neovim config directory
+  global_settings = "neoconf.json",
+  -- import existing settings from other plugins
+  import = {
+    vscode = true, -- local .vscode/settings.json
+    coc = true, -- global/local coc-settings.json
+    nlsp = true, -- global/local nlsp-settings.nvim json settings
+  },
+  -- send new configuration to lsp clients when changing json settings
+  live_reload = true,
+  -- set the filetype to jsonc for settings files, so you can use comments
+  -- make sure you have the jsonc treesitter parser installed!
+  filetype_jsonc = true,
+  plugins = {
+    -- configures lsp clients with settings in the following order:
+    -- - lua settings passed in lspconfig setup
+    -- - global json settings
+    -- - local json settings
+    lspconfig = {
+      enabled = true,
+    },
+    -- configures jsonls to get completion in .nvim.settings.json files
+    jsonls = {
+      enabled = true,
+      -- only show completion in json settings for configured lsp servers
+      configured_servers_only = true,
+    },
+    -- configures lua_ls to get completion of lspconfig server settings
+    lua_ls = {
+      -- by default, lua_ls annotations are only enabled in your neovim config directory
+      enabled_for_neovim_config = true,
+      -- explicitely enable adding annotations. Mostly relevant to put in your local .nvim.settings.json file
+      enabled = false,
+    },
+  },
+
+}
+)
+
 require('PlugsConfigs.lualine')
 require('PlugsConfigs.lspConfigs')
+
+
 
 --NeoTree
 -- If you want icons for diagnostic errors, you'll need to define them somewhere:
 vim.fn.sign_define("DiagnosticSignError",
-  { text = " ", texthl = "DiagnosticSignError" })
+  { text = "", texthl = "DiagnosticSignError" })
 vim.fn.sign_define("DiagnosticSignWarn",
-  { text = " ", texthl = "DiagnosticSignWarn" })
+  { text = "", texthl = "DiagnosticSignWarn" })
 vim.fn.sign_define("DiagnosticSignInfo",
-  { text = " ", texthl = "DiagnosticSignInfo" })
+  { text = "󱧡", texthl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DiagnosticSignHint",
   { text = "󰻸", texthl = "DiagnosticSignHint" })
 
@@ -72,7 +120,7 @@ require("oil").setup({
     ["<CR>"] = "actions.select",
     ["<C-s>"] = "actions.select_vsplit",
     ["<C-h>"] = "actions.select_split",
-    ["<C-t>"] = "actions.select_tab",
+    ["t"] = "actions.select_tab",
     ["<C-p>"] = "actions.preview",
     ["<C-c>"] = "actions.close",
     ["<C-l>"] = "actions.refresh",
@@ -523,14 +571,6 @@ vim.g.db_ui_icons = {
   connection_error = "✕",
 }
 
-vim.cmd([[
-highlight! link NeoTreeDirectoryIcon NvimTreeFolderIcon
-highlight! link NeoTreeDirectoryName NvimTreeFolderName
-highlight! link NeoTreeSymbolicLinkTarget NvimTreeSymlink
-highlight! link NeoTreeRootName NvimTreeRootFolder
-highlight! link NeoTreeDirectoryName NvimTreeOpenedFolderName
-highlight! link NeoTreeFileNameOpened NvimTreeOpenedFile
-]])
 
 
 -- Establecer el tipo de archivo para *.html como htmldjango
@@ -549,60 +589,14 @@ autopairs.setup({
 })
 
 
+
 --Flutter 
 require("flutter-tools").setup {} -- use defaults
 
 --Notify 
 vim.notify = require("notify")
 
---REst 
---
-require("rest-nvim").setup({
-      -- Open request results in a horizontal split
-      result_split_horizontal = true,
-      -- Keep the http file buffer above|left when split horizontal|vertical
-      result_split_in_place = false,
-      -- stay in current windows (.http file) or change to results window (default)
-      stay_in_current_window_after_split = false,
-      -- Skip SSL verification, useful for unknown certificates
-      skip_ssl_verification = false,
-      -- Encode URL before making request
-      encode_url = true,
-      -- Highlight request on run
-      highlight = {
-        enabled = true,
-        timeout = 150,
-      },
-      result = {
-        -- toggle showing URL, HTTP info, headers at top the of result window
-        show_url = true,
-        -- show the generated curl command in case you want to launch
-        -- the same request via the terminal (can be verbose)
-        show_curl_command = true,
-        show_http_info = true,
-        show_headers = true,
-        -- table of curl `--write-out` variables or false if disabled
-        -- for more granular control see Statistics Spec
-        show_statistics = false,
-        -- executables or functions for formatting response body [optional]
-        -- set them to false if you want to disable them
-        formatters = {
-          json = "jq",
-          html = function(body)
-            return vim.fn.system({"tidy", "-i", "-q", "-"}, body)
-          end
-        },
-      },
-      -- Jump to request line on run
-      jump_to_request = false,
-      env_file = '.env',
-      -- for telescope select
-      env_pattern = "\\.env$",
-      env_edit_command = "tabedit",
-      custom_dynamic_variables = {},
-      yank_dry_run = true,
-      search_back = true,
-    })
 
 
-vim.keymap.set('n', "res", ':RestNvim')
+
+

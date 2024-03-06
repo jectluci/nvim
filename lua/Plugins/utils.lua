@@ -13,11 +13,8 @@ return {
 { 'eslint/eslint' },
 --Git
 { 'tpope/vim-fugitive' },
---Terminal
-{ 'wvffle/vimterm' },
-{ 'fladson/vim-kitty' },
 --DBUI
-{ 'tpope/vim-dadbod' },
+{ 'tpope/vim-dadbod'  },
 { 'kristijanhusak/vim-dadbod-ui' },
 --Refactor 
 {
@@ -29,10 +26,6 @@ return {
   config = function()
     require("refactoring").setup()
   end,
-},
---rest
-{ "rest-nvim/rest.nvim",
-   dependencies = { { "nvim-lua/plenary.nvim" } },
 },
 
 --Debugger 
