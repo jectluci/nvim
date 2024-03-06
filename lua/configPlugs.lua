@@ -1,5 +1,4 @@
 ---@diagnostic disable: unused-local, undefined-global
-
 ---PlugsConfigs
 require('PlugsConfigs.colorSchema')
 require('PlugsConfigs.lualine')
@@ -15,262 +14,158 @@ vim.fn.sign_define("DiagnosticSignInfo",
   { text = " ", texthl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DiagnosticSignHint",
   { text = "󰻸", texthl = "DiagnosticSignHint" })
--- NOTE: this is changed from v1.x, which used the old style of highlight groups
--- in the form "LspDiagnosticsSignWarning"
-require("neo-tree").setup({
-  close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
-  popup_border_style = "rounded",
-  enable_git_status = true,
-  enable_diagnostics = true,
-  sort_case_insensitive = false, -- used when sorting files and directories in the tree
-  sort_function = nil,           -- use a custom function for sorting files and directories in the tree
-  -- sort_function = function (a,b)
-  --       if a.type == b.type then
-  --           return a.path > b.path
-  --       else
-  --           return a.type > b.type
-  --       end
-  --   end , -- this sorts files and directories descendantly
-  default_component_configs = {
-    container = {
-      enable_character_fade = true
-    },
-    indent = {
-      indent_size = 1,
-      padding = 3, -- extra padding on left hand side
-      -- indent guides
-      with_markers = true,
-      indent_marker = "│",
-      last_indent_marker = "└",
-      highlight = "NeoTreeIndentMarker",
-      -- expander config, needed for nesting files
-      with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
-      expander_collapsed = "",
-      expander_expanded = "",
-      expander_highlight = "NeoTreeExpander",
-    },
-    icon = {
-      folder_closed = "",
-      folder_open = "",
-      folder_empty = "ﰊ",
-      -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
-      -- then these will never be used.
-      default = "*",
-      highlight = "NeoTreeFileIcon"
-    },
-    modified = {
-      symbol = "[+]",
-      highlight = "NeoTreeModified",
-    },
-    name = {
-      trailing_slash = true,
-      use_git_status_colors = true,
-      highlight = "NeoTreeFileName",
-    },
-    git_status = {
-      symbols = {
-        -- Change type
-        added     = "✚", -- or "✚", but this is redundant info if you use git_status_colors on the name
-        modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
-        deleted   = "✖", -- this can only be used in the git_status source
-        renamed   = "", -- this can only be used in the git_status source
-        -- Status type
-        untracked = "",
-        ignored   = "",
-        unstaged  = "",
-        staged    = "",
-        conflict  = "",
-      }
+
+
+
+require("oil").setup({
+  -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
+  -- Set to false if you still want to use netrw.
+  default_file_explorer = true,
+  -- Id is automatically added at the beginning, and name at the end
+  -- See :help oil-columns
+  columns = {
+    "icon",
+    -- "permissions",
+    -- "size",
+    -- "mtime",
+  },
+  -- Buffer-local options to use for oil buffers
+  buf_options = {
+    buflisted = false,
+    bufhidden = "hide",
+  },
+  -- Window-local options to use for oil buffers
+  win_options = {
+    wrap = false,
+    signcolumn = "no",
+    cursorcolumn = true,
+    foldcolumn = "0",
+    spell = false,
+    list = false,
+    conceallevel = 3,
+    concealcursor = "nvic",
+  },
+  -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
+  delete_to_trash = false,
+  -- Skip the confirmation popup for simple operations
+  skip_confirm_for_simple_edits = false,
+  -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
+  prompt_save_on_select_new_entry = true,
+  -- Oil will automatically delete hidden buffers after this delay
+  -- You can set the delay to false to disable cleanup entirely
+  -- Note that the cleanup process only starts when none of the oil buffers are currently displayed
+  cleanup_delay_ms = 2000,
+  -- Set to true to autosave buffers that are updated with LSP willRenameFiles
+  -- Set to "unmodified" to only save unmodified buffers
+  lsp_rename_autosave = false,
+  -- Constrain the cursor to the editable parts of the oil buffer
+  -- Set to `false` to disable, or "name" to keep it on the file names
+  constrain_cursor = "editable",
+  -- Keymaps in oil buffer. Can be any value that `vim.keymap.set` accepts OR a table of keymap
+  -- options with a `callback` (e.g. { callback = function() ... end, desc = "", mode = "n" })
+  -- Additionally, if it is a string that matches "actions.<name>",
+  -- it will use the mapping at require("oil.actions").<name>
+  -- Set to `false` to remove a keymap
+  -- See :help oil-actions for a list of all available actions
+  keymaps = {
+    ["g?"] = "actions.show_help",
+    ["<CR>"] = "actions.select",
+    ["<C-s>"] = "actions.select_vsplit",
+    ["<C-h>"] = "actions.select_split",
+    ["<C-t>"] = "actions.select_tab",
+    ["<C-p>"] = "actions.preview",
+    ["<C-c>"] = "actions.close",
+    ["<C-l>"] = "actions.refresh",
+    ["-"] = "actions.parent",
+    ["_"] = "actions.open_cwd",
+    ["`"] = "actions.cd",
+    ["~"] = "actions.tcd",
+    ["gs"] = "actions.change_sort",
+    ["gx"] = "actions.open_external",
+    ["g."] = "actions.toggle_hidden",
+    ["g\\"] = "actions.toggle_trash",
+  },
+  -- Set to false to disable all of the above keymaps
+  use_default_keymaps = true,
+  view_options = {
+    -- Show files and directories that start with "."
+    show_hidden = false,
+    -- This function defines what is considered a "hidden" file
+    is_hidden_file = function(name, bufnr)
+      return vim.startswith(name, ".")
+    end,
+    -- This function defines what will never be shown, even when `show_hidden` is set
+    is_always_hidden = function(name, bufnr)
+      return false
+    end,
+    sort = {
+      -- sort order can be "asc" or "desc"
+      -- see :help oil-columns to see which columns are sortable
+      { "type", "asc" },
+      { "name", "asc" },
     },
   },
-  window = {
-    position = "left",
-    width = 30,
-    mapping_options = {
-      noremap = true,
-      nowait = true,
+  -- Configuration for the floating window in oil.open_float
+  float = {
+    -- Padding around the floating window
+    padding = 2,
+    max_width = 0,
+    max_height = 0,
+    border = "rounded",
+    win_options = {
+      winblend = 0,
     },
-    mappings = {
-      ["<20>"] = {
-        "toggle_node",
-        nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
-      },
-      ["<2-LeftMouse>"] = "open",
-      ["<cr>"] = "open",
-      ["<esc>"] = "revert_preview",
-      ["P"] = { "toggle_preview", config = { use_float = true } },
-      ["S"] = "open_split",
-      ["s"] = "open_vsplit",
-      -- ["S"] = "split_with_window_picker",
-      -- ["s"] = "vsplit_with_window_picker",
-      ["t"] = "open_tabnew",
-      -- ["<cr>"] = "open_drop",
-      -- ["t"] = "open_tab_drop",
-      ["w"] = "open_with_window_picker",
-      --["P"] = "toggle_preview", -- enter preview mode, which shows the current node without focusing
-      ["C"] = "close_node",
-      ["z"] = "close_all_nodes",
-      --["Z"] = "expand_all_nodes",
-      ["a"] = {
-        "add",
-        -- some commands may take optional config options, see `:h neo-tree-mappings` for details
-        config = {
-          show_path = "none" -- "none", "relative", "absolute"
-        }
-      },
-      ["A"] = "add_directory", -- also accepts the optional config.show_path option like "add".
-      ["d"] = "delete",
-      ["r"] = "rename",
-      ["y"] = "copy_to_clipboard",
-      ["x"] = "cut_to_clipboard",
-      ["p"] = "paste_from_clipboard",
-      ["c"] = "copy", -- takes text input for destination, also accepts the optional config.show_path option like "add":
-      -- ["c"] = {
-      --  "copy",
-      --  config = {
-      --    show_path = "none" -- "none", "relative", "absolute"
-      --  }
-      --}
-      ["m"] = "move", -- takes text input for destination, also accepts the optional config.show_path option like "add".
-      ["q"] = "close_window",
-      ["R"] = "refresh",
-      ["?"] = "show_help",
-      ["<"] = "prev_source",
-      [">"] = "next_source",
-    }
+    -- This is the config that will be passed to nvim_open_win.
+    -- Change values here to customize the layout
+    override = function(conf)
+      return conf
+    end,
   },
-  nesting_rules = {},
-  filesystem = {
-    filtered_items = {
-      visible = false, -- when true, they will just be displayed differently than normal items
-      hide_dotfiles = true,
-      hide_gitignored = true,
-      hide_hidden = true, -- only works on Windows for hidden files/directories
-      hide_by_name = {
-        --"node_modules"
-      },
-      hide_by_pattern = { -- uses glob style patterns
-        --"*.meta",
-        --"*/src/*/tsconfig.json",
-      },
-      always_show = { -- remains visible even if other settings would normally hide it
-        --".gitignored",
-      },
-      never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-        --".DS_Store",
-        --"thumbs.db"
-      },
-      never_show_by_pattern = { -- uses glob style patterns
-        --".null-ls_*",
-      },
+  -- Configuration for the actions floating preview window
+  preview = {
+    -- Width dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+    -- min_width and max_width can be a single value or a list of mixed integer/float types.
+    -- max_width = {100, 0.8} means "the lesser of 100 columns or 80% of total"
+    max_width = 0.9,
+    -- min_width = {40, 0.4} means "the greater of 40 columns or 40% of total"
+    min_width = { 40, 0.4 },
+    -- optionally define an integer/float for the exact width of the preview window
+    width = nil,
+    -- Height dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+    -- min_height and max_height can be a single value or a list of mixed integer/float types.
+    -- max_height = {80, 0.9} means "the lesser of 80 columns or 90% of total"
+    max_height = 0.9,
+    -- min_height = {5, 0.1} means "the greater of 5 columns or 10% of total"
+    min_height = { 5, 0.1 },
+    -- optionally define an integer/float for the exact height of the preview window
+    height = nil,
+    border = "rounded",
+    win_options = {
+      winblend = 0,
     },
-    follow_current_file = true,             -- This will find and focus the file in the active buffer every
-    -- time the current file is changed while the tree is open.
-    group_empty_dirs = false,               -- when true, empty folders will be grouped together
-    hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
-    -- in whatever position is specified in window.position
-    -- "open_current",  -- netrw disabled, opening a directory opens within the
-    -- window like netrw would, regardless of window.position
-    -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-    use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
-    -- instead of relying on nvim autocmd events.
-    window = {
-      mappings = {
-        ["<bs>"] = "navigate_up",
-        ["."] = "set_root",
-        ["H"] = "toggle_hidden",
-        ["/"] = "fuzzy_finder",
-        ["D"] = "fuzzy_finder_directory",
-        ["f"] = "filter_on_submit",
-        ["<c-x>"] = "clear_filter",
-        ["[g"] = "prev_git_modified",
-        ["]g"] = "next_git_modified",
-      }
-    }
+    -- Whether the preview window is automatically updated when the cursor is moved
+    update_on_cursor_moved = true,
   },
-  buffers = {
-    follow_current_file = true, -- This will find and focus the file in the active buffer every
-    -- time the current file is changed while the tree is open.
-    group_empty_dirs = true,    -- when true, empty folders will be grouped together
-    show_unloaded = true,
-    window = {
-      mappings = {
-        ["bd"] = "buffer_delete",
-        ["<bs>"] = "navigate_up",
-        ["."] = "set_root",
-      }
+  -- Configuration for the floating progress window
+  progress = {
+    max_width = 0.6,
+    min_width = { 40, 0.4 },
+    width = nil,
+    max_height = { 10, 0.9 },
+    min_height = { 5, 0.1 },
+    height = nil,
+    border = "rounded",
+    minimized_border = "none",
+    win_options = {
+      winblend = 0,
     },
   },
-  git_status = {
-    window = {
-      position = "float",
-      mappings = {
-        ["A"]  = "git_add_all",
-        ["gu"] = "git_unstage_file",
-        ["ga"] = "git_add_file",
-        ["gr"] = "git_revert_file",
-        ["gc"] = "git_commit",
-        ["gp"] = "git_push",
-        ["gg"] = "git_commit_and_push",
-      }
-    }
-  }
 })
-
-vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
-
-vim.keymap.set('n', "<F2>", ':Neotree reveal<cr>')
-vim.keymap.set('n', "<F3>", ':Neotree close<cr>')
+vim.keymap.set('n',"<F2>", ":Oil --float<cr>")
 
 
 
-local highlights = require("neo-tree.ui.highlights")
 
-require("neo-tree").setup({
-  filesystem = {
-    components = {
-      icon = function(config, node, state)
-        local icon = config.default or ""
-        local padding = config.padding or ""
-        local highlight = config.highlight or highlights.FILE_ICON
-
-        if node.type == "directory" then
-          highlight = highlights.DIRECTORY_ICON
-          if node:is_expanded() then
-            icon = config.folder_open or ""
-          else
-            icon = config.folder_closed or ""
-          end
-          if node.name == ".git" then
-            icon = ""
-            highlight = highlights.DIRECTORY_ICON
-          elseif node.name == "node_modules" then
-            icon = "󰎙"
-            highlight = highlights.DIRECTORY_ICON
-          elseif node.name == "app" then
-            icon = "󱋣"
-          elseif node.name == ".vim" then
-            icon = ""
-          elseif node.name == "service" or node.name == "services" then
-            icon = "󰡰"
-          end
-        elseif node.type == "file" then
-          local success, web_devicons = pcall(require, "nvim-web-devicons")
-          if success then
-            local devicon, hl = web_devicons.get_icon(node.name, node.ext)
-            icon = devicon or icon
-            highlight = hl or highlight
-          end
-        end
-
-        return {
-          text = icon .. padding,
-          highlight = highlight,
-        }
-      end,
-    }
-  }
-})
 
 require 'window-picker'.setup({
   -- when there is only one window available to pick from, use that window
@@ -306,7 +201,7 @@ require 'window-picker'.setup({
     -- filter using buffer options
     bo = {
       -- if the file type is one of following, the window will be ignored
-      filetype = { 'NvimTree', "neo-tree", "notify" },
+      filetype = { "oil", "notify" },
 
       -- if the buffer type is one of following, the window will be ignored
       buftype = { 'terminal' },
@@ -528,221 +423,7 @@ vim.g.user_emmet_mode = 'inv'
 vim.g.user_emmet_mode = 'a'
 
 vim.g.user_emmet_install_global = 0
-vim.cmd("autocmd FileType html,css EmmetInstall")
-
-
-----COC
----- Some servers have issues with backup files, see #649
---vim.opt.backup = false
---vim.opt.writebackup = false
-
----- Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
----- delays and poor user experience
---vim.opt.updatetime = 300
-
----- Always show the signcolumn, otherwise it would shift the text each time
----- diagnostics appeared/became resolved
---vim.opt.signcolumn = "yes"
-
---local keyset = vim.keymap.set
----- Autocomplete
---function _G.check_back_space()
---  local col = vim.fn.col('.') - 1
---  return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
---end
-
----- Use Tab for trigger completion with characters ahead and navigate
----- NOTE: There's always a completion item selected by default, you may want to enable
----- no select by setting `"suggest.noselect": true` in your configuration file
----- NOTE: Use command ':verbose imap <tab>' to make sure Tab is not mapped by
----- other plugins before putting this into your config
---local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
---keyset("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
---keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
-
----- Make <CR> to accept selected completion item or notify coc.nvim to format
----- <C-g>u breaks current undo, please make your own choice
---keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
-
----- Use <c-j> to trigger snippets
---keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
----- Use <c-space> to trigger completion
----- keyset("i", "<c-space>", "coc#refresh()", { silent = true, expr = true })
---keyset("i", "zxc", "coc#refresh()", { silent = true, expr = true })
-
----- Use `[g` and `]g` to navigate diagnostics
----- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
---keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
---keyset("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
-
----- GoTo code navigation
---keyset("n", "gd", "<Plug>(coc-definition)", { silent = true })
---keyset("n", "gy", "<Plug>(coc-type-definition)", { silent = true })
---keyset("n", "gi", "<Plug>(coc-implementation)", { silent = true })
---keyset("n", "gr", "<Plug>(coc-references)", { silent = true })
-
-
----- Use K to show documentation in preview window
---function _G.show_docs()
---  local cw = vim.fn.expand('<cword>')
---  if vim.fn.index({ 'vim', 'help' }, vim.bo.filetype) >= 0 then
---    vim.api.nvim_command('h ' .. cw)
---  elseif vim.api.nvim_eval('coc#rpc#ready()') then
---    vim.fn.CocActionAsync('doHover')
---  else
---    vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
---  end
---end
-
---keyset("n", "K", '<CMD>lua _G.show_docs()<CR>', { silent = true })
-
-
----- Highlight the symbol and its references on a CursorHold event(cursor is idle)
---vim.api.nvim_create_augroup("CocGroup", {})
---vim.api.nvim_create_autocmd("CursorHold", {
---  group = "CocGroup",
---  command = "silent call CocActionAsync('highlight')",
---  desc = "Highlight symbol under cursor on CursorHold"
---})
-
-
----- Symbol renaming
---keyset("n", "<leader>rn", "<Plug>(coc-rename)", { silent = true })
-
-
----- Formatting selected code
---keyset("x", "<leader>f", "<Plug>(coc-format-selected)", { silent = true })
---keyset("n", "<leader>f", "<Plug>(coc-format-selected)", { silent = true })
-
-
----- Setup formatexpr specified filetype(s)
---vim.api.nvim_create_autocmd("FileType", {
---  group = "CocGroup",
---  pattern = "typescript,json",
---  command = "setl formatexpr=CocAction('formatSelected')",
---  desc = "Setup formatexpr specified filetype(s)."
---})
-
----- Update signature help on jump placeholder
---vim.api.nvim_create_autocmd("User", {
---  group = "CocGroup",
---  pattern = "CocJumpPlaceholder",
---  command = "call CocActionAsync('showSignatureHelp')",
---  desc = "Update signature help on jump placeholder"
---})
-
----- Apply codeAction to the selected region
----- Example: `<leader>aap` for current paragraph
---local opts = { silent = true, nowait = true }
---keyset("x", "<leader>a", "<Plug>(coc-codeaction-selected)", opts)
---keyset("n", "<leader>a", "<Plug>(coc-codeaction-selected)", opts)
-
----- Remap keys for apply code actions at the cursor position.
---keyset("n", "<leader>ac", "<Plug>(coc-codeaction-cursor)", opts)
----- Remap keys for apply code actions affect whole buffer.
---keyset("n", "<leader>as", "<Plug>(coc-codeaction-source)", opts)
----- Remap keys for applying codeActions to the current buffer
---keyset("n", "<leader>ac", "<Plug>(coc-codeaction)", opts)
----- Apply the most preferred quickfix action on the current line.
---keyset("n", "<leader>qf", "<Plug>(coc-fix-current)", opts)
-
----- Remap keys for apply refactor code actions.
---keyset("n", "<leader>re", "<Plug>(coc-codeaction-refactor)", { silent = true })
---keyset("x", "<leader>r", "<Plug>(coc-codeaction-refactor-selected)", { silent = true })
---keyset("n", "<leader>r", "<Plug>(coc-codeaction-refactor-selected)", { silent = true })
-
----- Run the Code Lens actions on the current line
---keyset("n", "<leader>cl", "<Plug>(coc-codelens-action)", opts)
-
-
----- Map function and class text objects
----- NOTE: Requires 'textDocument.documentSymbol' support from the language server
---keyset("x", "if", "<Plug>(coc-funcobj-i)", opts)
---keyset("o", "if", "<Plug>(coc-funcobj-i)", opts)
---keyset("x", "af", "<Plug>(coc-funcobj-a)", opts)
---keyset("o", "af", "<Plug>(coc-funcobj-a)", opts)
---keyset("x", "ic", "<Plug>(coc-classobj-i)", opts)
---keyset("o", "ic", "<Plug>(coc-classobj-i)", opts)
---keyset("x", "ac", "<Plug>(coc-classobj-a)", opts)
---keyset("o", "ac", "<Plug>(coc-classobj-a)", opts)
-
-
----- Remap <C-f> and <C-b> to scroll float windows/popups
------@diagnostic disable-next-line: redefined-local
---local opts = { silent = true, nowait = true, expr = true }
---keyset("n", "<C-f>", 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
---keyset("n", "<C-b>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
---keyset("i", "<C-f>",
---  'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<cr>" : "<Right>"', opts)
---keyset("i", "<C-b>",
---  'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0)<cr>" : "<Left>"', opts)
---keyset("v", "<C-f>", 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
---keyset("v", "<C-b>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
-
-
----- Use CTRL-S for selections ranges
----- Requires 'textDocument/selectionRange' support of language server
---keyset("n", "<C-s>", "<Plug>(coc-range-select)", { silent = true })
---keyset("x", "<C-s>", "<Plug>(coc-range-select)", { silent = true })
-
-
----- Add `:Format` command to format current buffer
---vim.api.nvim_create_user_command("Format", "call CocAction('format')", {})
-
----- " Add `:Fold` command to fold current buffer
---vim.api.nvim_create_user_command("Fold", "call CocAction('fold', <f-args>)", { nargs = '?' })
-
----- Add `:OR` command for organize imports of the current buffer
---vim.api.nvim_create_user_command("OR", "call CocActionAsync('runCommand', 'editor.action.organizeImport')", {})
-
----- Add (Neo)Vim's native statusline support
----- NOTE: Please see `:h coc-status` for integrations with external plugins that
----- provide custom statusline: lightline.vim, vim-airline
---vim.opt.statusline:prepend("%{coc#status()}%{get(b:,'coc_current_function','')}")
-
----- Mappings for CoCList
----- code actions and coc stuff
------@diagnostic disable-next-line: redefined-local
---local opts = { silent = true, nowait = true }
----- Show all diagnostics
---keyset("n", "<space>a", ":<C-u>CocList diagnostics<cr>", opts)
----- Manage extensions
---keyset("n", "<space>e", ":<C-u>CocList extensions<cr>", opts)
----- Show commands
---keyset("n", "<space>c", ":<C-u>CocList commands<cr>", opts)
----- Find symbol of current document
---keyset("n", "<space>o", ":<C-u>CocList outline<cr>", opts)
----- Search workspace symbols
---keyset("n", "<space>s", ":<C-u>CocList -I symbols<cr>", opts)
----- Do default action for next item
---keyset("n", "<space>j", ":<C-u>CocNext<cr>", opts)
----- Do default action for previous item
---keyset("n", "<space>k", ":<C-u>CocPrev<cr>", opts)
----- Resume latest coc list
---keyset("n", "<space>p", ":<C-u>CocListResume<cr>", opts)
-
-
-----COC
---vim.api.nvim_set_keymap('i', '<C-Space>', '<cmd>CocRefresh()<CR>', { silent = true })
---vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { expr = true })
---vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { expr = true })
-
-
-
---vim.g.coc_global_extensions = {
---  'coc-json', 'coc-git', 'coc-pairs',
---  'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace',
---  'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint',
---  'coc-jedi', 'coc-webpack', 'coc-prettier', 'coc-pyright',
---  'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator',
---  'coc-sourcekit', 'coc-tslint-plugin', 'coc-github',
---  'coc-htmldjango', 'coc-angular', 'coc-eslint',
---  'coc-simple-react-snippets', 'coc-html-css-support', 'coc-tsdetect',
---  'coc-sql', 'coc-vimlsp', 'coc-docker', 'coc-yaml', 'coc-blade',
---  'coc-db', 'coc-lua'
---}
-
-
+vim.cmd("autocmd FileType html,css,js EmmetInstall")
 
 --Telescope
 local builtin = require('telescope.builtin')
@@ -868,4 +549,60 @@ autopairs.setup({
 })
 
 
+--Flutter 
+require("flutter-tools").setup {} -- use defaults
 
+--Notify 
+vim.notify = require("notify")
+
+--REst 
+--
+require("rest-nvim").setup({
+      -- Open request results in a horizontal split
+      result_split_horizontal = true,
+      -- Keep the http file buffer above|left when split horizontal|vertical
+      result_split_in_place = false,
+      -- stay in current windows (.http file) or change to results window (default)
+      stay_in_current_window_after_split = false,
+      -- Skip SSL verification, useful for unknown certificates
+      skip_ssl_verification = false,
+      -- Encode URL before making request
+      encode_url = true,
+      -- Highlight request on run
+      highlight = {
+        enabled = true,
+        timeout = 150,
+      },
+      result = {
+        -- toggle showing URL, HTTP info, headers at top the of result window
+        show_url = true,
+        -- show the generated curl command in case you want to launch
+        -- the same request via the terminal (can be verbose)
+        show_curl_command = true,
+        show_http_info = true,
+        show_headers = true,
+        -- table of curl `--write-out` variables or false if disabled
+        -- for more granular control see Statistics Spec
+        show_statistics = false,
+        -- executables or functions for formatting response body [optional]
+        -- set them to false if you want to disable them
+        formatters = {
+          json = "jq",
+          html = function(body)
+            return vim.fn.system({"tidy", "-i", "-q", "-"}, body)
+          end
+        },
+      },
+      -- Jump to request line on run
+      jump_to_request = false,
+      env_file = '.env',
+      -- for telescope select
+      env_pattern = "\\.env$",
+      env_edit_command = "tabedit",
+      custom_dynamic_variables = {},
+      yank_dry_run = true,
+      search_back = true,
+    })
+
+
+vim.keymap.set('n', "res", ':RestNvim')

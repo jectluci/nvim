@@ -38,8 +38,9 @@ vim.opt.softtabstop = 0
 vim.opt.expandtab = true
 
 -- Map leader to ,
-vim.api.nvim_set_var("mapleader", ",")
-
+-- vim.api.nvim_set_var("mapleader", ",")
+vim.g.mapleader = ','
+ 
 -- Enable hidden buffers
 vim.opt.hidden = true
 
