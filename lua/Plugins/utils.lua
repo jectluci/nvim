@@ -10,12 +10,14 @@ return {
 {'lambdalisue/suda.vim' },
 --Erros
 { 'dense-analysis/ale' },
-{ 'eslint/eslint' },
+{ 'eslint/eslint', ft={'javascript','typescript'} },
 --Git
 { 'tpope/vim-fugitive' },
+{'lewis6991/gitsigns.nvim'},
+--
 --DBUI
-{ 'tpope/vim-dadbod'  },
-{ 'kristijanhusak/vim-dadbod-ui' },
+{ 'tpope/vim-dadbod', event = "VeryLazy"  },
+{ 'kristijanhusak/vim-dadbod-ui', event = "VeryLazy" },
 --Refactor 
 {
   "ThePrimeagen/refactoring.nvim",
