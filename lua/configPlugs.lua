@@ -47,8 +47,14 @@ require("neoconf").setup(
 }
 )
 
+
+require('lsp-zero')
+require('lspconfig').lua_ls.setup({})
+
+
 require('PlugsConfigs.lualine')
 require('PlugsConfigs.lspConfigs')
+
 
 
 
@@ -148,7 +154,8 @@ require("neo-tree").setup({
       required_width = 110, -- min width of window required to show this column
     },
     symlink_target = {
-      enabled = false,
+      enabled = true,
+      required_width = 88,
     },
   },
   -- A list of functions, each representing a global custom command
@@ -156,7 +163,7 @@ require("neo-tree").setup({
   -- see `:h neo-tree-custom-commands-global`
   commands = {},
   window = {
-    position = "right",
+    position = "left",
     width = 40,
     mapping_options = {
       noremap = true,
@@ -333,7 +340,6 @@ require("neo-tree").setup({
 })
 
 vim.cmd([[nnoremap <F2> :Neotree reveal<cr>]])
-
 
 
 
@@ -577,7 +583,7 @@ require 'nvim-treesitter.configs'.setup {
     enable_rename = true,
     enable_close = true,
     enable_close_on_slash = true,
-    filetypes = { "html" , "xml" },
+    filetypes = { "html" , "xml", "angular" },
   }
   
 }
@@ -642,12 +648,21 @@ vim.keymap.set(
 	function() require('telescope').extensions.refactoring.refactors() end
 )
 
+local iconsTeles = require("nvim-nonicons")
+
+require("telescope").setup({
+  defaults = {
+    prompt_prefix = "  " .. iconsTeles.get("telescope") .. "  ",
+    selection_caret = " ❯ ",
+    entry_prefix = "   ",
+  },
+})
 
 --Css
 require("nvim-highlight-colors").setup {
   render = 'background', -- or 'foreground' or 'first_column'
   enable_named_colors = true,
-  enable_tailwind = false,
+  enable_tailwind = true,
   custom_colors = {
     -- label property will be used as a pattern initially(string.gmatch), therefore you need to escape the special characters by yourself with %
     { label = '%-%-theme%-font%-color',       color = '#fff' },
@@ -745,6 +760,12 @@ require("flutter-tools").setup {} -- use defaults
 vim.notify = require("notify")
 
 
+local nonicons_extention = require("nvim-nonicons.extentions.nvim-notify")
+
+require("notify").setup({
+  icons = nonicons_extention.icons,
+})
+
 require('gitsigns').setup {
   signs = {
     add          = { text = '' },
@@ -755,7 +776,7 @@ require('gitsigns').setup {
     untracked    = { text = '┆' },
   },
   signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-  numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+  numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
   linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
   watch_gitdir = {
@@ -788,5 +809,6 @@ require('gitsigns').setup {
     enable = false
   },
 }
+
 
 

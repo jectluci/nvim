@@ -34,6 +34,8 @@ return {
     }
   }
 },
+{
+    "williamboman/mason-lspconfig.nvim"},
 --TaildWindCss
 {
   "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -44,9 +46,23 @@ return {
     })
   end
 },
+
 --Lua
 { 'liuchengxu/vista.vim' },
+
+{
+  "utilyre/barbecue.nvim",
+  name = "barbecue",
+  version = "*",
+  dependencies = {
+    "SmiteshP/nvim-navic",
+    "nvim-tree/nvim-web-devicons", -- optional dependency
+  },
+},
 --Syntaxis
 { 'scrooloose/syntastic' },
 { 'sheerun/vim-polyglot' },
+--Angular 
+{ 'joeveiga/ng.nvim'},
+
 }

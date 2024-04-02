@@ -6,6 +6,14 @@ return {
 { 'DaikyXendo/nvim-material-icon'        },
 {"nvim-tree/nvim-web-devicons"}, --Symbols
 { 'simrat39/symbols-outline.nvim'       },
+{
+    '2kabhishek/nerdy.nvim',
+    dependencies = {
+        'stevearc/dressing.nvim',
+        'nvim-telescope/telescope.nvim',
+    },
+    cmd = 'Nerdy',
+},
 
 --Status bar
 { 'nvim-lualine/lualine.nvim' },
