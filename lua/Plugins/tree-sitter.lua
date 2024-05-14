@@ -4,6 +4,7 @@ return {
         dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
         event = "VeryLazy",
         opts = {
+            ensure_installed = { "c", "lua", "vim", "vimdoc", "query"},
             highlight = {
                 enable = true,
             },
@@ -54,5 +55,5 @@ return {
             }
         }
     },
-    { 'VonHeikemen/lsp-zero.nvim', branch = 'v3.x' },
+    { 'VonHeikemen/lsp-zero.nvim', branch = 'v3.x', event = {'BufReadPre', 'BufNewFile'}, cmd = 'Mason' },
 }

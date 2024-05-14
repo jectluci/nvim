@@ -6,6 +6,18 @@ return {
 { 'scrooloose/nerdcommenter' },
 -- Surround
 { 'tpope/vim-surround' },
+{
+  "roobert/surround-ui.nvim",
+  dependencies = {
+    "kylechui/nvim-surround",
+    "folke/which-key.nvim",
+  },
+  config = function()
+    require("surround-ui").setup({
+      root_key = "S"
+    })
+  end,
+},
 --Suda
 {'lambdalisue/suda.vim' },
 --Erros
@@ -50,5 +62,32 @@ return {
 },
 --Autotag
 {'windwp/nvim-ts-autotag'},
+--REST 
+{
+  "vhyrro/luarocks.nvim",
+  priority = 1000,
+  config = true,
+  opts = {
+      rocks = {"mimetypes","nvim-nio","xml2lua", "lua-curl"}
+    }
+},
+{
+  "rest-nvim/rest.nvim",
+  dependencies = { "luarocks.nvim" },
+  config = function()
+    require("rest-nvim").setup()
+  end,
+},
+--markDown
+
+-- install without yarn or npm
+{
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+}
+
+-- install with yarn or npm
 
 }

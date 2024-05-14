@@ -2,54 +2,53 @@
 ---PlugsConfigs
 require('PlugsConfigs.colorSchema')
 
-
 require("neoconf").setup(
-{
+  {
 
-  -- name of the local settings files
-  local_settings = ".neoconf.json",
-  -- name of the global settings file in your Neovim config directory
-  global_settings = "neoconf.json",
-  -- import existing settings from other plugins
-  import = {
-    vscode = true, -- local .vscode/settings.json
-    coc = true, -- global/local coc-settings.json
-    nlsp = true, -- global/local nlsp-settings.nvim json settings
-  },
-  -- send new configuration to lsp clients when changing json settings
-  live_reload = true,
-  -- set the filetype to jsonc for settings files, so you can use comments
-  -- make sure you have the jsonc treesitter parser installed!
-  filetype_jsonc = true,
-  plugins = {
-    -- configures lsp clients with settings in the following order:
-    -- - lua settings passed in lspconfig setup
-    -- - global json settings
-    -- - local json settings
-    lspconfig = {
-      enabled = true,
+    -- name of the local settings files
+    local_settings = ".neoconf.json",
+    -- name of the global settings file in your Neovim config directory
+    global_settings = "neoconf.json",
+    -- import existing settings from other plugins
+    import = {
+      vscode = true, -- local .vscode/settings.json
+      coc = true,  -- global/local coc-settings.json
+      nlsp = true, -- global/local nlsp-settings.nvim json settings
     },
-    -- configures jsonls to get completion in .nvim.settings.json files
-    jsonls = {
-      enabled = true,
-      -- only show completion in json settings for configured lsp servers
-      configured_servers_only = true,
+    -- send new configuration to lsp clients when changing json settings
+    live_reload = true,
+    -- set the filetype to jsonc for settings files, so you can use comments
+    -- make sure you have the jsonc treesitter parser installed!
+    filetype_jsonc = true,
+    plugins = {
+      -- configures lsp clients with settings in the following order:
+      -- - lua settings passed in lspconfig setup
+      -- - global json settings
+      -- - local json settings
+      lspconfig = {
+        enabled = true,
+      },
+      -- configures jsonls to get completion in .nvim.settings.json files
+      jsonls = {
+        enabled = true,
+        -- only show completion in json settings for configured lsp servers
+        configured_servers_only = true,
+      },
+      -- configures lua_ls to get completion of lspconfig server settings
+      lua_ls = {
+        -- by default, lua_ls annotations are only enabled in your neovim config directory
+        enabled_for_neovim_config = true,
+        -- explicitely enable adding annotations. Mostly relevant to put in your local .nvim.settings.json file
+        enabled = false,
+      },
     },
-    -- configures lua_ls to get completion of lspconfig server settings
-    lua_ls = {
-      -- by default, lua_ls annotations are only enabled in your neovim config directory
-      enabled_for_neovim_config = true,
-      -- explicitely enable adding annotations. Mostly relevant to put in your local .nvim.settings.json file
-      enabled = false,
-    },
-  },
 
-}
+  }
 )
 
 
 require('lsp-zero')
-require('lspconfig').lua_ls.setup({})
+-- require('lspconfig').lua_ls.setup({})
 
 
 require('PlugsConfigs.lualine')
@@ -74,10 +73,10 @@ require("neo-tree").setup({
   popup_border_style = "rounded",
   enable_git_status = true,
   enable_diagnostics = true,
-  enable_normal_mode_for_inputs = false, -- Enable normal mode for input dialogs.
+  enable_normal_mode_for_inputs = false,                             -- Enable normal mode for input dialogs.
   open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
-  sort_case_insensitive = false, -- used when sorting files and directories in the tree
-  sort_function = nil , -- use a custom function for sorting files and directories in the tree 
+  sort_case_insensitive = false,                                     -- used when sorting files and directories in the tree
+  sort_function = nil,                                               -- use a custom function for sorting files and directories in the tree
   -- sort_function = function (a,b)
   --       if a.type == b.type then
   --           return a.path > b.path
@@ -126,8 +125,8 @@ require("neo-tree").setup({
         -- Change type
         added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
         modified  = "󱍸", -- or "", but this is redundant info if you use git_status_colors on the name
-        deleted   = "",-- this can only be used in the git_status source
-        renamed   = "󰐌",-- this can only be used in the git_status source
+        deleted   = "", -- this can only be used in the git_status source
+        renamed   = "󰐌", -- this can only be used in the git_status source
         -- Status type
         untracked = "",
         ignored   = "",
@@ -170,9 +169,9 @@ require("neo-tree").setup({
       nowait = true,
     },
     mappings = {
-      ["<space>"] = { 
-          "toggle_node", 
-          nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use 
+      ["<space>"] = {
+        "toggle_node",
+        nowait = false,   -- disable `nowait` if you have existing combos starting with this char that you want to use
       },
       ["<2-LeftMouse>"] = "open",
       ["<cr>"] = "open",
@@ -193,7 +192,7 @@ require("neo-tree").setup({
       -- ['C'] = 'close_all_subnodes',
       ["z"] = "close_all_nodes",
       --["Z"] = "expand_all_nodes",
-      ["a"] = { 
+      ["a"] = {
         "add",
         -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
         -- some commands may take optional config options, see `:h neo-tree-mappings` for details
@@ -249,18 +248,18 @@ require("neo-tree").setup({
       },
     },
     follow_current_file = {
-      enabled = false, -- This will find and focus the file in the active buffer every time
+      enabled = false,                      -- This will find and focus the file in the active buffer every time
       --               -- the current file is changed while the tree is open.
-      leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+      leave_dirs_open = false,              -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
     },
-    group_empty_dirs = false, -- when true, empty folders will be grouped together
+    group_empty_dirs = false,               -- when true, empty folders will be grouped together
     hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
-                                            -- in whatever position is specified in window.position
-                          -- "open_current",  -- netrw disabled, opening a directory opens within the
-                                            -- window like netrw would, regardless of window.position
-                          -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
+    -- in whatever position is specified in window.position
+    -- "open_current",  -- netrw disabled, opening a directory opens within the
+    -- window like netrw would, regardless of window.position
+    -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
     use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
-                                    -- instead of relying on nvim autocmd events.
+    -- instead of relying on nvim autocmd events.
     window = {
       mappings = {
         ["<bs>"] = "navigate_up",
@@ -274,7 +273,7 @@ require("neo-tree").setup({
         ["<c-x>"] = "clear_filter",
         ["[g"] = "prev_git_modified",
         ["]g"] = "next_git_modified",
-        ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+        ["o"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
         ["oc"] = { "order_by_created", nowait = false },
         ["od"] = { "order_by_diagnostics", nowait = false },
         ["og"] = { "order_by_git_status", nowait = false },
@@ -295,18 +294,18 @@ require("neo-tree").setup({
   },
   buffers = {
     follow_current_file = {
-      enabled = true, -- This will find and focus the file in the active buffer every time
+      enabled = true,          -- This will find and focus the file in the active buffer every time
       --              -- the current file is changed while the tree is open.
       leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
     },
-    group_empty_dirs = true, -- when true, empty folders will be grouped together
+    group_empty_dirs = true,   -- when true, empty folders will be grouped together
     show_unloaded = true,
     window = {
       mappings = {
         ["bd"] = "buffer_delete",
         ["<bs>"] = "navigate_up",
         ["."] = "set_root",
-        ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+        ["o"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
         ["oc"] = { "order_by_created", nowait = false },
         ["od"] = { "order_by_diagnostics", nowait = false },
         ["om"] = { "order_by_modified", nowait = false },
@@ -327,7 +326,7 @@ require("neo-tree").setup({
         ["gc"] = "git_commit",
         ["gp"] = "git_push",
         ["gg"] = "git_commit_and_push",
-        ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+        ["o"]  = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
         ["oc"] = { "order_by_created", nowait = false },
         ["od"] = { "order_by_diagnostics", nowait = false },
         ["om"] = { "order_by_modified", nowait = false },
@@ -572,7 +571,7 @@ require 'nvim-treesitter.configs'.setup {
   },
   rainbow = {
     enable = true,
-    disable = { "html" },
+    disable = {  },
     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
     max_file_lines = nil, -- Do not enable for files with more than n lines, int
     colors = {},          -- table of hex strings
@@ -583,10 +582,14 @@ require 'nvim-treesitter.configs'.setup {
     enable_rename = true,
     enable_close = true,
     enable_close_on_slash = true,
-    filetypes = { "html" , "xml", "angular" },
-  }
-  
+    filetypes = { "html", "xml", "angular" },
+  },
+  indent = {
+    enable = true
+  },
 }
+
+
 --Indent
 require("ibl").setup()
 
@@ -600,7 +603,7 @@ vim.g.user_emmet_mode = 'inv'
 vim.g.user_emmet_mode = 'a'
 
 vim.g.user_emmet_install_global = 0
-vim.cmd("autocmd FileType html,css,js EmmetInstall")
+vim.cmd("autocmd FileType html,css,js,angular  EmmetInstall")
 
 --Telescope
 local builtin = require('telescope.builtin')
@@ -609,7 +612,7 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
-require('telescope').setup{
+require('telescope').setup {
   defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
@@ -643,9 +646,9 @@ require('telescope').setup{
 require("telescope").load_extension("refactoring")
 
 vim.keymap.set(
-	{"n", "x"},
-	"<leader>rr",
-	function() require('telescope').extensions.refactoring.refactors() end
+  { "n", "x" },
+  "<leader>rr",
+  function() require('telescope').extensions.refactoring.refactors() end
 )
 
 local iconsTeles = require("nvim-nonicons")
@@ -723,21 +726,21 @@ local status, autopairs = pcall(require, "nvim-autopairs")
 if (not status) then return end
 
 autopairs.setup({
-  disable_filetype = { "TelescopePrompt" , "vim" },
+  disable_filetype = { "TelescopePrompt", "vim" },
 })
 
 
----AUTOPAIRS 
+---AUTOPAIRS
 local npairs = require("nvim-autopairs")
 local Rule = require('nvim-autopairs.rule')
 
 npairs.setup({
-    check_ts = true,
-    ts_config = {
-        lua = {'string'},-- it will not add a pair on that treesitter node
-        javascript = {'template_string'},
-        java = false,-- don't check treesitter on java
-    }
+  check_ts = true,
+  ts_config = {
+    lua = { 'string' },   -- it will not add a pair on that treesitter node
+    javascript = { 'template_string' },
+    java = false,         -- don't check treesitter on java
+  }
 })
 
 local ts_conds = require('nvim-autopairs.ts-conds')
@@ -746,17 +749,17 @@ local ts_conds = require('nvim-autopairs.ts-conds')
 -- press % => %% only while inside a comment or string
 npairs.add_rules({
   Rule("%", "%", "lua")
-    :with_pair(ts_conds.is_ts_node({'string','comment'})),
+      :with_pair(ts_conds.is_ts_node({ 'string', 'comment' })),
   Rule("$", "$", "lua")
-    :with_pair(ts_conds.is_not_ts_node({'function'}))
+      :with_pair(ts_conds.is_not_ts_node({ 'function' }))
 })
 
 
 
---Flutter 
+--Flutter
 require("flutter-tools").setup {} -- use defaults
 
---Notify 
+--Notify
 vim.notify = require("notify")
 
 
@@ -767,7 +770,7 @@ require("notify").setup({
 })
 
 require('gitsigns').setup {
-  signs = {
+  signs                        = {
     add          = { text = '' },
     change       = { text = '󰑕' },
     delete       = { text = '󰗨' },
@@ -775,17 +778,17 @@ require('gitsigns').setup {
     changedelete = { text = '~' },
     untracked    = { text = '┆' },
   },
-  signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-  numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
-  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-  word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
-  watch_gitdir = {
+  signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
+  numhl                        = true, -- Toggle with `:Gitsigns toggle_numhl`
+  linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
+  word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
+  watch_gitdir                 = {
     follow_files = true
   },
-  auto_attach = true,
-  attach_to_untracked = false,
-  current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-  current_line_blame_opts = {
+  auto_attach                  = true,
+  attach_to_untracked          = false,
+  current_line_blame           = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame_opts      = {
     virt_text = true,
     virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
     delay = 1000,
@@ -793,11 +796,11 @@ require('gitsigns').setup {
     virt_text_priority = 100,
   },
   current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
-  sign_priority = 6,
-  update_debounce = 100,
-  status_formatter = nil, -- Use default
-  max_file_length = 40000, -- Disable if file is longer than this (in lines)
-  preview_config = {
+  sign_priority                = 6,
+  update_debounce              = 100,
+  status_formatter             = nil, -- Use default
+  max_file_length              = 40000, -- Disable if file is longer than this (in lines)
+  preview_config               = {
     -- Options passed to nvim_open_win
     border = 'single',
     style = 'minimal',
@@ -805,10 +808,87 @@ require('gitsigns').setup {
     row = 0,
     col = 1
   },
-  yadm = {
+  yadm= {
     enable = false
   },
 }
 
+require("rest-nvim").setup(
+ {
+  client = "curl",
+  env_file = ".env",
+  env_pattern = "\\.env$",
+  env_edit_command = "tabedit",
+  encode_url = true,
+  skip_ssl_verification = false,
+  custom_dynamic_variables = {},
+  logs = {
+    level = "info",
+    save = true,
+  },
+  result = {
+    split = {
+      horizontal = false,
+      in_place = false,
+      stay_in_current_window_after_split = true,
+    },
+    behavior = {
+      decode_url = true,
+      show_info = {
+        url = true,
+        headers = true,
+        http_info = true,
+        curl_command = true,
+      },
+      statistics = {
+        enable = true,
+        ---@see https://curl.se/libcurl/c/curl_easy_getinfo.html
+        stats = {
+          { "total_time", title = "Time taken:" },
+          { "size_download_t", title = "Download size:" },
+        },
+      },
+      formatters = {
+        json = "jq",
+        html = function(body)
+          if vim.fn.executable("tidy") == 0 then
+            return body, { found = false, name = "tidy" }
+          end
+          local fmt_body = vim.fn.system({
+            "tidy",
+            "-i",
+            "-q",
+            "--tidy-mark",      "no",
+            "--show-body-only", "auto",
+            "--show-errors",    "0",
+            "--show-warnings",  "0",
+            "-",
+          }, body):gsub("\n$", "")
+
+          return fmt_body, { found = true, name = "tidy" }
+        end,
+      },
+    },
+    keybinds = {
+      buffer_local = true,
+      prev = "H",
+      next = "L",
+    },
+  },
+  highlight = {
+    enable = true,
+    timeout = 750,
+  },
+  ---@see vim.keymap.set
+  keybinds = {
+      {
+        "<leader>Rsr", "<cmd>Rest run<cr>", "Run request under the cursor"
+      },
+      {
+        "<leader>Rsl", "<cmd>Rest run last<cr>", "Re-run lastest request"
+      }
+    },
+}
+)
 
 

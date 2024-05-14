@@ -1,32 +1,18 @@
+require('mason').setup()
+require('mason-lspconfig').setup()
 ---- -- Setup language servers.
 
 local config = require("lspconfig")
 local util = require("lspconfig.util")
 local lsp = require('lsp-zero')
+-- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 config.tsserver.setup {
   -- cmd = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html", "angular" },
   root_dir = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git"),
   single_file_support = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")
 }
-
-config.jedi_language_server.setup {
-  filetypes = { "python" }
-}
-config.pyright.setup {
-  filetypes = { "python" },
-}
-config.pylsp.setup {
-  filetypes = { "python" }
-}
-
-config.angularls.setup({
-  cmd = { "ngserver", "--stdio", "--tsProbeLocations", "", "--ngProbeLocations", "" },
-  root_dir = util.root_pattern("angular.json", "project.json"), -- This is for monorepo's
-  filetypes = { "angular", "html", "typescript", "typescriptreact" }
-})
-
-config.lua_ls.setup(lsp.nvim_lua_ls())
 
 
 config.tailwindcss.setup({
@@ -46,6 +32,7 @@ config.tailwindcss.setup({
         invalidVariant = "error",
         recommendedVariantOrder = "warning"
       },
+      -- codeActions=true,
       validate = true
     }
   }
@@ -55,10 +42,35 @@ config.cssmodules_ls.setup({
   filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "css", 'scss', 'sass' }
 })
 
-config.luau_lsp.setup({
-    cmd = { "luau-lsp", "lsp" },
-    filetypes = { "luau" },
-  })
+
+config.pylsp.setup({
+  on_attach = lsp.on_attach,
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          ignore = { 'W391' },
+          maxLineLength = 100
+        }
+      }
+    }
+  }
+})
+
+config.pyright.setup {
+  cmd = { "pyright-langserver", "--stdio" },
+  filetypes = { "python" },
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = "openFilesOnly",
+        useLibraryCodeForTypes = true
+      }
+    },
+
+  }, capabilities = capabilities
+}
 
 
 
@@ -101,10 +113,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 
----- require('lspconfig')['tsserver'].setup {
-----   on_attach = on_attach,
-----   flags = lsp_flags,
----- }
 local project_library_path = "/usr/local/lib/node_modules/@angular/language-server"
 local cmd = { "ngserver", "--stdio", "--tsProbeLocations", project_library_path, "--ngProbeLocations",
   project_library_path }
@@ -125,30 +133,6 @@ config.eslint.setup({
     })
   end,
 })
-
-require 'lspconfig'.tailwindcss.setup {
-  cmd = { "tailwindcss-language-server", "--stdio" },
-  filetypes = { "angular", "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge",
-    "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex",
-    "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css",
-    "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript",
-    "typescript", "typescriptreact", "vue", "svelte" },
-  settings = {
-    tailwindCSS = {
-      classAttributes = { "class", "className", "classList", "ngClass" },
-      lint = {
-        cssConflict = "warning",
-        invalidApply = "error",
-        invalidConfigPath = "error",
-        invalidScreen = "error",
-        invalidTailwindDirective = "error",
-        invalidVariant = "error",
-        recommendedVariantOrder = "warning"
-      },
-      validate = true
-    }
-  }
-}
 
 
 require('lspkind').init({
@@ -231,7 +215,8 @@ cmp.setup({
     { name = 'buffer' },
     { name = 'treesitter' },
     { name = 'snippy' }, -- For snippy users.
-    { name = 'tailwindcss' }
+    { name = 'tailwindcss' },
+    -- { name = 'jedi_language_server' }
   }, {
   })
 })
@@ -262,8 +247,6 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 --Mason
 require("mason").setup({
@@ -275,6 +258,7 @@ require("mason").setup({
     }
   }
 })
+
 
 
 --TaildWindCss Colors
@@ -314,3 +298,58 @@ vim.api.nvim_create_autocmd({
 })
 
 
+--Status bar
+local navic = require("nvim-navic")
+
+navic.setup {
+  icons = {
+    File          = "󰈙 ",
+    Module        = " ",
+    Namespace     = "󰌗 ",
+    Package       = " ",
+    Class         = "󰌗 ",
+    Method        = "󰆧 ",
+    Property      = " ",
+    Field         = " ",
+    Constructor   = " ",
+    Enum          = "󰕘",
+    Interface     = "󰕘",
+    Function      = "󰊕 ",
+    Variable      = "󰆧 ",
+    Constant      = "󰏿 ",
+    String        = "󰀬 ",
+    Number        = "󰎠 ",
+    Boolean       = "◩ ",
+    Array         = "󰅪 ",
+    Object        = "󰅩 ",
+    Key           = "󰌋 ",
+    Null          = "󰟢 ",
+    EnumMember    = " ",
+    Struct        = "󰌗 ",
+    Event         = " ",
+    Operator      = "󰆕 ",
+    TypeParameter = "󰊄 ",
+  },
+  lsp = {
+    auto_attach = false,
+    preference = nil,
+  },
+  highlight = false,
+  separator = " > ",
+  depth_limit = 0,
+  depth_limit_indicator = "..",
+  safe_output = true,
+  lazy_update_context = false,
+  click = false,
+  format_text = function(text)
+    return text
+  end,
+}
+
+
+lsp.on_attach(function(client, bufnr)
+  lsp.default_keymaps({ buffer = bufnr })
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
+end)

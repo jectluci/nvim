@@ -15,7 +15,7 @@ require("catppuccin").setup({
     dim_inactive = {
         enabled = false, -- dims the background color of inactive window
         shade = "dark",
-        percentage = 0.15, -- percentage of the shade to apply to the inactive window
+        percentage = 0.2, -- percentage of the shade to apply to the inactive window
     },
     no_italic = false, -- Force no italic
     no_bold = false, -- Force no bold
@@ -25,12 +25,12 @@ require("catppuccin").setup({
         conditionals = { "italic" },
         loops = {},
         functions = { "bold" },
-        keywords = { "bold","underline" },
+        keywords = { "bold" , "altfont" },
         strings = { "italic" },
-        variables = { "underline","italic" },
+        variables = { "italic" },
         numbers = {},
-        booleans = {},
-        properties = {},
+        booleans = {'bold'},
+        properties = {'bold','italic'},
         types = {},
         operators = {},
         -- miscs = {}, -- Uncomment to turn off hard-coded styles
