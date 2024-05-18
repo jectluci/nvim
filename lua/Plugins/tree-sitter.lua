@@ -4,7 +4,7 @@ return {
         dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
         event = "VeryLazy",
         opts = {
-            ensure_installed = { "c", "lua", "vim", "vimdoc", "query"},
+            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "angular"},
             highlight = {
                 enable = true,
             },

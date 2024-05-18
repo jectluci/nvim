@@ -23,9 +23,17 @@ return {
 --Rainbow
 { 'p00f/nvim-ts-rainbow' },
 -- Indent
-{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-
-
+-- { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+{
+    "Mr-LLLLL/cool-chunk.nvim",
+    event = { "CursorHold", "CursorHoldI" },
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+        require("cool-chunk").setup({})
+    end
+},
 --Lua
 { 'yamatsum/nvim-cursorline' },
 --Cursor
