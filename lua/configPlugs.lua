@@ -565,6 +565,10 @@ require("lsp-colors").setup({
 })
 
 require 'nvim-treesitter.configs'.setup {
+  ensure_installed = { "c", "angular", "typescript"},
+  sync_install = true,
+
+  auto_install = true,                  
   highlight = {
     enable = true,
   },
@@ -576,18 +580,50 @@ require 'nvim-treesitter.configs'.setup {
     colors = {},          -- table of hex strings
     termcolors = {}       -- table of colour name strings
   },
-  autotag = {
-    enable = true,
-    enable_rename = true,
-    enable_close = true,
-    enable_close_on_slash = true,
-    filetypes = { "html", "xml", "angular" },
-  },
   indent = {
     enable = true
   },
+
+  textobjects = {
+      select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+              ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+          },
+          selection_modes = {
+              ['@parameter.outer'] = 'v', -- charwise
+              ['@function.outer'] = 'V', -- linewise
+              ['@class.outer'] = '<c-v>', -- blockwise
+          },
+          include_surrounding_whitespace = true,
+      },
+  }
 }
 
+require('nvim-ts-autotag').setup({
+  opts = {
+    -- Defaults
+    enable_close = true, -- Auto close tags
+    enable_rename = true, -- Auto rename pairs of tags
+    enable_close_on_slash = false -- Auto close on trailing </
+  },
+  -- Also override individual filetype configs, these take priority.
+  -- Empty by default, useful if one of the "opts" global settings
+  -- doesn't work well in a specific filetype
+  per_filetype = {
+    ["html"] = {
+      enable_close = true
+    },
+    ["angular"] = {
+      enable_close = true
+    }
+  }
+})
 
 --Indent
 -- require("ibl").setup()
@@ -718,10 +754,10 @@ vim.g.db_ui_icons = {
 -- Establecer el tipo de archivo para *.html como htmldjango
 -- vim.cmd("autocmd BufNewFile,BufRead *.html set filetype=htmldjango")
 
-local status, autotag = pcall(require, "nvim-ts-autotag")
-if (not status) then return end
+-- local status, autotag = pcall(require, "nvim-ts-autotag")
+-- if (not status) then return end
 
-autotag.setup({})
+-- autotag.setup({})
 
 local status, autopairs = pcall(require, "nvim-autopairs")
 if (not status) then return end
@@ -839,3 +875,45 @@ vim.keymap.set('n', ',q', function()
     rest_functions.env('set', choice)
   end)
 end, { desc = '[q]uery envs' })
+
+require('hlargs').setup {
+  color = '#ef9062',
+  highlight = {},
+  excluded_filetypes = {},
+  disable = function(lang, bufnr) -- If changed, `excluded_filetypes` will be ignored
+    return vim.tbl_contains(opts.excluded_filetypes, lang)
+  end,
+  paint_arg_declarations = true,
+  paint_arg_usages = true,
+  paint_catch_blocks = {
+    declarations = false,
+    usages = false
+  },
+  extras = {
+    named_parameters = false,
+  },
+  hl_priority = 120,
+  excluded_argnames = {
+    declarations = {},
+    usages = {
+      python = { 'self', 'cls' },
+      lua = { 'self' }
+    }
+  },
+  performance = {
+    parse_delay = 1,
+    slow_parse_delay = 50,
+    max_iterations = 400,
+    max_concurrent_partial_parses = 30,
+    debounce = {
+      partial_parse = 3,
+      partial_insert_mode = 100,
+      total_parse = 700,
+      slow_parse = 5000
+    }
+  }
+}
+-- (You may omit the settings whose defaults you're ok with)
+require('hlargs').enable()
+-- require('hlargs').disable()
+-- require('hlargs').toggle()

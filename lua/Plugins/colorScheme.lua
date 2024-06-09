@@ -1,2 +1,5 @@
-return
-{ "catppuccin/nvim", name = "catppuccin", priority = 1000 }
+return {
+  -- add dracula
+  { "Mofiqul/dracula.nvim" 
+  },
+}

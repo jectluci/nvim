@@ -50,15 +50,15 @@ return {
 --Lua
 { 'liuchengxu/vista.vim' },
 
-{
-  "utilyre/barbecue.nvim",
-  name = "barbecue",
-  version = "*",
-  dependencies = {
-    "SmiteshP/nvim-navic",
-    "nvim-tree/nvim-web-devicons", -- optional dependency
-  },
-},
+-- {
+--   "utilyre/barbecue.nvim",
+--   name = "barbecue",
+--   version = "*",
+--   dependencies = {
+--     "SmiteshP/nvim-navic",
+--     "nvim-tree/nvim-web-devicons", -- optional dependency
+--   },
+-- },
 --Syntaxis
 { 'scrooloose/syntastic' },
 { 'sheerun/vim-polyglot' },

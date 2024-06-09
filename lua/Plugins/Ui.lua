@@ -25,14 +25,18 @@ return {
 -- Indent
 -- { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 {
-    "Mr-LLLLL/cool-chunk.nvim",
-    event = { "CursorHold", "CursorHoldI" },
-    dependencies = {
-        "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-        require("cool-chunk").setup({})
-    end
+  "shellRaining/hlchunk.nvim",
+  event = { "UIEnter" },
+  config = function()
+    require("hlchunk").setup({
+      chunk = {
+          enable = true
+        },
+      indent = {
+        enable = true
+      }
+      })
+  end
 },
 --Lua
 { 'yamatsum/nvim-cursorline' },

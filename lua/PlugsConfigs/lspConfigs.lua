@@ -278,25 +278,30 @@ vim.keymap.set("n", "<leader>aT", ng.get_template_tcb, opts)
 -- triggers CursorHold event faster
 vim.opt.updatetime = 200
 
-require("barbecue").setup({
-  create_autocmd = false, -- prevent barbecue from updating itself automatically
-})
+-- require("barbecue").setup({
+--   create_autocmd = false, -- prevent barbecue from updating itself automatically
+-- })
 
-vim.api.nvim_create_autocmd({
-  "WinScrolled", -- or WinResized on NVIM-v0.9 and higher
-  "BufWinEnter",
-  "CursorHold",
-  "InsertLeave",
+-- vim.api.nvim_create_autocmd({
+--   "WinScrolled", -- or WinResized on NVIM-v0.9 and higher
+--   "BufWinEnter",
+--   "CursorHold",
+--   "InsertLeave",
 
-  -- include this if you have set `show_modified` to `true`
-  "BufModifiedSet",
-}, {
-  group = vim.api.nvim_create_augroup("barbecue.updater", {}),
-  callback = function()
-    require("barbecue.ui").update()
-  end,
-})
+--   -- include this if you have set `show_modified` to `true`
+--   "BufModifiedSet",
+-- }, {
+--   group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+--   callback = function()
+--     require("barbecue.ui").update()
+--   end,
+-- })
 
+-- update the current window's winbar
+-- require("barbecue.ui").update()
+
+-- -- update the given window's winbar
+-- require("barbecue.ui").update(winnr)
 
 --Status bar
 local navic = require("nvim-navic")
@@ -353,3 +358,5 @@ lsp.on_attach(function(client, bufnr)
     navic.attach(client, bufnr)
   end
 end)
+
+

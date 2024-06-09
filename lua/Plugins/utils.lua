@@ -168,8 +168,13 @@ return {
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
 },
+---- Terminal
 
 
--- install with yarn or npm
+{'akinsho/toggleterm.nvim', version = "*", config = true},
+
+--Run code
+
+{'michaelb/sniprun'}
 
 }

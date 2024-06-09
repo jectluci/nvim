@@ -59,7 +59,7 @@ vim.opt.cmdheight = 2
 
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 -- delays and poor user experience.
-vim.opt.updatetime = 300
+vim.opt.updatetime = 3000
 
 -- Don't pass messages to |ins-completion-menu|.
 vim.opt.shortmess:append("c")
@@ -72,5 +72,19 @@ vim.opt.completeopt = {"menuone", "noselect"}
 
 -- wrap
 vim.opt.wrap = false
+
+--Angular
+vim.filetype.add({
+  pattern = {
+    [".*%.component%.html"] = "angular.html", -- Sets the filetype to `angular.html` if it matches the pattern
+  },
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "angular.html",
+  callback = function()
+    vim.treesitter.language.register("angular", "angular.html") -- Register the filetype with treesitter for the `angular` language/parser
+  end,
+})
 
 
