@@ -1,13 +1,3 @@
----- Default options:
----- Example config in Lua
-----
----
--- Lua:
-vim.cmd[[colorscheme dracula]]
--- or
--- vim.cmd[[colorscheme dracula-soft]]
-
-
 require('smoothcursor').setup({
     type = "default",           -- Cursor movement calculation method, choose "default", "exp" (exponential) or "matrix".
 
@@ -86,4 +76,3 @@ autocmd({ 'ModeChanged' }, {
     end
   end,
 })
-
