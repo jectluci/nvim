@@ -5,10 +5,26 @@ return
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
-    {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'make'
-    } },
+    {'jonarrien/telescope-cmdline.nvim',
+        config = function(_, opts)
+            require("telescope").setup(opts)
+            require("telescope").load_extension('cmdline')
+          end,
+      },
+        {"nvim-telescope/telescope-live-grep-args.nvim",
+        version = "^1.0.0",
+        config = function()
+          require("telescope").load_extension("live_grep_args")
+        end,
+      },
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        config = function()
+          require("telescope").load_extension("fzf")
+        end,
+      },
+    },
   opts = {
     extensions = {
       fzf = {
@@ -18,6 +34,19 @@ return
         case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
         -- the default case_mode is "smart_case"
       },
+    cmdline = {
+          picker = {
+            layout_config = {
+              width  = 120,
+              height = 25,
+            }
+          },
+          mappings    = {
+            complete      = '<Tab>',
+            run_selection = '<C-CR>',
+            run_input     = '<CR>',
+          },
+        },
     }
   },
   config = function(opts)
@@ -99,6 +128,8 @@ return
         require("telescope").extensions.file_browser.file_browser({ path = "%:h:p", select_buffer = true })
       end,
       desc = "Telescope file browser"
-    }
+    },
+    { ':', '<cmd>Telescope cmdline<cr>', desc = 'Cmdline' },
   },
 }
+

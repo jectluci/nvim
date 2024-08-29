@@ -1,3 +1,4 @@
+require("config.plugins.colorScheme")
 require("config.plugins.tree-sitter")
 require('config.plugins.icons')
 require("config.plugins.neotree")
@@ -6,7 +7,20 @@ require('config.plugins.smoothCursor')
 require("config.plugins.lualine")
 require("notify").setup()
 require("config.plugins.lsp")
-require('refactoring').setup({})
+
+vim.filetype.add({
+  pattern = {
+    [".*%.component%.html"] = "angular.html", -- Sets the filetype to `angular.html` if it matches the pattern
+  },
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "angular.html",
+  callback = function()
+    vim.treesitter.language.register("angular", "angular.html") -- Register the filetype with treesitter for the `angular` language/parser
+  end,
+})
+
 
 local nonicons_extention = require("nvim-nonicons.extentions.nvim-notify")
 
@@ -129,7 +143,7 @@ vim.g.user_emmet_mode = 'a'
 vim.g.user_emmet_install_global = 0
 vim.cmd("autocmd FileType html,css,js,angular  EmmetInstall")
 
-require("telescope").load_extension("refactoring")
+-- require("telescope").load_extension("refactoring")
 
 
 
@@ -179,30 +193,6 @@ require('gitsigns').setup {
 }
 
 
-vim.keymap.set('n', ',q', function()
-  local pattern = _G._rest_nvim.env_pattern
-  local command = string.format("fd -HI '%s'", pattern)
-  local result = io.popen(command):read('*a')
-
-  local env_list = {}
-  for line in result:gmatch('[^\r\n]+') do
-    table.insert(env_list, line)
-  end
-
-  local rest_functions = require('rest-nvim.functions')
-
-  vim.ui.select(env_list, {
-    prompt = 'Select env file ',
-    format_item = function(item)
-      return item
-    end,
-  }, function(choice)
-    if choice == nil then
-      return
-    end
-    rest_functions.env('set', choice)
-  end)
-end, { desc = '[q]uery envs' })
 
 require('hlargs').setup {
   color = '#ef9062',
@@ -245,3 +235,36 @@ require('hlargs').setup {
 require('hlargs').enable()
 -- require('hlargs').disable()
 -- require('hlargs').toggle()
+
+
+
+vim.g.popui_border_style = "rounded"
+vim.ui.select = require"popui.ui-overrider"
+vim.ui.input = require"popui.input-overrider"
+vim.api.nvim_set_keymap("n", ",d", ':lua require"popui.diagnostics-navigator"()<CR>', { noremap = true, silent = true }) 
+vim.api.nvim_set_keymap("n", ",m", ':lua require"popui.marks-manager"()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", ",r", ':lua require"popui.references-navigator"()<CR>', { noremap = true, silent = true })
+
+
+
+-- Lua
+vim.keymap.set("n", "<leader>m", require("grapple").toggle)
+vim.keymap.set("n", "<leader>M", require("grapple").toggle_tags)
+
+-- User command
+vim.keymap.set("n", "<leader>1", "<cmd>Grapple select index=1<cr>")
+
+require("telescope").load_extension("grapple")
+
+require("lualine").setup({
+    sections = {
+        lualine_b = { "grapple" }
+    }
+})
+
+require("flutter-tools").setup {} -- use defaults
+
+require("telescope").load_extension("flutter")
+
+
+

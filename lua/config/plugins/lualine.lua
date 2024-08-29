@@ -71,27 +71,18 @@ ins_right {
   color = {  gui = 'bold' },
 }
 
+local function get_lsp_server_name()
+  local clients = vim.lsp.get_active_clients()
+  if next(clients) == nil then
+    return 'No Active LSP'
+  end
+  local client_names = {}
+  for _, client in pairs(clients) do
+    table.insert(client_names, client.name)
+  end
+  return table.concat(client_names, ', ')
+end
 
-ins_left {
-  -- Lsp server name .
-  function()
-    local msg = 'No Active Lsp'
-    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    local clients = vim.lsp.get_active_clients()
-    if next(clients) == nil then
-      return msg
-    end
-    for _, client in ipairs(clients) do
-      local filetypes = client.config.filetypes
-      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client.name
-      end
-    end
-    return msg
-  end,
-  icon = ' LSP:',
-  color = { fg = '#ffffff', gui = 'bold' },
-}
 
 -- Now don't forget to initialize lualine
 lualine.setup(config)
@@ -134,7 +125,7 @@ require("lualine").setup({
         lualine_c = {
             {
               function()
-                  return navic.get_location()
+                  return get_lsp_server_name()
               end,
               cond = function()
                   return navic.is_available()
