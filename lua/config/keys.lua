@@ -11,3 +11,5 @@ vim.cmd("cnoreabbrev Qall qall")
 vim.cmd("cnoreabbrev WQA wqa")
 vim.cmd("cnoreabbrev Wqa wqa")
 
+
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

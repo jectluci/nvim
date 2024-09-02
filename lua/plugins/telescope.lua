@@ -5,12 +5,6 @@ return
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
-    {'jonarrien/telescope-cmdline.nvim',
-        config = function(_, opts)
-            require("telescope").setup(opts)
-            require("telescope").load_extension('cmdline')
-          end,
-      },
         {"nvim-telescope/telescope-live-grep-args.nvim",
         version = "^1.0.0",
         config = function()
@@ -123,13 +117,20 @@ return
       desc = "Telescope Help"
     },
     {
+        "<leader>fg", 
+        function()
+          require('telescope.builtin').live_grep()
+        end,
+        desc = "Search in files content"
+
+      },
+    {
       "<leader>bb",
       function()
         require("telescope").extensions.file_browser.file_browser({ path = "%:h:p", select_buffer = true })
       end,
       desc = "Telescope file browser"
     },
-    { ':', '<cmd>Telescope cmdline<cr>', desc = 'Cmdline' },
   },
 }
 

@@ -54,6 +54,12 @@ require 'nvim-web-devicons'.has_loaded()
 require "nvim-web-devicons".get_icons()
 
 
+require'nvim-web-devicons'.get_icons_by_filename()
+require'nvim-web-devicons'.get_icons_by_extension()
+require'nvim-web-devicons'.get_icons_by_operating_system()
+require'nvim-web-devicons'.get_icons_by_desktop_environment()
+require'nvim-web-devicons'.get_icons_by_window_manager()
+
 
 local web_devicons_ok, web_devicons = pcall(require, "nvim-web-devicons")
 if not web_devicons_ok then
