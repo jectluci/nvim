@@ -23,7 +23,6 @@ return {
   {'hrsh7th/cmp-emoji'},
 { 'hrsh7th/cmp-vsnip' },
 { 'hrsh7th/vim-vsnip' },
-{ 'L3MON4D3/LuaSnip' },
 { 'saadparwaiz1/cmp_luasnip' },
 { 'SirVer/ultisnips' },
 { 'quangnguyen30192/cmp-nvim-ultisnips' },

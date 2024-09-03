@@ -1,4 +1,5 @@
 return
+  {
  {
   "nvim-telescope/telescope.nvim",
   event = 'VeryLazy',
@@ -46,6 +47,7 @@ return
   config = function(opts)
     require('telescope').setup(opts)
     require('telescope').load_extension('fzf')
+    require("telescope").load_extension("ui-select")
   end,
   keys = {
     {
@@ -132,5 +134,9 @@ return
       desc = "Telescope file browser"
     },
   },
-}
+},
+    {'nvim-telescope/telescope-ui-select.nvim' 
+    }
+
+  }
 

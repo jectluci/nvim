@@ -73,6 +73,25 @@ config.pyright.setup {
   }, capabilities = capabilities
 }
 
+-- require'lspconfig'.dartls.setup{
+--   cmd = { "dart", "language-server", "--protocol=lsp" },
+--   filetypes = {"dart"},
+--   init_options ={
+--     closingLabels = true,
+--     flutterOutline = true,
+--     onlyAnalyzeProjectsWithOpenFiles = true,
+--     outline = true,
+--     suggestFromUnimportedLibraries = true
+--   },
+--   root_dir = util.root_pattern("pubspec.yaml"),
+--   settings = {
+--     dart = {
+--       completeFunctionCalls = true,
+--       showTodos = true
+--     }
+--   }
+-- }
+
 
 
 -- Global mappings.
@@ -181,10 +200,9 @@ cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)        -- For `vsnip` users.
+      -- vim.fn["vsnip#anonymous"](args.body)        -- For `vsnip` users.
       require('luasnip').lsp_expand(args.body)    -- For `luasnip` users.
-      require('snippy').expand_snippet(args.body) -- For `snippy` users.
-      vim.fn["UltiSnips#Anon"](args.body)         -- For `ultisnips` users.
+      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
     end,
   },
   formatting = {
@@ -214,10 +232,10 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },     -- For vsnip users.
     { name = 'luasnip' },   -- For luasnip users.
-    { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'ultisnips' }, -- For ultisnips users.
     { name = 'buffer' },
     { name = 'treesitter' },
-    { name = 'snippy' }, -- For snippy users.
+    -- { name = 'snippy' }, -- For snippy users.
     { name = 'tailwindcss' },
     -- { name = 'jedi_language_server' }
   }, {
