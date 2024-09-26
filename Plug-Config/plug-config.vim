@@ -1,45 +1,412 @@
-"Tecla Leader
-let mapleader=','
+
+"devicons
+" loading the plugin
+let g:webdevicons_enable = 1
+" adding the column to vimfiler
+let g:webdevicons_enable_vimfiler = 1
+" adding to vim-airline's statusline
+let g:webdevicons_enable_airline_statusline = 1
+" adding to flagship's statusline
+let g:webdevicons_enable_flagship_statusline = 1
 
 
-"  nerdtree
-let NERDTreeShowHidden=1
-let NERDTreeQuitOnOpen=1
-let NERDTreeAutoDeleteBuffer=1
-let NERDTreeMinimalUI=1
-let NERDTreeDirArrows=1
-let NERDTreeShowLineNumbers=1
-let NERDTreeMapOpenInTab='\t'
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
-"airline
-let g:airline_powerline_fonts = 1
-"iconos
+" WEBicons
+" Can be enabled or disabled
+let g:webdevicons_enable_nerdtree = 1
+" whether or not to show the nerdtree brackets around flags
+let g:webdevicons_conceal_nerdtree_brackets = 1
+" Can be enabled or disabled
+" adding the custom source to unite
+let g:webdevicons_enable_unite = 1
+" Can be enabled or disabled
+" add glyphs to all modes
+let g:webdevicons_enable_ctrlp = 1
+" Can be enabled or disabled
+" adding to vim-startify screen
+let g:webdevicons_enable_startify = 1
+" Can be enabled or disabled
+" adding to flagship's statusline
+let g:webdevicons_enable_flagship_statusline = 1
+
+" enable open and close folder/directory glyph flags (disabled by default with 0)
+let g:DevIconsEnableFoldersOpenClose = 1
+" enable pattern matching glyphs on folder/directory (enabled by default with 1)
+let g:DevIconsEnableFolderPatternMatching = 1
 
 
-" coc
-autocmd FileType python let b:coc_suggest_disable = 0
-autocmd FileType javascript let b:coc_suggest_disable = 0
-autocmd FileType scss setl iskeyword+=@-@
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:NERDTreeGitStatusNodeColorization = 1
+let g:NERDTreeGitStatusWithFlags = 1
+
+
+
+"Neomake
+" When writing a buffer (no delay).
+call neomake#configure#automake('w')
+" When writing a buffer (no delay), and on normal mode changes (after 750ms).
+call neomake#configure#automake('nw', 750)
+" When reading a buffer (after 1s), and when writing (no delay).
+call neomake#configure#automake('rw', 1000)
+" Full config: when writing or reading a buffer, and on changes in insert and
+" normal mode (after 500ms; no delay when writing).
+call neomake#configure#automake('nrwi', 500)
+
+
+"Key Leader
+let mapleader=","
+
+" Open the existing NERDTree on each new tab.
+" COC plugins
+let g:coc_global_extensions = [
+      \ 'coc-json', 'coc-git', 'coc-pairs',
+      \ 'coc-css', 'coc-tsserver', 'coc-highlight', 'coc-marketplace',
+      \ 'coc-snippets', 'coc-html', 'coc-format-json', 'coc-tslint',
+      \ 'coc-jedi', 'coc-webpack', 'coc-prettier', 'coc-pyright',
+      \ 'coc-svg', 'coc-diagnostic', 'coc-emmet', 'coc-terminal', 'coc-translator',
+      \ 'coc-sourcekit', 'coc-tslint-plugin', 'coc-rainbow-fart', 'coc-github',
+      \ 'coc-htmldjango', 'coc-angular', 'coc-eslint', 'coc-flutter', 'coc-flutter-tools',
+      \ 'coc-kotlin', 'coc-simple-react-snippets', 'coc-html-css-support', 'coc-tsdetect',
+      \ 'coc-sql', 'coc-vimlsp', 'coc-docker', 'coc-yaml', 'coc-phpls', 'coc-blade', 'coc-blade-formatter', 'coc-react-refactor',
+      \ 'coc-omnisharp', 'coc-powershell', 'coc-java', 'coc-java-debug', 'coc-db', 'coc-tabnine', 'coc-symbol-line']
+
+""indent
+"let g:indentLine_setColors = 0
+"let g:indentLine_defaultGroup = 'SpecialKey'
+"let g:indentLine_char_list = ['|', '¦', '┆', '┊',]
+"let g:indentLine_bgcolor_gui = ''
+"let g:indentLine_conceallevel = 2
+
+""Syntaxis
+let g:syntastic_quiet_messages = { "type": "style" }
+
+""Erorres
+""ALE
+"Vista de erores
+let g:ale_sign_error = '☠'
+let g:ale_sign_warning = '⚠'
+let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
+
+" Fix files with prettier, and then ESLint.
+let b:ale_fixers = ['prettier', 'eslint']
+" Equivalent to the above.
+let b:ale_fixers = {'javascript': ['prettier', 'eslint'], 'jsx':['eslint','prettier']}
+let b:ale_linter_aliases = ['css', 'javascript']
+let b:ale_linters = ['stylelint', 'eslint']
+let g:ale_linters = {'javascript': ['eslint'], 'jsx':['eslint'], 'css':['csslint'],'html':['tidy']}
+let g:ale_disable_lsp = 0
+
+
+"Emmet
+let g:user_emmet_install_global = 0
+autocmd FileType html,css, js,jsx EmmetInstall
+let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
 
 "Css
 setlocal iskeyword+=-
 augroup VimCSS3Syntax
-  autocmd!
+autocmd!
 
-  autocmd FileType css setlocal iskeyword+=-
+autocmd FileType css setlocal iskeyword+=-
 augroup END
 :highlight VendorPrefix guifg=#00ffff gui=bold
 :match VendorPrefix /-\(moz\|webkit\|o\|ms\)-[a-zA-Z-]\+/
-
-"indent
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_defaultGroup = 'SpecialKey'
-
 
 "javascript
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1
 
+augroup javascript_folding
+      au!
+      au FileType javascript setlocal foldmethod=syntax
+augroup END
 
+let g:javascript_conceal_function             = "ƒ"
+let g:javascript_conceal_null                 = "ø"
+let g:javascript_conceal_this                 = "@"
+let g:javascript_conceal_return               = "⇚"
+let g:javascript_conceal_undefined            = "¿"
+let g:javascript_conceal_NaN                  = "ℕ"
+let g:javascript_conceal_prototype            = "¶"
+let g:javascript_conceal_static               = "•"
+let g:javascript_conceal_super                = "Ω"
+let g:javascript_conceal_arrow_function       = "⇒"
+let g:javascript_conceal_noarg_arrow_function = "🞅"
+let g:javascript_conceal_underscore_arrow_function = "🞅"
+
+set conceallevel=0
+
+
+
+" React jsx
+let g:jsx_ext_required = 1
+let g:jsx_pragma_required = 1
+
+"javascript and React Syntaxis
+autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_underscore = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_backbone = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_prelude = 0
+autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 0
+let g:used_javascript_libs = 'underscore,backbone'
+
+"python sintaxys
+" let g:python_highlight_class_vars = 1
+" let g:python_highlight_operators = 1
+" let g:python_highlight_all = 1
+" let g:python_highlight_func_calls = 1
+" let g:python_highlight_builtins = 1
+" let g:python_highlight_builtin_objs = 1
+" let g:python_highlight_builtin_types = 1
+" let g:python_highlight_builtin_funcs = 1
+" let g:python_highlight_builtin_funcs_kwarg = 1
+" let g:python_slow_sync = 1
+"
+"doq
+" let g:pydocstring_doq_path = '~/.local/bin/doq'
+
+""python jedi
+" let g:jedi#auto_initialization = 1
+" let g:jedi#auto_vim_configuration = 1
+" let g:jedi#use_splits_not_buffers = "right"
+" let g:jedi#show_call_signatures = "1"
+
+"senshi
+"
+" let g:semshi#filetypes = ['python']
+" let g:semshi#excluded_hl_groups =  ['local']
+" let g:semshi#mark_selected_nodes = 1
+" let g:semshi#self_to_attribute = 'true'
+" autocmd ColorScheme * call MyCustomHighlights()
+"
+"COC
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> zxc coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocActionAsync('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+
+"Tmux
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <c-6> :TmuxNavigatePrevious<cr>
+
+
+
+"Fzf
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+map <C-g> :Ag
+nnoremap <C-p> :Files<Cr>
+
+"terminal
+
+nnoremap <F7> :call vimterm#toggle() <CR>
+tnoremap <F7> <C-\><C-n>:call vimterm#toggle() <CR>
+
+
+"Fluter
+"let g:flutter_hot_reload_on_save = 1
+"let g:hot_reload_on_save=1
+"let g:flutter_command = "/opt/flutter/bin/flutter"
+"xmap <leader>a  <Plug>(coc-codeaction-selected)
+"nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+"let g:lsc_auto_map = v:true
+
+""Dart / Flutter
+"let g:dart_format_on_save = 1
+
+
+
+set completeopt=menuone,noselect,longest
+
+" NOTE: You can use other key to expand snippet.
+
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+
+"If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ['javascript']
+let g:vsnip_filetypes.typescriptreact = ['typescript']
+
+" eslint
+ autocmd BufWritePre <buffer> <cmd>EslintFixAll<CR>
+
+"
+"Folding
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr()
+
+ let b:EditorConfig_disable = 0
