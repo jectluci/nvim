@@ -9,10 +9,13 @@ local lsp = require('lsp-zero')
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-config.tsserver.setup {
+config.ts_ls.setup {
+  cmd = { "typescript-language-server", "--stdio" },
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+
   -- cmd = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html", "angular" },
   root_dir = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git"),
-  single_file_support = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")
+  -- single_file_support = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")
 }
 
 
