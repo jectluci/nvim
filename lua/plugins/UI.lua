@@ -25,19 +25,12 @@ return {
 --Rainbow
 { 'p00f/nvim-ts-rainbow' },
 -- Indent
--- { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 {
   "shellRaining/hlchunk.nvim",
-  event = { "UIEnter" },
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
-    require("hlchunk").setup({
-      chunk = {
-          enable = true
-        },
-      indent = {
-        enable = true
-      }
-      })
+    require("hlchunk").setup({})
   end
 },
 --Lua
