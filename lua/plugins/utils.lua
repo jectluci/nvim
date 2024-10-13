@@ -85,6 +85,12 @@ return {
     dependencies = {
         { "nvim-tree/nvim-web-devicons", lazy = true }
     },
-}
+},
 
+--Faster
+{'pteroctopus/faster.nvim',
+    config = function()
+      require('faster').setup()
+      end
+  }
 }
