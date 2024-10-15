@@ -9,10 +9,9 @@ local lsp = require('lsp-zero')
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-config.ts_ls.setup {
+config.tsserver.setup {
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-
   -- cmd = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html", "angular" },
   root_dir = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git"),
   -- single_file_support = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")
@@ -45,6 +44,11 @@ config.tailwindcss.setup({
 config.cssmodules_ls.setup({
   filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "css", 'scss', 'sass' }
 })
+
+require'lspconfig'.lua_ls.setup{
+  cmd = { "lua-language-server" },
+  filetypes = {"lua"},
+}
 
 
 config.pylsp.setup({
