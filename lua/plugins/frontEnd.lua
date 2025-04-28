@@ -3,8 +3,9 @@ return {
 { 'mattn/emmet-vim' , ft ='html' },
 --Css
 {
-  'brenoprata10/nvim-highlight-colors', 
+  'brenoprata10/nvim-highlight-colors'
 },
 --Prettier
-{ 'prettier/vim-prettier', ft = {'html','typescript', 'javascript'}  },
+{ 'prettier/vim-prettier'  },
+-- {'MunifTanjim/prettier.nvim'}
 }

@@ -140,26 +140,30 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 
-local project_library_path = "/usr/lib/node_modules/@angular/language-server/bin/"
+local project_library_path = "/usr/local/lib/node_modules/@angular/language-server/bin/"
 local cmd = { "ngserver", "--stdio", "--tsProbeLocations", project_library_path, "--ngProbeLocations",
   project_library_path }
 
 require 'lspconfig'.angularls.setup {
   cmd = cmd,
+  filetypes =  { 'typescript', 'html', 'typescriptreact', 'typescript.tsx', 'htmlangular' },
   on_new_config = function(new_config, new_root_dir)
     new_config.cmd = cmd
   end,
 }
 
-config.eslint.setup({
-  --- ...
-  on_attach = function(client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
-  end,
-})
+-- config.eslint.setup({
+--   --- ...
+--   on_attach = function(client, bufnr)
+--     vim.api.nvim_create_autocmd("BufWritePre", {
+--       buffer = bufnr,
+--       command = "EslintFixAll",
+--     })
+--   end,
+-- })
+--
+
+
 
 
 require('lspkind').init({
@@ -378,7 +382,6 @@ navic.setup {
     return text
   end,
 }
-
 
 lsp.on_attach(function(client, bufnr)
   lsp.default_keymaps({ buffer = bufnr })
