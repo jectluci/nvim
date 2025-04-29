@@ -50,7 +50,7 @@ return {
   opts = {} -- this is equalent to setup({}) function
 },
 --Autotag
-{'windwp/nvim-ts-autotag'},
+-- {'windwp/nvim-ts-autotag'},
 ----markDown
 
 ---- install without yarn or npm

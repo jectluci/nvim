@@ -23,7 +23,7 @@ return {
 --TabBar
 { 'akinsho/bufferline.nvim' },
 --Rainbow
-{ 'p00f/nvim-ts-rainbow' },
+-- { 'p00f/nvim-ts-rainbow' },
 -- Indent
 { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 {

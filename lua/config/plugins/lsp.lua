@@ -390,4 +390,14 @@ lsp.on_attach(function(client, bufnr)
   end
 end)
 
+vim.lsp.handlers["textDocument/semanticTokens/full"] = vim.lsp.with(
+  vim.lsp.handlers["textDocument/semanticTokens/full"], {}
+)
 
+--- Resaltado Detallado
+-- En tu configuración del servidor LSP
+on_attach = function(client, bufnr)
+  if client.server_capabilities.semanticTokensProvider then
+    vim.lsp.buf.semantic_tokens_force_refresh()
+  end
+end
