@@ -140,7 +140,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 
-local project_library_path = "/usr/local/lib/node_modules/@angular/language-server/bin/"
+local project_library_path = "/home/ject/node_modules/@angular/language-server/bin"
 local cmd = { "ngserver", "--stdio", "--tsProbeLocations", project_library_path, "--ngProbeLocations",
   project_library_path }
 
@@ -396,6 +396,13 @@ vim.lsp.handlers["textDocument/semanticTokens/full"] = vim.lsp.with(
 
 --- Resaltado Detallado
 -- En tu configuración del servidor LSP
+
+on_attach = function(client, bufnr)
+  if client.server_capabilities.semanticTokensProvider then
+    vim.lsp.semantic_tokens.start(bufnr, client.id)
+  end
+end
+
 on_attach = function(client, bufnr)
   if client.server_capabilities.semanticTokensProvider then
     vim.lsp.buf.semantic_tokens_force_refresh()
