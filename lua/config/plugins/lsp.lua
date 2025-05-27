@@ -9,12 +9,55 @@ local lsp = require('lsp-zero')
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+
+local function on_attach(client, bufnr)
+  local bufmap = function(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, {
+      buffer = bufnr,
+      desc = desc,
+      noremap = true,
+      silent = true,
+    })
+  end
+
+  -- Navegación
+  bufmap("n", "gd", vim.lsp.buf.definition, "Go to Definition")
+  bufmap("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
+  bufmap("n", "gr", vim.lsp.buf.references, "List References")
+  bufmap("n", "gi", vim.lsp.buf.implementation, "Go to Implementation")
+  bufmap("n", "K", vim.lsp.buf.hover, "Hover Info")
+  bufmap("n", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
+
+  -- Refactor
+  bufmap("n", "<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
+  bufmap("n", "<leader>f", function()
+    vim.lsp.buf.format({ async = true })
+  end, "Format Document")
+
+  -- Diagnostics
+  bufmap("n", "[d", vim.diagnostic.goto_prev, "Previous Diagnostic")
+  bufmap("n", "]d", vim.diagnostic.goto_next, "Next Diagnostic")
+  bufmap("n", "<leader>e", vim.diagnostic.open_float, "Show Diagnostic")
+
+  -- Autocommands, por ejemplo si quieres que formatee al guardar
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.buf.format({ async = false })
+      end,
+    })
+  end
+end
+
 config.ts_ls.setup {
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
   -- cmd = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html", "angular" },
   root_dir = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git"),
   -- single_file_support = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 
 
@@ -146,6 +189,8 @@ local cmd = { "ngserver", "--stdio", "--tsProbeLocations", project_library_path,
 
 require 'lspconfig'.angularls.setup {
   cmd = cmd,
+  on_attach = on_attach,
+  capabilities = capabilities,
   filetypes =  { 'typescript', 'html', 'typescriptreact', 'typescript.tsx', 'htmlangular' },
   on_new_config = function(new_config, new_root_dir)
     new_config.cmd = cmd

@@ -1,7 +1,7 @@
 require("config.plugins.colorScheme")
 require("config.plugins.tree-sitter")
 require('config.plugins.icons')
--- require("config.plugins.neotree")
+require("config.plugins.neotree")
 require('lsp-zero')
 require('config.plugins.smoothCursor')
 require("config.plugins.lualine")
