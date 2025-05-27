@@ -72,7 +72,7 @@ ins_right {
 }
 
 local function get_lsp_server_name()
-  local clients = vim.lsp.get_active_clients()
+  local clients = vim.lsp.get_clients()
   if next(clients) == nil then
     return 'No Active LSP'
   end

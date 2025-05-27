@@ -79,11 +79,27 @@ return {
   --REefactor
 {'hood/popui.nvim'},
 
+-- Vista 
+{
+  'liuchengxu/vista.vim',
+  config = function()
+    vim.g.vista_default_executive = 'ctags'
+  end
+},
+
 --Bookmarks
 {
     "cbochs/grapple.nvim",
     dependencies = {
         { "nvim-tree/nvim-web-devicons", lazy = true }
+    },
+},
+
+--Colorized 
+{
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
+    opts = { -- set to setup table
     },
 },
 
