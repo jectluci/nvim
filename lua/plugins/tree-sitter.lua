@@ -10,7 +10,7 @@ return {
 --   event        = "VeryLazy",
 --   -- main         = "nvim-treesitter.configs",
 -- },
---  {"windwp/nvim-ts-autotag"},
+ {"windwp/nvim-ts-autotag"},
     { 'VonHeikemen/lsp-zero.nvim', branch = 'v3.x', event = {'BufReadPre', 'BufNewFile'}, cmd = 'Mason' },
     { 'm-demare/hlargs.nvim'
     },

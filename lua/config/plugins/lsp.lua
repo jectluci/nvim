@@ -453,3 +453,35 @@ on_attach = function(client, bufnr)
     vim.lsp.buf.semantic_tokens_force_refresh()
   end
 end
+
+--- SEMANTICO 
+
+on_attach = function(client, bufnr)
+  if client.server_capabilities.semanticTokensProvider then
+    local augroup = vim.api.nvim_create_augroup("LspSemanticTokens", {})
+    vim.api.nvim_create_autocmd("TextChanged", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.semantic_tokens.force_refresh()
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("InsertLeave", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.semantic_tokens.force_refresh()
+      end,
+    })
+  end
+end
+
+vim.cmd [[
+  highlight! link @lsp.type.function Function
+  highlight! link @lsp.type.variable Identifier
+  highlight! link @lsp.type.parameter Identifier
+  highlight! link @lsp.type.property Identifier
+  highlight! link @lsp.type.keyword Keyword
+  highlight! link @lsp.type.class Type
+]]
