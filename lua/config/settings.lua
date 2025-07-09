@@ -5,7 +5,27 @@ require("config.plugins.neotree")
 require('lsp-zero')
 require('config.plugins.smoothCursor')
 require("config.plugins.lualine")
-require("notify").setup()
+require("notify").setup({
+  -- Ancho máximo absoluto
+  -- max_width = 80,
+
+  -- O ancho relativo (p.ej. 50% de la pantalla)
+  max_width = function()
+    return math.floor(vim.o.columns * 0.35)
+  end,
+
+  -- Altura máxima para no taparte el centro
+  max_height = function()
+    return math.floor(vim.o.lines * 0.3)
+  end,
+
+  -- Animación más suave
+  stages = "fade",
+  -- Duración antes de esfumarse
+  timeout = 2000,
+  -- Estilo de render (puedes probar "minimal", "compact", etc.)
+  render = "minimal",
+})
 require("config.plugins.lsp")
 
 vim.filetype.add({

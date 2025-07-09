@@ -325,6 +325,20 @@ cmp.setup.cmdline({ '/', '?' }, {
     matching = { disallow_symbol_nonprefix_matching = false }
   })
 
+cmp.setup({
+completion = { autocomplete = false },    -- control manual evita parpadeos
+  snippet = { expand = function(args) vim.fn["vsnip#anonymous"](args.body) end },
+  sources = {
+    { name = 'nvim_lsp' },
+    -- { name = 'buffer' },                  -- si no lo necesitas, coméntalo
+  },
+  performance = {
+    debounce =  50,                         -- milisegundos de espera antes de requerir sugerencias
+    throttle = 100,                         -- cada cuánto máximo preguntar al LSP
+    fetching_timeout = 200,                 -- tiempo máximo de espera
+  },
+  })
+
 --Mason
 require("mason").setup({
   ui = {
