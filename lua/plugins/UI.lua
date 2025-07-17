@@ -9,12 +9,15 @@ return {
 {
     '2kabhishek/nerdy.nvim',
     dependencies = {
-        'stevearc/dressing.nvim',
-        'nvim-telescope/telescope.nvim',
+        'folke/snacks.nvim',
     },
     cmd = 'Nerdy',
+    opts = {
+        max_recents = 30, -- Configure recent icons limit
+        add_default_keybindings = true, -- Add default keybindings
+        use_new_command = true, -- Enable new command system
+    }
 },
-
 --Status bar
 { 'nvim-lualine/lualine.nvim', 
   event = {'BufReadPre', 'BufNewFile'},
