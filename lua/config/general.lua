@@ -40,7 +40,7 @@ vim.opt.expandtab = true
 -- Map leader to ,
 -- vim.api.nvim_set_var("mapleader", ",")
 vim.g.mapleader = ','
- 
+
 -- Enable hidden buffers
 vim.opt.hidden = true
 
@@ -68,10 +68,8 @@ vim.opt.shortmess:append("c")
 vim.opt.signcolumn = "yes"
 
 -- completeopt COC
-vim.opt.completeopt = {"menuone", "noselect"}
+vim.opt.completeopt = { "menuone", "noselect" }
 
 -- wrap
 vim.opt.wrap = false
-
-
 

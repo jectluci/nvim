@@ -1,11 +1,15 @@
 return {
 --Emmet
-{ 'mattn/emmet-vim' , ft ='html' },
---Css
+--{ 'mattn/emmet-vim' , ft ='html' },
+----Css
+--{
 {
-  'brenoprata10/nvim-highlight-colors'
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
+    opts = { -- set to setup table
+    },
 },
 --Prettier
-{ 'prettier/vim-prettier'  },
--- {'MunifTanjim/prettier.nvim'}
+-- { 'prettier/vim-prettier'  },
+{'MunifTanjim/prettier.nvim'}
 }

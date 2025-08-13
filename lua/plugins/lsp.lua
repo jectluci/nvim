@@ -1,44 +1,24 @@
 return {
 --LSP
-{ 'neovim/nvim-lspconfig' },
-{ 'williamboman/nvim-lsp-installer' },
-{ 'folke/lsp-colors.nvim' },
---NEOCONF 
-{
-  "folke/neoconf.nvim",
-},
-
---CMP 
 {
   "neovim/nvim-lspconfig",
   events = "VeryLazy",
 },
-{ 'hrsh7th/cmp-nvim-lsp' },
-{ 'hrsh7th/cmp-buffer' },
-{ 'hrsh7th/cmp-path' },
-{ 'hrsh7th/cmp-cmdline' },
-{
-  "hrsh7th/nvim-cmp",
-},
-  {'hrsh7th/cmp-emoji'},
-{ 'hrsh7th/cmp-vsnip' },
-{ 'hrsh7th/vim-vsnip' },
-{ 'saadparwaiz1/cmp_luasnip' },
-{ 'SirVer/ultisnips' },
-{ 'quangnguyen30192/cmp-nvim-ultisnips' },
-{ 'dcampos/nvim-snippy' },
-{ 'dcampos/cmp-snippy' },
-{ 'onsails/lspkind.nvim' },
+-- { 'williamboman/nvim-lsp-installer' },
+{ 'folke/lsp-colors.nvim' },
+--NEOCONF 
+  { "folke/neoconf.nvim", cmd = "Neoconf" },
+
 --Mason
-{ "williamboman/mason.nvim",
-  opts = {
-    ensure_installed = {
-      "mypy",
-      "ruff",
-      "pyright"
-    }
-  }
-},
+-- Mason (instalador de LSPs, linters, formatters)
+{
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "mypy", "ruff", "pyright", "lua_ls", "html", "cssls", "tsserver", "emmet-ls"
+      },
+    },
+  },
 {
     "williamboman/mason-lspconfig.nvim"},
 --TaildWindCss
@@ -52,8 +32,22 @@ return {
   end
 },
 
+--CMP 
+{
+  "hrsh7th/nvim-cmp",
+},
+{ 'hrsh7th/cmp-nvim-lsp' },
+{ 'hrsh7th/cmp-buffer' },
+{ 'hrsh7th/cmp-path' },
+{ 'hrsh7th/cmp-cmdline' },
+  {'hrsh7th/cmp-emoji'},
+{ 'onsails/lspkind.nvim' },
+
+  { "L3MON4D3/LuaSnip", version = "v2.*", build = "make install_jsregexp" },
+  { "saadparwaiz1/cmp_luasnip" },
+
 --Lua
-{ 'liuchengxu/vista.vim' },
+-- { 'liuchengxu/vista.vim' },
 
 -- {
 --   "utilyre/barbecue.nvim",
@@ -65,8 +59,8 @@ return {
 --   },
 -- },
 --Syntaxis
-{ 'scrooloose/syntastic' },
-{ 'sheerun/vim-polyglot' },
+-- { 'scrooloose/syntastic' },
+-- { 'sheerun/vim-polyglot' },
 --Angular 
 { 'joeveiga/ng.nvim'},
 
