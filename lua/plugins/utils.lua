@@ -138,5 +138,7 @@ return {
         config = function()
             require('faster').setup()
         end
-    }
+    },
+    --vim iluminate
+    { "RRethy/vim-illuminate" }
 }

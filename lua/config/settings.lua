@@ -358,7 +358,7 @@ vim.o.foldenable = true
 require('ufo').setup({
     provider_selector = function(bufnr, filetype, buftype)
         -- *** Ajusta aquí tu preferencia por defecto ***
-        local preferred = { 'lsp', 'treesitter', 'indent' }
+        local preferred = { 'lsp', 'indent' }
 
         -- Si hay LSP con foldingRange, úsalo primero
         local has_lsp = false
@@ -386,3 +386,30 @@ require('ufo').setup({
         return out
     end,
 })
+
+
+-- Iluminati
+
+require("illuminate").configure({
+    providers = { "lsp", "regex" },
+    delay = 120,
+    large_file_cutoff = 2000,
+    large_file_overrides = { providers = { "lsp" } },
+    filetypes_denylist = { "neo-tree", "oil", "TelescopePrompt", "toggleterm", "notify" },
+})
+
+-- Usa el mismo estilo que LSP references
+vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "LspReferenceText" })
+vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "LspReferenceRead" })
+vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "LspReferenceWrite" })
+
+-- Navegar referencias dentro del buffer
+vim.keymap.set("n", "]r", require("illuminate").goto_next_reference, { desc = "Next reference" })
+vim.keymap.set("n", "[r", require("illuminate").goto_prev_reference, { desc = "Prev reference" })
+
+-- Trouble
+vim.keymap.set("n", "<leader>lr", "<cmd>Trouble lsp_references toggle<CR>", { desc = "Refs en Trouble" })
+-- Telescope
+vim.keymap.set("n", "gr", function()
+    require("telescope.builtin").lsp_references({ include_declaration = false })
+end, { desc = "Refs en Telescope" })
