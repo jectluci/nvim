@@ -413,3 +413,38 @@ vim.keymap.set("n", "<leader>lr", "<cmd>Trouble lsp_references toggle<CR>", { de
 vim.keymap.set("n", "gr", function()
     require("telescope.builtin").lsp_references({ include_declaration = false })
 end, { desc = "Refs en Telescope" })
+
+
+-- ~/.config/nvim/lua/config/plugins/tree-sitter.lua
+require("nvim-treesitter.configs").setup({
+    ensure_installed = {
+        "lua", "vim", "vimdoc",
+        "typescript", "tsx", "javascript",
+        "html", "css", "scss", "json"
+    },
+    auto_install = true,
+    highlight = { enable = true, additional_vim_regex_highlighting = false },
+    indent = { enable = true, disable = { "python" } },
+})
+
+-- Detecta *.component.html como 'angular.html'
+vim.filetype.add({
+    pattern = { [".*%.component%.html"] = "angular.html" },
+})
+
+-- Usa el parser de HTML para angular.html (para resaltar/indentar bien)
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "angular.html",
+    callback = function()
+        pcall(vim.treesitter.language.register, "html", "angular.html")
+    end,
+})
+
+
+local ok, ng = pcall(require, "ng")
+if ok then
+    local o = { noremap = true, silent = true }
+    vim.keymap.set("n", "<leader>at", ng.goto_template_for_component, o)
+    vim.keymap.set("n", "<leader>ac", ng.goto_component_with_template_file, o)
+    vim.keymap.set("n", "<leader>aT", ng.get_template_tcb, o)
+end

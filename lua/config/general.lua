@@ -39,7 +39,8 @@ vim.opt.expandtab = true
 
 -- Map leader to ,
 -- vim.api.nvim_set_var("mapleader", ",")
-vim.g.mapleader = ','
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
 
 -- Enable hidden buffers
 vim.opt.hidden = true
@@ -72,4 +73,3 @@ vim.opt.completeopt = { "menuone", "noselect" }
 
 -- wrap
 vim.opt.wrap = false
-

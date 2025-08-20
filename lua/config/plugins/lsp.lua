@@ -1,37 +1,46 @@
 -- Mason base
-require('mason').setup()
-require('mason-lspconfig').setup({
+require("mason").setup()
+require("mason-lspconfig").setup({
     ensure_installed = {
-        "lua_ls", "ts_ls", "html", "cssls", "tailwindcss",
-        "pyright", -- o "pylsp" si lo prefieres
+        "angularls",
+        "ts_ls",
+        "html",
+        "cssls",
+        "tailwindcss",
         "emmet_ls",
-    }
+        "lua_ls",
+        "pyright",
+    },
 })
 
 -- Capabilities (CMP)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
--- on_attach único (keys + format on save + navic)
+-- on_attach único (keys + format on save + navic + code action robusto)
 local navic_ok, navic = pcall(require, "nvim-navic")
+
 local function on_attach(client, bufnr)
     local function bufmap(mode, lhs, rhs, desc)
         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, noremap = true, silent = true, desc = desc })
     end
 
-    -- Navegación
+    -- Navegación / helpers
     bufmap("n", "gd", vim.lsp.buf.definition, "Go to Definition")
     bufmap("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
     bufmap("n", "gr", vim.lsp.buf.references, "List References")
     bufmap("n", "gi", vim.lsp.buf.implementation, "Go to Implementation")
     bufmap("n", "K", vim.lsp.buf.hover, "Hover Info")
-    bufmap("n", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
     bufmap("n", "<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
     bufmap("n", "[d", vim.diagnostic.goto_prev, "Prev Diagnostic")
     bufmap("n", "]d", vim.diagnostic.goto_next, "Next Diagnostic")
     bufmap("n", "<leader>e", vim.diagnostic.open_float, "Diag Float")
 
-    -- Formateo al guardar (desactiva si te molesta)
+    -- Code actions (cursor)
+    bufmap("n", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
+    bufmap("x", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
+
+    -- Formateo al guardar (apágalo si usas conform.nvim)
     if client.supports_method("textDocument/formatting") then
         vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
@@ -39,12 +48,12 @@ local function on_attach(client, bufnr)
         })
     end
 
-    -- Navic breadcrumbs si el server lo soporta
+    -- Navic breadcrumbs
     if navic_ok and client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
     end
 
-    -- Semantic tokens (seguro y sin redefinir on_attach mil veces)
+    -- Semantic tokens
     if client.server_capabilities.semanticTokensProvider then
         vim.lsp.semantic_tokens.start(bufnr, client.id)
         local aug = vim.api.nvim_create_augroup("LspSemanticTokens_" .. bufnr, { clear = true })
@@ -54,8 +63,20 @@ local function on_attach(client, bufnr)
             callback = function() pcall(vim.lsp.semantic_tokens.force_refresh) end,
         })
     end
+
+    -- Resaltado de referencias bajo el cursor (si el server lo soporta)
+    if client.server_capabilities.documentHighlightProvider then
+        local grp = vim.api.nvim_create_augroup("LspDocHighlight_" .. bufnr, { clear = true })
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            group = grp, buffer = bufnr, callback = vim.lsp.buf.document_highlight,
+        })
+        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+            group = grp, buffer = bufnr, callback = vim.lsp.buf.clear_references,
+        })
+    end
 end
 
+-- lspconfig
 local lspconfig = require("lspconfig")
 local util = require("lspconfig.util")
 
@@ -68,17 +89,33 @@ lspconfig.ts_ls.setup({
     capabilities = capabilities,
 })
 
--- TailwindCSS
+-- Angular Language Server (vía Mason; sin cmd custom)
+lspconfig.angularls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx", "angular.html" },
+    root_dir = util.root_pattern("angular.json", "nx.json", "project.json", "package.json", ".git"),
+})
+
+-- HTML / CSS
+lspconfig.html.setup({ on_attach = on_attach, capabilities = capabilities })
+lspconfig.cssls.setup({ on_attach = on_attach, capabilities = capabilities })
+
+-- TailwindCSS (con angular.html y ngClass)
 lspconfig.tailwindcss.setup({
     cmd = { "tailwindcss-language-server", "--stdio" },
     filetypes = {
-        "angular", "html", "css", "less", "postcss", "sass", "scss", "javascript", "javascriptreact",
-        "typescript", "typescriptreact", "vue", "svelte", "markdown", "mdx", "php", "twig", "astro",
+        "html", "angular.html",
+        "css", "less", "postcss", "sass", "scss",
+        "javascript", "javascriptreact",
+        "typescript", "typescriptreact",
+        "vue", "svelte", "markdown", "mdx", "php", "twig", "astro",
     },
     root_dir = util.root_pattern("tailwind.config.js", "tailwind.config.ts", "package.json"),
     settings = {
         tailwindCSS = {
             classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
+            validate = true,
             lint = {
                 cssConflict = "warning",
                 invalidApply = "error",
@@ -88,16 +125,15 @@ lspconfig.tailwindcss.setup({
                 invalidVariant = "error",
                 recommendedVariantOrder = "warning",
             },
-            validate = true,
-        }
+        },
     },
     on_attach = on_attach,
     capabilities = capabilities,
 })
 
--- CSS Modules (si realmente lo usas)
-lspconfig.cssmodules_ls.setup({
-    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "css", "scss", "sass" },
+-- Emmet (incluye angular.html)
+lspconfig.emmet_ls.setup({
+    filetypes = { "html", "css", "scss", "typescriptreact", "javascriptreact", "angular.html" },
     on_attach = on_attach,
     capabilities = capabilities,
 })
@@ -107,7 +143,10 @@ lspconfig.lua_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
-        Lua = { workspace = { checkThirdParty = false }, diagnostics = { globals = { "vim" } } }
+        Lua = {
+            workspace = { checkThirdParty = false },
+            diagnostics = { globals = { "vim" } },
+        }
     }
 })
 
@@ -125,50 +164,32 @@ lspconfig.pyright.setup({
         }
     }
 })
--- Si prefieres pylsp, comenta pyright y habilita:
--- lspconfig.pylsp.setup({
---   on_attach = on_attach, capabilities = capabilities,
---   settings = { pylsp = { plugins = { pycodestyle = { ignore = {'W391'}, maxLineLength = 100 } } } }
--- })
+-- lspconfig.pylsp.setup({ on_attach = on_attach, capabilities = capabilities })
 
--- Angular (tu ruta local)
-local project_library_path = "/home/ject/node_modules/@angular/language-server/bin"
-local ng_cmd = { "ngserver", "--stdio", "--tsProbeLocations", project_library_path, "--ngProbeLocations",
-    project_library_path }
-lspconfig.angularls.setup({
-    cmd = ng_cmd,
-    on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = { 'typescript', 'html', 'typescriptreact', 'typescript.tsx', 'angular.html' }, -- tu ft custom
-    on_new_config = function(new_config, _)
-        new_config.cmd = ng_cmd
-    end,
-})
-
--- lspkind
-local lspkind = require('lspkind')
-
--- CMP (una sola vez, con LuaSnip)
-local cmp = require('cmp')
-local luasnip = require('luasnip')                 -- por si acaso
-require('luasnip.loaders.from_vscode').lazy_load() -- si usas friendly-snippets
+-- nvim-cmp + LuaSnip + lspkind
+local lspkind = require("lspkind")
+local cmp = require("cmp")
+local luasnip_ok, _ = pcall(require, "luasnip")
+if luasnip_ok then
+    require("luasnip.loaders.from_vscode").lazy_load() -- si tienes friendly-snippets
+end
 
 cmp.setup({
     snippet = {
-        expand = function(args) require('luasnip').lsp_expand(args.body) end,
+        expand = function(args) require("luasnip").lsp_expand(args.body) end,
     },
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
     formatting = {
+        fields = { "kind", "abbr", "menu" },
         format = lspkind.cmp_format({
             mode = "symbol_text",
             maxwidth = 50,
-            ellipsis_char = '…',
+            ellipsis_char = "…",
             menu = { buffer = "[Buf]", nvim_lsp = "[LSP]", path = "[Path]", luasnip = "[Snip]" },
             before = function(entry, vim_item)
-                -- Colorea clases Tailwind si tienes tailwindcss-colorizer-cmp
                 local ok_tw, tw = pcall(require, "tailwindcss-colorizer-cmp")
                 if ok_tw then vim_item = tw.formatter(entry, vim_item) end
                 return vim_item
@@ -176,17 +197,17 @@ cmp.setup({
         }),
     },
     mapping = cmp.mapping.preset.insert({
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-b>"]     = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"]     = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<C-e>"]     = cmp.mapping.abort(),
+        ["<CR>"]      = cmp.mapping.confirm({ select = true }),
     }),
     sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-        { name = 'path' },
-        { name = 'buffer' },
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "path" },
+        { name = "buffer" },
     }),
     performance = {
         debounce = 60,
@@ -195,31 +216,24 @@ cmp.setup({
     },
 })
 
--- CMP en cmdline
-cmp.setup.cmdline({ '/', '?' }, {
+-- CMP en cmdline (/, ? y :)
+cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = { { name = 'buffer' } },
+    sources = { { name = "buffer" } },
 })
-cmp.setup.cmdline(':', {
+cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } }),
-    matching = { disallow_symbol_nonprefix_matching = false }
+    sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+    matching = { disallow_symbol_nonprefix_matching = false },
 })
 
--- (Opcional) CMP para gitcommit si instalas petertriho/cmp-git
--- local ok_git, cmp_git = pcall(require, "cmp_git")
--- if ok_git then
---   cmp.setup.filetype('gitcommit', {
---     sources = cmp.config.sources({ { name = 'cmp_git' } }, { { name = 'buffer' } })
---   })
--- end
-
--- (Opcional) autopairs integración
-local ok_pairs, cmp_autopairs = pcall(require, 'nvim-autopairs.completion.cmp')
+-- autopairs integración (si tienes nvim-autopairs)
+local ok_pairs, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
 if ok_pairs then
-    cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 end
 
+-- Highlight links para tipos LSP (visual bonito)
 vim.cmd [[
   highlight! link @lsp.type.function Function
   highlight! link @lsp.type.variable Identifier
@@ -229,5 +243,24 @@ vim.cmd [[
   highlight! link @lsp.type.class Type
 ]]
 
--- Tweaks generales
+-- Refactoring (opcional) con Telescope, protegido
+pcall(function() require("telescope").load_extension("refactoring") end)
+vim.keymap.set({ "n", "x" }, "<leader>rr", function()
+    local ok = pcall(vim.treesitter.get_parser, 0)
+    if not ok then
+        vim.notify("Instala el parser Treesitter para este archivo antes de refactorizar", vim.log.levels.WARN)
+        return
+    end
+    require("telescope").extensions.refactoring.refactors()
+end, { desc = "Refactoring (Telescope)" })
+
+-- Ajuste general
 vim.opt.updatetime = 200
+
+-- Si usas Angular templates como angular.html, asegúrate en tu config general:
+-- vim.filetype.add({ pattern = { [".*%.component%.html"] = "angular.html" } })
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "angular.html",
+--   callback = function() pcall(vim.treesitter.language.register, "html", "angular.html") end,
+-- })
+--
