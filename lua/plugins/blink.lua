@@ -1,36 +1,83 @@
 return {
     'saghen/blink.cmp',
-    dependencies = { 'rafamadriz/friendly-snippets' },
+    dependencies = {
+        "L3MON4D3/LuaSnip",
+        "rafamadriz/friendly-snippets", -- opcional
+    },
 
     version = '1.*',
     opts = {
         keymap = {
-            -- set to 'none' to disable the 'default' preset
-            preset = 'default',
+            preset        = "none",
 
-            ['<Up>'] = { 'select_prev', 'fallback' },
-            ['<Down>'] = { 'select_next', 'fallback' },
+            -- Abrir/actualizar menú y docs
+            ["<C-Space>"] = { "show", "show_documentation" },
+            ["<C-e>"]     = { "hide" },
 
-            -- disable a keymap from the preset
-            ['<C-e>'] = false, -- or {}
+            -- Confirmar como en nvim-cmp
+            ["<CR>"]      = { "accept", "fallback" },
 
-            -- show with a list of providers
-            ['<C-space>'] = { function(cmp) cmp.show({ providers = { 'snippets' } }) end },
+            -- SuperTab + LuaSnip
+            ["<Tab>"]     = { "select_next", "snippet_forward", "fallback" },
+            ["<S-Tab>"]   = { "select_prev", "snippet_backward", "fallback" },
 
-            -- control whether the next command will be run when using a function
-            ['<C-n>'] = {
-                function(cmp)
-                    if some_condition then return end -- runs the next command
-                    return true                       -- doesn't run the next command
-                end,
-                'select_next'
-            },
+            -- También C-n / C-p
+            ["<C-n>"]     = { "select_next", "fallback" },
+            ["<C-p>"]     = { "select_prev", "fallback" },
+
+            -- >>> FIX flechas: navegar el popup sin cerrarlo <<<
+            ["<Down>"]    = { "select_next", "show" }, -- evita mover el cursor
+            ["<Up>"]      = { "select_prev", "show" },
+
+            -- Scroll de documentación
+            ["<C-b>"]     = { "scroll_documentation_up", "fallback" },
+            ["<C-f>"]     = { "scroll_documentation_down", "fallback" },
         },
         appearance = {
-            nerd_font_variant = 'mono'
+            use_nvim_cmp_as_default = true,
+            nerd_font_variant = "mono",
         },
 
-        completion = { documentation = { auto_show = false } },
+        completion = {
+            keyword = { range = 'full' },
+            documentation = { auto_show = true },
+            menu = {
+                draw = {
+                    components = {
+                        kind_icon = {
+                            text = function(ctx)
+                                if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                                    local mini_icon, _ = require("mini.icons").get_icon(ctx.item.data.type, ctx.label)
+                                    if mini_icon then return mini_icon .. ctx.icon_gap end
+                                end
+
+                                local icon = require("lspkind").symbolic(ctx.kind, { mode = "symbol" })
+                                return icon .. ctx.icon_gap
+                            end,
+
+                            highlight = function(ctx)
+                                if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                                    local mini_icon, mini_hl = require("mini.icons").get_icon(ctx.item.data.type,
+                                        ctx.label)
+                                    if mini_icon then return mini_hl end
+                                end
+                                return ctx.kind_hl
+                            end,
+                        },
+                        kind = {
+                            highlight = function(ctx)
+                                if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                                    local mini_icon, mini_hl = require("mini.icons").get_icon(ctx.item.data.type,
+                                        ctx.label)
+                                    if mini_icon then return mini_hl end
+                                end
+                                return ctx.kind_hl
+                            end,
+                        }
+                    }
+                }
+            }
+        },
         cmdline = { completion = { ghost_text = { enabled = true } } },
 
         sources = {
