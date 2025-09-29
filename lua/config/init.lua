@@ -1,5 +1,0 @@
-require "config.general"
-require "config.keys"
-require "config.providers"
-require "config.lazy"
-require "config.settings"
