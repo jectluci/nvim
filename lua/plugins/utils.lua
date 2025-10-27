@@ -10,17 +10,27 @@ return {
         },
     },
     {
-        "roobert/surround-ui.nvim",
-        dependencies = {
-            "kylechui/nvim-surround",
-            "folke/which-key.nvim",
-        },
+        "kylechui/nvim-surround",
+        version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
         config = function()
-            require("surround-ui").setup({
-                root_key = "S",
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
             })
-        end,
+        end
     },
+    -- {
+    --     "roobert/surround-ui.nvim",
+    --     dependencies = {
+    --         "kylechui/nvim-surround",
+    --         "folke/which-key.nvim",
+    --     },
+    --     config = function()
+    --         require("surround-ui").setup({
+    --             root_key = "S",
+    --         })
+    --     end,
+    -- },
     --Suda
     { "lambdalisue/suda.vim" },
     --Erros
@@ -109,7 +119,7 @@ return {
 
     -- Refractor
 
-    { "ThePrimeagen/refactoring.nvim", opts = {} },            -- extra-refactors (extract, inline, etc.)
+    { "ThePrimeagen/refactoring.nvim", opts = {} },                              -- extra-refactors (extract, inline, etc.)
     { "Wansmer/treesj",                opts = { use_default_keymaps = false } }, -- split/join de estructuras
 
     --folding
@@ -126,9 +136,9 @@ return {
     {
         "jameswolensky/marker-groups.nvim",
         dependencies = {
-            "nvim-lua/plenary.nvim", -- Required
-            "ibhagwan/fzf-lua",     -- Optional: fzf-lua picker
-            "folke/snacks.nvim",    -- Optional: Snacks picker
+            "nvim-lua/plenary.nvim",         -- Required
+            "ibhagwan/fzf-lua",              -- Optional: fzf-lua picker
+            "folke/snacks.nvim",             -- Optional: Snacks picker
             "nvim-telescope/telescope.nvim", -- Optional: Telescope picker
             -- mini.pick is part of mini.nvim; this plugin vendors mini.nvim for tests,
             -- but you can also install mini.nvim explicitly to use mini.pick system-wide

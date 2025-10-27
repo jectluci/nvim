@@ -78,13 +78,16 @@ vim.lsp.config("*", {
 })
 
 vim.lsp.enable("lua_ls")
-vim.lsp.enable("angularls")
 vim.lsp.enable("ts_ls")
+vim.lsp.enable("angularls")
 vim.lsp.enable("emmet_ls")
 vim.lsp.enable("html")
-vim.lsp.enable("jedi_language_server")
+vim.lsp.enable('jedi_language_server')
 vim.lsp.enable("tailwindcss")
 vim.lsp.enable("ruff")
+vim.lsp.enable('pylsp')
+-- vim.lsp.enable('pylyzer')
+vim.lsp.enable('pyright')
 
 
 -- Highlight links para tipos LSP (visual bonito)
