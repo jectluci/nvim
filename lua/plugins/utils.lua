@@ -38,9 +38,9 @@ return {
     { "lewis6991/gitsigns.nvim" },
     --
     --DBUI
-    -- { 'tpope/vim-dadbod', event = "VeryLazy"  },
-    -- { 'kristijanhusak/vim-dadbod-ui', event = "VeryLazy" },
-
+    { 'tpope/vim-dadbod',                     event = "VeryLazy" },
+    { 'kristijanhusak/vim-dadbod-ui',         event = "VeryLazy" },
+    { 'kristijanhusak/vim-dadbod-completion', event = "VeryLazy" },
     --Debugger
     { "mfussenegger/nvim-dap" },
     { "mfussenegger/nvim-dap-python" },

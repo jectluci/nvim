@@ -11,7 +11,7 @@ return {
     cmd = { 'tailwindcss-language-server', '--stdio' },
     -- filetypes copied and adjusted from tailwindcss-intellisense
     filetypes = {
-        -- html
+        'html',
         'aspnetcorerazor',
         'astro',
         'astro-markdown',
