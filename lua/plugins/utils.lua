@@ -52,7 +52,11 @@ return {
     --Windos Picker
     { "s1n7ax/nvim-window-picker" },
     --FZF
-    { "ibhagwan/fzf-lua" },
+    {
+        "ibhagwan/fzf-lua",
+        branch = 'main',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+    },
     --Auto Pairs
     {
         "windwp/nvim-autopairs",
@@ -74,7 +78,7 @@ return {
     },
     ---- Terminal
 
-    { "akinsho/toggleterm.nvim", version = "*", config = true },
+    { "akinsho/toggleterm.nvim",       version = "*",                         config = true },
 
     --Simbols Outline
     -- {
