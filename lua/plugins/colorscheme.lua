@@ -1,3 +1,4 @@
 return {
-{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts ={}}
+    "olimorris/onedarkpro.nvim",
+    priority = 1000, -- Ensure it loads first
 }

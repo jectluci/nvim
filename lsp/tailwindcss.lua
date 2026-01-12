@@ -12,6 +12,7 @@ return {
     -- filetypes copied and adjusted from tailwindcss-intellisense
     filetypes = {
         'html',
+        'htmlangular',
         'aspnetcorerazor',
         'astro',
         'astro-markdown',
