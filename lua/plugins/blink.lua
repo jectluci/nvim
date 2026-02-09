@@ -3,7 +3,9 @@ return {
     dependencies = {
         "L3MON4D3/LuaSnip",
         "rafamadriz/friendly-snippets",
-        "echasnovski/mini.icons", -- ← AGREGAR ESTA DEPENDENCIA
+        "onsails/lspkind.nvim", -- Add this
+        "echasnovski/mini.icons",
+        "nvim-tree/nvim-web-devicons",
     },
     version = '1.*',
     opts = {
@@ -38,8 +40,12 @@ return {
                                         { default = true })
                                     if mini_icon then return mini_icon .. ctx.icon_gap end
                                 end
-                                local icon = require("lspkind").symbolic(ctx.kind, { mode = "symbol" })
-                                return icon .. ctx.icon_gap
+                                local lspkind_ok, lspkind = pcall(require, "lspkind")
+                                if lspkind_ok and lspkind.symbolic then
+                                    local icon = lspkind.symbolic(ctx.kind, { mode = "symbol" })
+                                    if icon then return icon .. ctx.icon_gap end
+                                end
+                                return ctx.kind_icon .. ctx.icon_gap -- fallback
                             end,
                             highlight = function(ctx)
                                 if vim.tbl_contains({ "Path" }, ctx.source_name) then

@@ -11,4 +11,9 @@ return {
     { "folke/neoconf.nvim",    cmd = "Neoconf" },
 
     { 'joeveiga/ng.nvim' },
+    {
+        "pmizio/typescript-tools.nvim",
+        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+        opts = {},
+    },
 }

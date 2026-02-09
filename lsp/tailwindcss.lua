@@ -12,7 +12,6 @@ return {
     -- filetypes copied and adjusted from tailwindcss-intellisense
     filetypes = {
         'html',
-        'htmlangular',
         'aspnetcorerazor',
         'astro',
         'astro-markdown',
@@ -32,7 +31,6 @@ return {
         'handlebars',
         'hbs',
         'html',
-        'htmlangular',
         'html-eex',
         'heex',
         'jade',
@@ -91,7 +89,6 @@ return {
                 elixir = 'phoenix-heex',
                 eruby = 'erb',
                 heex = 'phoenix-heex',
-                htmlangular = 'html',
                 templ = 'html',
             },
         },

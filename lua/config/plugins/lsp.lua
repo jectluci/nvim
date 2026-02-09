@@ -80,7 +80,7 @@ vim.lsp.config("*", {
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("angularls")
-vim.lsp.enable("emmet_ls")
+vim.lsp.enable("vue_ls")
 vim.lsp.enable("html")
 vim.lsp.enable('jedi_language_server')
 vim.lsp.enable("tailwindcss")
@@ -117,8 +117,8 @@ end, { desc = "Refactoring (Telescope)" })
 vim.opt.updatetime = 200
 
 -- Si usas Angular templates como angular.html, asegúrate en tu config general:
-vim.filetype.add({ pattern = { [".*%.component%.html"] = "angular.html" } })
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "angular.html",
-    callback = function() pcall(vim.treesitter.language.register, "html", "angular.html") end,
-})
+-- vim.filetype.add({ pattern = { [".*%.component%.html"] = "angular.html" } })
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = "angular.html",
+--     callback = function() pcall(vim.treesitter.language.register, "html", "angular.html") end,
+-- })

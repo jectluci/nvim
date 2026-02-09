@@ -35,18 +35,18 @@ require("notify").setup({
 })
 require("config.plugins.lsp")
 
-vim.filetype.add({
-    pattern = {
-        [".*%.component%.html"] = "angular.html", -- Sets the filetype to `angular.html` if it matches the pattern
-    },
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "angular.html",
-    callback = function()
-        vim.treesitter.language.register("angular", "angular.html") -- Register the filetype with treesitter for the `angular` language/parser
-    end,
-})
+-- vim.filetype.add({
+--     pattern = {
+--         [".*%.component%.html"] = "htmlangular", -- Sets the filetype to `angular.html` if it matches the pattern
+--     },
+-- })
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = "angular.html",
+--     callback = function()
+--         vim.treesitter.language.register("angular", "htmlangular") -- Register the filetype with treesitter for the `angular` language/parser
+--     end,
+-- })
 
 require("window-picker").setup({
     -- when there is only one window available to pick from, use that window
@@ -197,7 +197,7 @@ require("flutter-tools").setup({
             completeFunctionCalls = true,
             renameFilesWithClasses = "prompt", -- "always"
             enableSnippets = true,
-            updateImportsOnRename = true, -- Whether to update imports and other directives when files are renamed. Required for `FlutterRename` command.
+            updateImportsOnRename = true,      -- Whether to update imports and other directives when files are renamed. Required for `FlutterRename` command.
         },
     },
 })
@@ -209,7 +209,7 @@ local trouble = require("trouble")
 -- Módulo para mostrar diagnóstico actual (o lo que prefieras)
 local trouble_diags = trouble.statusline({
     mode = "diagnostics", -- también: "quickfix", "loclist", "lsp", "symbols"
-    title = false,     -- sin título
+    title = false,        -- sin título
     padding = { left = 1, right = 1 },
     -- format = "{count} {icon}", -- opcional: personaliza texto
 })
@@ -321,20 +321,6 @@ vim.keymap.set("n", "gr", function()
     require("telescope.builtin").lsp_references({ include_declaration = false })
 end, { desc = "Refs en Telescope" })
 
--- Detecta *.component.html como 'angular.html'
-vim.filetype.add({
-    pattern = { [".*%.component%.html"] = "angular.html" },
-})
-
--- Usa el parser de HTML para angular.html (para resaltar/indentar bien)
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "angular.html",
-    callback = function()
-        pcall(vim.treesitter.language.register, "html", "angular.html")
-    end,
-})
-
-vim.filetype.add({ pattern = { [".*%.component%.html"] = "angular.html" } })
 
 local ok, ng = pcall(require, "ng")
 if ok then
