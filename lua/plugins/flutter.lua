@@ -1,12 +1,8 @@
-return{
-  {
-  'akinsho/flutter-tools.nvim',
-    lazy = false,
-    ft = 'dart',
-    dependencies = {
-        'nvim-lua/plenary.nvim',
-    'stevearc/dressing.nvim', -- optional for vim.ui.select
+return {
+    {
+        "akinsho/flutter-tools.nvim",
+        ft = { "dart" }, -- solo cuando abres un .dart
+        dependencies = { "stevearc/dressing.nvim" },
+        opts = {},
     },
-    config = true,
-  },
-} 
+}

@@ -1,4 +1,10 @@
 return {
-    "olimorris/onedarkpro.nvim",
-    priority = 1000, -- Ensure it loads first
+    {
+        'Mofiqul/dracula.nvim',
+        lazy = false,
+        priority = 1000,
+        opts = function()
+            vim.cmd([[colorscheme dracula]])
+        end
+    },
 }

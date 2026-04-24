@@ -61,7 +61,15 @@ return
             {
                 "<leader>pe",
                 function()
-                    require("telescope.builtin").buffers()
+                    require("telescope.builtin").buffers({
+                        path_display = { "smart" }, -- acorta rutas automáticamente
+                        attach_mappings = function(_, map)
+                            local actions = require("telescope.actions")
+                            map("i", "<A-d>", actions.delete_buffer)
+                            map("n", "<A-d>", actions.delete_buffer)
+                            return true
+                        end,
+                    })
                 end,
                 desc = "Telescope buffers",
             },

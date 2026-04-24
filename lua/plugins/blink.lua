@@ -1,11 +1,10 @@
 return {
     'saghen/blink.cmp',
     dependencies = {
-        "L3MON4D3/LuaSnip",
-        "rafamadriz/friendly-snippets",
-        "onsails/lspkind.nvim", -- Add this
-        "echasnovski/mini.icons",
-        "nvim-tree/nvim-web-devicons",
+        { "L3MON4D3/LuaSnip",             lazy = true },
+        { "rafamadriz/friendly-snippets", lazy = true },
+        { 'nvim-mini/mini.nvim',          version = '*' },
+        "onsails/lspkind.nvim",
     },
     version = '1.*',
     opts = {
@@ -14,8 +13,6 @@ return {
             ["<C-Space>"] = { "show", "show_documentation" },
             ["<C-e>"]     = { "hide" },
             ["<CR>"]      = { "accept", "fallback" },
-            ["<Tab>"]     = { "select_next", "snippet_forward", "fallback" },
-            ["<S-Tab>"]   = { "select_prev", "snippet_backward", "fallback" },
             ["<C-n>"]     = { "select_next", "fallback" },
             ["<C-p>"]     = { "select_prev", "fallback" },
             ["<Down>"]    = { "select_next", "show" },
@@ -28,16 +25,28 @@ return {
             nerd_font_variant = "mono",
         },
         completion = {
+            trigger = {
+                show_on_keyword = true,
+                show_on_trigger_character = true,
+                show_on_insert_on_trigger_character = true,
+                -- ❌ debounce_ms removido, no existe en este nivel
+            },
             keyword = { range = 'full' },
-            documentation = { auto_show = true },
+            documentation = {
+                auto_show = true,
+                auto_show_delay_ms = 200,
+                window = {
+                    border = 'rounded', -- ✅ esto fija la doc al costado
+                },
+            },
             menu = {
+                border = 'rounded', -- ✅ borde en el menú también
                 draw = {
                     components = {
                         kind_icon = {
                             text = function(ctx)
                                 if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                                    local mini_icon, _ = require("nvim-web-devicons").get_icon(ctx.label, nil,
-                                        { default = true })
+                                    local mini_icon, _ = require("mini.icons").get('file', ctx.label)
                                     if mini_icon then return mini_icon .. ctx.icon_gap end
                                 end
                                 local lspkind_ok, lspkind = pcall(require, "lspkind")
@@ -45,12 +54,12 @@ return {
                                     local icon = lspkind.symbolic(ctx.kind, { mode = "symbol" })
                                     if icon then return icon .. ctx.icon_gap end
                                 end
-                                return ctx.kind_icon .. ctx.icon_gap -- fallback
+                                return ctx.kind_icon .. ctx.icon_gap
                             end,
                             highlight = function(ctx)
                                 if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                                    local mini_icon, mini_hl = require("mini.icons").get('file', ctx.label)
-                                    if mini_icon then return mini_hl end
+                                    local _, mini_hl = require("mini.icons").get('file', ctx.label)
+                                    if mini_hl then return mini_hl end
                                 end
                                 return ctx.kind_hl
                             end,
@@ -58,8 +67,8 @@ return {
                         kind = {
                             highlight = function(ctx)
                                 if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                                    local mini_icon, mini_hl = require("mini.icons").get('file', ctx.label)
-                                    if mini_icon then return mini_hl end
+                                    local _, mini_hl = require("mini.icons").get('file', ctx.label)
+                                    if mini_hl then return mini_hl end
                                 end
                                 return ctx.kind_hl
                             end,
@@ -71,8 +80,13 @@ return {
         cmdline = { completion = { ghost_text = { enabled = true } } },
         sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer' },
+            providers = {
+                snippets = {
+                    opts = { search_paths = { vim.fn.stdpath('data') .. '/lazy/friendly-snippets' } }
+                },
+            },
         },
-        fuzzy = { implementation = "prefer_rust_with_warning" }
+        fuzzy = { implementation = "prefer_rust_with_warning" },
     },
     opts_extend = { "sources.default" }
 }

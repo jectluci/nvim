@@ -61,7 +61,7 @@ return {
                 map("<leader>fi", function() Snacks.picker.icons() end, "Find Icon")
                 map("<c-i>", function() Snacks.picker.icons() end, "Find Icon", { "i" })
 
-                map("<F6>", function() Snacks.explorer() end, "Explorer", { "n", "i" })
+                map("<F2>", function() Snacks.explorer() end, "Explorer", { "n", "i" })
 
                 -- Scratch
                 map("<leader>.", function() Snacks.scratch() end, "Open the scratch buffer")

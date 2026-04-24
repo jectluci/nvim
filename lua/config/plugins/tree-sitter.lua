@@ -15,8 +15,8 @@ require("nvim-treesitter.configs").setup({
         disable = {},
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        colors = {},    -- table of hex strings
-        termcolors = {}, -- table of colour name strings
+        colors = {},          -- table of hex strings
+        termcolors = {},      -- table of colour name strings
     },
     indent = {
         enable = true,
@@ -35,7 +35,7 @@ require("nvim-treesitter.configs").setup({
             },
             selection_modes = {
                 ["@parameter.outer"] = "v", -- charwise
-                ["@function.outer"] = "V", -- linewise
+                ["@function.outer"] = "V",  -- linewise
                 ["@class.outer"] = "<c-v>", -- blockwise
             },
             include_surrounding_whitespace = true,
@@ -46,8 +46,8 @@ require("nvim-treesitter.configs").setup({
 require("nvim-ts-autotag").setup({
     opts = {
         -- Defaults
-        enable_close = true,    -- Auto close tags
-        enable_rename = true,   -- Auto rename pairs of tags
+        enable_close = true,          -- Auto close tags
+        enable_rename = true,         -- Auto rename pairs of tags
         enable_close_on_slash = true, -- Auto close on trailing </
     },
     -- Also override individual filetype configs, these take priority.
@@ -81,7 +81,7 @@ npairs.setup({
     ts_config = {
         lua = { "string" }, -- it will not add a pair on that treesitter node
         javascript = { "template_string" },
-        java = false, -- don't check treesitter on java
+        java = false,       -- don't check treesitter on java
     },
 })
 

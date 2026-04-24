@@ -91,7 +91,7 @@ return {
     },
     ---- Terminal
 
-    { "akinsho/toggleterm.nvim",       version = "*",                         config = true },
+    { "akinsho/toggleterm.nvim", version = "*", config = true },
 
     --Simbols Outline
     -- {
@@ -122,56 +122,74 @@ return {
     {
         "stevearc/conform.nvim",
         opts = {
-            format_on_save = { timeout_ms = 500, lsp_fallback = true },
+            format_on_save = {
+                timeout_ms = 300,       -- más rápido
+                lsp_format = "fallback" -- reemplaza lsp_fallback (deprecado)
+            },
             formatters_by_ft = {
                 lua = { "stylua" },
-                python = { "ruff_format", "black" }, -- o "black"
-                javascript = { "prettierd", "prettier" },
-                typescript = { "prettierd", "prettier" },
-                html = { "prettierd", "prettier" },
-                css = { "prettierd", "prettier" },
-                vue = { 'prettierd', "prettier" }
+                python = { "ruff_format" }, -- quita black, ruff ya lo cubre
+                javascript = { "prettierd", stop_after_first = true },
+                typescript = { "prettierd", stop_after_first = true },
+                html = { "prettierd", stop_after_first = true },
+                htmlangular = { "prettierd", stop_after_first = true }, -- templates Angular
+                css = { "prettierd", stop_after_first = true },
+                vue = { "prettierd", stop_after_first = true },
             },
         },
     },
 
     -- Refractor
-
-    { "ThePrimeagen/refactoring.nvim", opts = {} },                              -- extra-refactors (extract, inline, etc.)
-    { "Wansmer/treesj",                opts = { use_default_keymaps = false } }, -- split/join de estructuras
-
     --folding
 
     {
         "kevinhwang91/nvim-ufo",
+        event = "BufReadPost", -- lazy, solo cuando abres un archivo
         dependencies = { "kevinhwang91/promise-async" },
-        provider_selector = function()
-            return { "lsp", "indent" }
-        end,
+        opts = {
+            provider_selector = function()
+                return { "lsp", "indent" }
+            end,
+        },
+        -- Keymaps para abrir/cerrar folds
+        keys = {
+            { "zR", function() require("ufo").openAllFolds() end,  desc = "Open all folds" },
+            { "zM", function() require("ufo").closeAllFolds() end, desc = "Close all folds" },
+            {
+                "zK",
+                function()
+                    local winid = require("ufo").peekFoldedLinesUnderCursor()
+                    if not winid then vim.lsp.buf.hover() end
+                end,
+                desc = "Peek fold"
+            },
+        },
     },
 
     --Marker Groups
     {
         "jameswolensky/marker-groups.nvim",
         dependencies = {
-            "nvim-lua/plenary.nvim",         -- Required
-            "ibhagwan/fzf-lua",              -- Optional: fzf-lua picker
-            "folke/snacks.nvim",             -- Optional: Snacks picker
-            "nvim-telescope/telescope.nvim", -- Optional: Telescope picker
+            "folke/snacks.nvim"
+            -- "ibhagwan/fzf-lua",              -- Optional: fzf-lua picker
+            -- "folke/snacks.nvim",             -- Optional: Snacks picker
+            -- "nvim-telescope/telescope.nvim", -- Optional: Telescope picker
             -- mini.pick is part of mini.nvim; this plugin vendors mini.nvim for tests,
             -- but you can also install mini.nvim explicitly to use mini.pick system-wide
             -- "nvim-mini/mini.nvim",
         },
+        keys = { "<leader>m" }, -- el key que uses para abrirlo
         config = function()
             require("marker-groups").setup({
-                -- Default picker is 'vim' (built-in vim.ui)
-                -- Accepted values: 'vim' | 'snacks' | 'fzf-lua' | 'mini.pick' | 'telescope'
-                picker = "vim",
+                picker = "snacks",
             })
         end,
     },
 
-    { "mattn/emmet-vim",      ft = { "html", "htmlangular", "css" } },
+    {
+        "mattn/emmet-vim",
+        ft = { "html", "htmlangular", "css", "typescriptreact", "vue" }, -- lazy por filetype
+    },
 
     --Faster
     {

@@ -1,31 +1,27 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        -- branch = "main" es el default ahora, no hace falta especificarla
         build = ":TSUpdate",
         event = { "BufReadPost", "BufNewFile" },
-        opts = {
-            ensure_installed = {
+        config = function()
+            require("nvim-treesitter").setup({
+                install_dir = vim.fn.stdpath("data") .. "/site",
+            })
+
+            -- Instalar tus parsers
+            require("nvim-treesitter").install({
                 "lua", "vim", "vimdoc",
                 "bash", "json",
-                "html", "css",
+                "html", "css", "php",
                 "javascript", "typescript", "tsx",
                 "python",
-            },
-            auto_install = true,                                -- instala parsers faltantes al abrir un archivo
-            highlight = { enable = true, additional_vim_regex_highlighting = false },
-            indent = { enable = true, disable = { "python" } }, -- python a veces sangra de más
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "gnn",
-                    node_incremental = "grn",
-                    node_decremental = "grm",
-                    scope_incremental = "grc",
-                },
-            },
-        },
-        config = function(_, opts)
-            require("nvim-treesitter.configs").setup(opts)
+            })
+
+            -- Highlighting (ahora es nativo de nvim)
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function() pcall(vim.treesitter.start) end,
+            })
         end,
     },
     { "windwp/nvim-ts-autotag" },

@@ -5,6 +5,4 @@ return {
         opts = { -- set to setup table
         },
     },
-    --Prettier
-    { 'MunifTanjim/prettier.nvim' }
 }

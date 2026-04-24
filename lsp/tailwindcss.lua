@@ -44,7 +44,7 @@ return {
         'php',
         'razor',
         'slim',
-        'twig',
+        'twig', 'php',
         -- css
         'css',
         'less',

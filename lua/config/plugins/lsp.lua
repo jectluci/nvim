@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("gd", require("snacks").picker.lsp_definitions, "[G]oto [D]efinition")
         map("gr", require("snacks").picker.lsp_references, "[G]oto [R]eferences")
         map("gI", require("snacks").picker.lsp_implementations, "[G]oto [I]mplementation")
-        -- map("<leader>D", require("snacks").picker.lsp_type_definitions, "Type [D]efinition")
+        map("<leader>D", require("snacks").picker.lsp_type_definitions, "Type [D]efinition")
         map("<leader>fS", require("snacks").picker.lsp_symbols, "[D]ocument [S]ymbols")
         map("<leader>ws", require("snacks").picker.lsp_workspace_symbols, "[W]orkspace [S]ymbols")
         map("<leader>vr", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -20,6 +20,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.lsp.buf.hover({ border = "rounded" })
         end, "Hover Documentation")
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+        -- Code actions en visual mode (nowait evita que which-key intercepte y pierda la selección)
+        vim.keymap.set("v", "<leader>ca", vim.lsp.buf.code_action, {
+            buffer = event.buf,
+            desc = "LSP: [C]ode [A]ction (visual)",
+            nowait = true,
+        })
+        vim.keymap.set("v", "<leader>cr", function()
+            vim.lsp.buf.code_action({ context = { only = { "refactor" } } })
+        end, {
+            buffer = event.buf,
+            desc = "LSP: [R]efactor (visual)",
+            nowait = true,
+        })
         -- will be done with conform
         -- map("<leader>f", vim.lsp.buf.format, "[F]ormat the document")
 
@@ -73,8 +86,12 @@ end, {
     end,
 })
 
+-- vim.lsp.config("*", {
+--     capabilities = require("blink.cmp").get_lsp_capabilities(),
+-- })
+--
 vim.lsp.config("*", {
-    capabilities = require("blink.cmp").get_lsp_capabilities(),
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
 })
 
 vim.lsp.enable("lua_ls")
@@ -82,10 +99,10 @@ vim.lsp.enable("ts_ls")
 vim.lsp.enable("angularls")
 vim.lsp.enable("vue_ls")
 vim.lsp.enable("html")
-vim.lsp.enable('jedi_language_server')
+-- vim.lsp.enable('jedi_language_server')
 vim.lsp.enable("tailwindcss")
 vim.lsp.enable("ruff")
-vim.lsp.enable('pylsp')
+-- vim.lsp.enable('pylsp')
 -- vim.lsp.enable('pylyzer')
 vim.lsp.enable('pyright')
 
@@ -101,17 +118,17 @@ vim.cmd([[
 ]])
 
 -- Refactoring (opcional) con Telescope, protegido
-pcall(function()
-    require("telescope").load_extension("refactoring")
-end)
-vim.keymap.set({ "n", "x" }, "<leader>rr", function()
-    local ok = pcall(vim.treesitter.get_parser, 0)
-    if not ok then
-        vim.notify("Instala el parser Treesitter para este archivo antes de refactorizar", vim.log.levels.WARN)
-        return
-    end
-    require("telescope").extensions.refactoring.refactors()
-end, { desc = "Refactoring (Telescope)" })
+-- pcall(function()
+--     require("telescope").load_extension("refactoring")
+-- end)
+-- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
+--     local ok = pcall(vim.treesitter.get_parser, 0)
+--     if not ok then
+--         vim.notify("Instala el parser Treesitter para este archivo antes de refactorizar", vim.log.levels.WARN)
+--         return
+--     end
+--     require("telescope").extensions.refactoring.refactors()
+-- end, { desc = "Refactoring (Telescope)" })
 
 -- Ajuste general
 vim.opt.updatetime = 200

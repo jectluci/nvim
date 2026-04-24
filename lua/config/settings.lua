@@ -1,10 +1,10 @@
-require("config.plugins.colorScheme")
-require("config.plugins.tree-sitter")
-require("config.plugins.icons")
-require("config.plugins.neotree")
--- require("lsp-zero")
-require("config.plugins.smoothCursor")
-require("config.plugins.lualine")
+-- require("config.plugins.colorScheme")
+-- require("config.plugins.tree-sitter")
+-- require("config.plugins.icons")
+-- require("config.plugins.neotree")
+-- -- require("lsp-zero")
+-- require("config.plugins.smoothCursor")
+-- require("config.plugins.lualine")
 require("notify").setup({
     -- Ancho máximo absoluto
     -- max_width = 80,
@@ -35,18 +35,12 @@ require("notify").setup({
 })
 require("config.plugins.lsp")
 
--- vim.filetype.add({
---     pattern = {
---         [".*%.component%.html"] = "htmlangular", -- Sets the filetype to `angular.html` if it matches the pattern
---     },
--- })
---
--- vim.api.nvim_create_autocmd("FileType", {
---     pattern = "angular.html",
---     callback = function()
---         vim.treesitter.language.register("angular", "htmlangular") -- Register the filetype with treesitter for the `angular` language/parser
---     end,
--- })
+-- En tu options.lua o en un archivo de config general
+vim.filetype.add({
+    extension = {
+        html = "html", -- fuerza html normal para todos los .html
+    },
+})
 
 require("window-picker").setup({
     -- when there is only one window available to pick from, use that window
@@ -214,21 +208,21 @@ local trouble_diags = trouble.statusline({
     -- format = "{count} {icon}", -- opcional: personaliza texto
 })
 
-require("lualine").setup({
-    sections = {
-        lualine_x = {
-            trouble_diags, -- aparece como un componente más
-        },
-    },
-})
-
-require("lualine").setup({
-    sections = {
-        lualine_x = {
-            { "diagnostics", sources = { "nvim_diagnostic" } }, -- muestra conteos
-        },
-    },
-})
+-- require("lualine").setup({
+--     sections = {
+--         lualine_x = {
+--             trouble_diags, -- aparece como un componente más
+--         },
+--     },
+-- })
+--
+-- require("lualine").setup({
+--     sections = {
+--         lualine_x = {
+--             { "diagnostics", sources = { "nvim_diagnostic" } }, -- muestra conteos
+--         },
+--     },
+-- })
 
 -- Click/atajo para saltar a Trouble cuando quieras:
 vim.keymap.set("n", "<leader>td", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Toggle Trouble" })
