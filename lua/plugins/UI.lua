@@ -9,14 +9,13 @@ return {
     --Notify
     { 'rcarriga/nvim-notify' },
     -- lazy
+    --
+    -- lua/plugins/heirline.lua
+    -- Heirline statusline config para lazy.nvim + LSP nativo + blink.cmp
+    -- Reemplaza witch-line
+
     {
-        "sontungexpt/witch-line",
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-        lazy = false, -- Almost component is lazy load by default. So you can set lazy to false
-        opts = {},
-    },
-
-
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' }
+    }
 }

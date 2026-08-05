@@ -3,7 +3,6 @@ vim.opt.mouse = 'a'
 
 -- vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
-
 --vim.opt.nocompatible = true
 vim.opt.number = true
 vim.opt.numberwidth = 1
@@ -68,8 +67,8 @@ vim.opt.shortmess:append("c")
 -- Always show the signcolumn, otherwise it would shift the text each time
 vim.opt.signcolumn = "yes"
 
--- completeopt COC
-vim.opt.completeopt = { "menuone", "noselect" }
+-- -- completeopt COC
+-- vim.opt.completeopt = { "menuone", "noselect" }
 
 -- wrap
-vim.opt.wrap = false
+vim.opt.wrap = true

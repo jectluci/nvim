@@ -100,7 +100,26 @@ vim.lsp.enable("angularls")
 vim.lsp.enable("vue_ls")
 vim.lsp.enable("html")
 -- vim.lsp.enable('jedi_language_server')
-vim.lsp.enable("tailwindcss")
+vim.lsp.config('tailwindcss', {
+    filetypes = {
+        "html", "css", "scss", "javascript", "javascriptreact",
+        "typescript", "typescriptreact", "htmlangular",
+    },
+    settings = {
+        tailwindCSS = {
+            includeLanguages = {
+                htmlangular = "html", -- para que trate el contenido angular como html
+                typescript = "html", -- por si usas templates inline
+            },
+            experimental = {
+                classRegex = {
+                    "template:\\s*`([^`]*)`",
+                },
+            },
+        },
+    },
+})
+vim.lsp.enable('tailwindcss')
 vim.lsp.enable("ruff")
 -- vim.lsp.enable('pylsp')
 -- vim.lsp.enable('pylyzer')

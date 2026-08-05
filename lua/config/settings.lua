@@ -4,7 +4,7 @@
 -- require("config.plugins.neotree")
 -- -- require("lsp-zero")
 -- require("config.plugins.smoothCursor")
--- require("config.plugins.lualine")
+require("config.plugins.lualine")
 require("notify").setup({
     -- Ancho máximo absoluto
     -- max_width = 80,
